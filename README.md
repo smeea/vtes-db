@@ -13,6 +13,12 @@ Vampire the Eternal Struggle (VTES) web card database.
 
 ### Installation
 
+Below is local installation for self-usage / development only.
+For production you should at least:
+* setup web-server (e.g. nginx) instead of flask embedded web-server
+* change app.config['SECRET_KEY']
+* disable FLASK_ENV=development
+
 For POSIX:
 
     git clone https://github.com/smeea/vtes-db.git
