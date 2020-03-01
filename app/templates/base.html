@@ -1,0 +1,27 @@
+<!doctype html>
+<title>VTES DB - {% block title %}{% endblock %}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+<nav>
+    <h1>{% block page %}{% endblock%}</h1>
+    <ul>
+            <li><a href="{{ url_for('search.index') }}">Index</a>
+            <li><a href="{{ url_for('search.crypt') }}">Crypt</a>
+            <li><a href="{{ url_for('search.library') }}">Library</a>
+    </ul>
+</nav>
+
+<section class="content">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <b>{{ message }}</b>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    {% block index %}{% endblock %}
+    {% block search %}{% endblock %}
+    {% block debug %}{% endblock %}
+    {% block results %}{% endblock %}
+</section>
+

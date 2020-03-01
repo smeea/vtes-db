@@ -1,0 +1,54 @@
+<!doctype html>
+{% extends 'base.html' %}
+
+{% block title %}
+    Crypt
+{% endblock %}
+
+{% block page%}
+    Crypt
+{% endblock %}
+
+{% block search %}
+    <form action="" method="post" novalidate>
+        <b> DISCIPLINES: </b>
+        {{ form.disciplines() }}
+        <b> TEXT: </b>
+        {{ form.cardtext() }}
+        <b> TRAITS: </b>
+        {{ form.trait() }}
+        <b> CAPACITY: </b>
+        {{ form.capacitymoreless() }}
+        {{ form.capacity() }}
+        <b> SECT: </b>
+        {{ form.sect() }}
+        <b> VOTES: </b>
+        {{ form.votes() }}
+        <b> TITLES: </b>
+        {{ form.titles() }}
+        <b> GROUP: </b>
+        {{ form.group() }}
+        {{ form.submit() }}
+    </form>
+{% endblock %}
+
+{% block debug %}
+    <div class="total"><b>DEBUG: {{ debug }}</b></div>
+{% endblock %}
+
+{% block results %}
+    <div class="total"><b>TOTAL: {{ total }}</b></div>
+    <br>
+    {% for card in cards %}
+    <div class="cards">
+        <img src="static/icons_misc/cap{{ card['Capacity'] }}.png" height="26" alt="{{ card['Capacity'] }}">
+        {% for dis in card['Discipline'] %}
+        <img src="static/icons_dis/{{ dis }}.gif" height="26" alt="{{ dis }}" />
+        {% endfor %}
+        <!-- TODO: Unfold card text on click + url to open card image-->
+        <a href="{{ 'static/cards/' + card['ASCII Name'] + '.jpg' }}"> {{ card['Name'] }} </a>
+        <img src="static/icons_clan/{{ card['ASCII Clan'] }}.gif" height="26" alt="{{ card['Clan'] }}">
+        <b>G:{{ card['Group'] }}</b>
+    </div>
+{% endfor %}
+{% endblock %}
