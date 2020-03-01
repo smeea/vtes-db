@@ -10,25 +10,225 @@
 {% endblock %}
 
 {% block search %}
-    <form action="" method="post" novalidate>
-        <b> DISCIPLINES: </b>
-        {{ form.disciplines() }}
-        <b> TEXT: </b>
-        {{ form.cardtext() }}
-        <b> TRAITS: </b>
-        {{ form.trait() }}
-        <b> CAPACITY: </b>
-        {{ form.capacitymoreless() }}
-        {{ form.capacity() }}
-        <b> SECT: </b>
-        {{ form.sect() }}
-        <b> VOTES: </b>
-        {{ form.votes() }}
-        <b> TITLES: </b>
-        {{ form.titles() }}
-        <b> GROUP: </b>
-        {{ form.group() }}
-        {{ form.submit() }}
+    <form action="" method="post" class="needs-validation" novalidate>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <label for="disciplines" class="h6">Disciplines</label>
+                <input type="text" class="form-control" id="disciplines" name="disciplines" placeholder="" value="">
+                <!--{{ form.disciplines() }}-->
+            </div>
+            <div class="col-md-4 mb-4">
+                <label for="cardtext" class="h6">Text</label>
+                <input type="text" class="form-control" id="cardtext" name="cardtext" placeholder="" value="">
+                <!--{{ form.cardtext() }}-->
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <!--{{ form.submit() }}-->
+                <br/>
+                <button id="submit" name="submit" class="btn btn-primary btn-lg btn-block d-none d-md-inline" type="submit">Go</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <h6>Capacity</h6>
+                <!--{{ form.capacitymoreless() }}-->
+                <!--{{ form.capacity() }}-->
+
+                <div class="input-group">
+                    <select class="custom-select d-block w-100" id="capacitymoreless" name="capacitymoreless">
+                        <option value="<="><=</option>
+                        <option value=">=">>=</option>
+                    </select>
+                    <select class="custom-select d-block w-100" id="capacity" name="capacity">
+                        <option selected value="ANY">ANY</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <h6>Sect</h6>
+                <!--{{ form.sect() }}-->
+                <select class="custom-select d-block w-100" id="sect" name="sect">
+                    <option selected value="ANY">ANY</option>
+                    <option value="Camarilla">Camarilla</option>
+                    <option value="Sabbat">Sabbat</option>
+                    <option value="Laibon">Laibon</option>
+                    <option value="Independent">Independent</option>
+                    <option value="Anarch">Anarch</option>
+                </select>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <h6>Votes</h6>
+                <!--{{ form.votes() }}-->
+                <select class="custom-select d-block w-100" id="votes" name="votes">
+                    <option selected value="ANY">ANY</option>
+                    <option value="0">0</option>
+                    <option value="1">1+</option>
+                    <option value="2">2+</option>
+                    <option value="3">3+</option>
+                    <option value="4">4+</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <h6>Traits</h6>
+                <!--{{ form.trait() }}-->
+                <div class="input-group two-cols">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" name="trait" id="trait-0" value="[:.] \+1 intercept.">
+                        <label class="custom-control-label" for="trait-0">+1 intercept</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" name="trait" id="trait-1" value="[:.] \+1 stealth.">
+                        <label class="custom-control-label" for="trait-1">+1 stealth</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" name="trait" id="trait-2" value="[:.] \+1 bleed.">
+                        <label class="custom-control-label" for="trait-2">+1 bleed</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" name="trait" id="trait-3" value="[:.] \+2 bleed.">
+                        <label class="custom-control-label" for="trait-3">+2 bleed</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" name="trait" id="trait-4" value="[:.] \+1 strength.">
+                        <label class="custom-control-label" for="trait-4">+1 strength</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" name="trait" id="trait-5" value="[:.] \+2 strength.">
+                        <label class="custom-control-label" for="trait-5">+2 strength</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" name="trait" id="trait-6" value="additional strike">
+                        <label class="custom-control-label" for="trait-6">Additional Strike</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" name="trait" id="trait-7" value="optional press">
+                        <label class="custom-control-label" for="trait-7">Press</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" name="trait" id="trait-8" value="enter combat">
+                        <label class="custom-control-label" for="trait-8">Enter combat</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" name="trait" id="trait-9" value="Black Hand[ .:]">
+                        <label class="custom-control-label" for="trait-9">Black Hand</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" name="trait" id="trait-10" value="Seraph[.:]">
+                        <label class="custom-control-label" for="trait-10">Seraph</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" name="trait" id="trait-11" value="Infernal[.:]">
+                        <label class="custom-control-label" for="trait-11">Infernal</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" name="trait" id="trait-12" value="Red List[.:]">
+                        <label class="custom-control-label" for="trait-12">Red List</label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <h6>Titles</h6>
+                <!--{{ form.titles() }}-->
+                <div class="input-group two-cols">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" name="titles" id="titles-0" value="primogen">
+                        <label class="custom-control-label" for="titles-0">primogen</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" name="titles" id="titles-1" value="prince">
+                        <label class="custom-control-label" for="titles-1">prince</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" name="titles" id="titles-2" value="justicar">
+                        <label class="custom-control-label" for="titles-2">justicar</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" name="titles" id="titles-3" value="inner circle">
+                        <label class="custom-control-label" for="titles-3">inner circle</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" name="titles" id="titles-4" value="bishop">
+                        <label class="custom-control-label" for="titles-4">bishop</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" name="titles" id="titles-5" value="archbishop">
+                        <label class="custom-control-label" for="titles-5">archbishop</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" name="titles" id="titles-6" value="priscus">
+                        <label class="custom-control-label" for="titles-6">priscus</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" name="titles" id="titles-7" value="cardinal">
+                        <label class="custom-control-label" for="titles-7">cardinal</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" name="titles" id="titles-8" value="regent">
+                        <label class="custom-control-label" for="titles-8">regent</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" name="titles" id="titles-9" value="magaji">
+                        <label class="custom-control-label" for="titles-9">magaji</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" name="titles" id="titles-10" value="baron">
+                        <label class="custom-control-label" for="titles-10">baron</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" name="titles" id="titles-11" value="1 vote">
+                        <label class="custom-control-label" for="titles-11">1 vote (Independent)</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" name="titles" id="titles-12" value="2 votes">
+                        <label class="custom-control-label" for="titles-12">2 votes (Independent)</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <h6>Group</h6>
+
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" name="group" id="group-0" value="1">
+                        <label class="custom-control-label" for="group-0">1</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" name="group" id="group-1" value="2">
+                        <label class="custom-control-label" for="group-1">2</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" name="group" id="group-2" value="3">
+                        <label class="custom-control-label" for="group-2">3</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" name="group" id="group-3" value="4">
+                        <label class="custom-control-label" for="group-3">4</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" name="group" id="group-4" value="5">
+                        <label class="custom-control-label" for="group-4">5</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" name="group" id="group-5" value="6">
+                        <label class="custom-control-label" for="group-5">6</label>
+                    </div>
+            </div>
+        </div>
+        <!--{{ form.submit() }}-->
+        <br/>
+        <button id="submit" name="submit" class="btn btn-primary btn-lg btn-block d-inline d-md-none" type="submit">Go</button>
     </form>
 {% endblock %}
 

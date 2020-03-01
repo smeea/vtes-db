@@ -1,27 +1,70 @@
 <!doctype html>
-<title>VTES DB - {% block title %}{% endblock %}</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
-<nav>
-    <h1>{% block page %}{% endblock%}</h1>
-    <ul>
-            <li><a href="{{ url_for('search.index') }}">Index</a>
-            <li><a href="{{ url_for('search.crypt') }}">Crypt</a>
-            <li><a href="{{ url_for('search.library') }}">Library</a>
-    </ul>
+<html>
+<head>
+    <title>VTES DB - {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+
+<body class="bg-light">
+
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <a class="navbar-brand" href="/">VTES database</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+
+            <!--@TODO если раздел текущий то <li class="nav-item active">-->
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('search.index') }}">Index</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('search.crypt') }}">Crypt</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('search.library') }}">Library</a>
+            </li>
+        </ul>
+    </div>
 </nav>
 
-<section class="content">
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
+
+<div class="container">
+    <div class="pt-5 mt-2 mb2">
+        <h1>{% block page %}{% endblock%}</h1>
+        <p class="lead">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
             {% for message in messages %}
-                <b>{{ message }}</b>
+            <b>{{ message }}</b>
             {% endfor %}
-        {% endif %}
-    {% endwith %}
-    {% block index %}{% endblock %}
-    {% block search %}{% endblock %}
-    {% block debug %}{% endblock %}
-    {% block results %}{% endblock %}
-</section>
+            {% endif %}
+            {% endwith %}
+        </p>
+    </div>
+    <hr/>
+            {% block search %}{% endblock %}
+
+            <section class="content">
+
+                {% block index %}{% endblock %}
+
+                {% block debug %}{% endblock %}
+                {% block results %}{% endblock %}
+            </section>
+
+    <footer class="my-5 pt-5 text-muted text-center text-small">
+        <p class="mb-1">&copy; .@i <3 i@.</p>
+    </footer>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+<script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+</body>
+</html>
 
