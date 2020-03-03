@@ -15,6 +15,7 @@ class CryptForm(FlaskForm):
                                 widget=ListWidget(prefix_label=False))
     disciplines = StringField('Disciplines')
     votes = SelectField('Votes')
+    clan = SelectField('Clan')
     sect = SelectField('Sect')
     titles = SelectMultipleField('Titles',
                                  option_widget=CheckboxInput(),
@@ -25,4 +26,14 @@ class CryptForm(FlaskForm):
                                 option_widget=CheckboxInput(),
                                 widget=ListWidget(prefix_label=False))
 
+    submit = SubmitField('Go')
+
+
+class LibraryForm(FlaskForm):
+    cardtext = StringField('Card Text')
+    discipline = SelectField('Disciplines')
+    cardtype = SelectField('Card Type')
+    clan = SelectField('Clan')
+    sect = SelectField('Sect')
+    title = SelectField('Titles')
     submit = SubmitField('Go')

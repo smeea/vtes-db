@@ -20,6 +20,8 @@
         <b> CAPACITY: </b>
         {{ form.capacitymoreless() }}
         {{ form.capacity() }}
+        <b> CLAN: </b>
+        {{ form.clan() }}
         <b> SECT: </b>
         {{ form.sect() }}
         <b> VOTES: </b>
@@ -41,13 +43,13 @@
     <br>
     {% for card in cards %}
     <div class="cards">
-        <img src="static/icons_misc/cap{{ card['Capacity'] }}.png" height="26" alt="{{ card['Capacity'] }}">
+        <img src="static/img/misc/cap{{ card['Capacity'] }}.png" height="26" alt="{{ card['Capacity'] }}">
         {% for dis in card['Discipline'] %}
-        <img src="static/icons_dis/{{ dis }}.gif" height="26" alt="{{ dis }}" />
+        <img src="static/img/disciplines/{{ dis }}.gif" height="26" alt="{{ dis }}" />
         {% endfor %}
         <!-- TODO: Unfold card text on click + url to open card image-->
-        <a href="{{ 'static/cards/' + card['ASCII Name'] + '.jpg' }}"> {{ card['Name'] }} </a>
-        <img src="static/icons_clan/{{ card['ASCII Clan'] }}.gif" height="26" alt="{{ card['Clan'] }}">
+        <a href="{{ 'static/img/cards/' + card['URL Name'] + '.jpg' }}"> {{ card['Name'] }} </a>
+        <img src="static/img/clans/{{ card['URL Clan'] }}.gif" height="26" alt="{{ card['Clan'] }}">
         <b>G:{{ card['Group'] }}</b>
     </div>
 {% endfor %}

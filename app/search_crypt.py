@@ -2,6 +2,7 @@
 
 import json
 import re
+from app.parse import letters_to_ascii
 
 crypt_file = open("app/vtescrypt.json", "r")
 crypt = json.load(crypt_file)
@@ -122,14 +123,29 @@ def parse_discipline_list(discipline_input):
             dis_list['Visceratika'] = 1
         elif i == "VIS":
             dis_list['Visceratika'] = 2
+        # TODO IMBUED SEARCH BY DIS
+        # elif i == "def":
+        #     dis_list.append('Defence')
+        # elif i == "inn":
+        #     dis_list.append('Innocence')
+        # elif i == "jud":
+        #     dis_list.append('Judgement')
+        # elif i == "Mar":
+        #     dis_list.append('Martyrdom')
+        # elif i == "red":
+        #     dis_list.append('Redemption')
+        # elif i == "ven":
+        #     dis_list.append('Vengeance')
+        # elif i == "visi":
+        #     dis_list.append('Vision')
     return dis_list
 
 
-def get_overall_crypt(input):
-    match_list = input.pop()
-    while input:
+def get_overall_crypt(card_lists):
+    match_list = card_lists.pop()
+    while card_lists:
         pre_match_list = []
-        for i in input.pop():
+        for i in card_lists.pop():
             if i in match_list:
                 pre_match_list.append(i)
         match_list = pre_match_list
@@ -227,10 +243,18 @@ def get_crypt_by_capacity(capacity_list):
     return match_cards
 
 
+def get_crypt_by_clan(clan):
+    match_cards = []
+    for card in crypt:
+        if card['Clan'] == clan:
+            match_cards.append(card)
+    return match_cards
+
+
 def get_crypt_by_sect(sect):
     match_cards = []
     for card in crypt:
-        if re.search(r'^{}[:.$]'.format(sect), card['Card Text']):
+        if re.search(r'^{}[:. $]'.format(sect), card['Card Text']):
             match_cards.append(card)
     return match_cards
 
@@ -243,9 +267,9 @@ def get_crypt_by_group(group_list):
     return match_cards
 
 
-def parse_crypt_card(input):
+def parse_crypt_card(cards):
     parsed_crypt = []
-    for card in input:
+    for card in cards:
         card_parsed = {}
         card_parsed['Discipline'] = []
         card_parsed['Capacity'] = card['Capacity']
@@ -263,7 +287,12 @@ def parse_crypt_card(input):
             card_parsed['Name'] = card['Name'] + ' [ADV]'
         else:
             card_parsed['Name'] = card['Name']
+        card_parsed['URL Name'] = letters_to_ascii(
+            re.sub('[\\W]', '', card['Name'].lower()))
+        card_parsed['URL Clan'] = re.sub('[\\W]', '', card['Clan']).lower()
+
         parsed_crypt.append(card_parsed)
+
     return parsed_crypt
 
 
