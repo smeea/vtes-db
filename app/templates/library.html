@@ -11,34 +11,65 @@ Library
 
 {% block search %}
     <form action="" method="post" novalidate>
-        <b> DISCIPLINES: </b>
-        {{ form.discipline() }}
-        <b> TEXT: </b>
+        <b> NAME / TEXT: </b>
         {{ form.cardtext() }}
-        <b> TYPE: </b>
+        <b> CARD TYPE: </b>
         {{ form.cardtype() }}
+        <b> DISCIPLINE: </b>
+        {{ form.discipline() }}
         <b> CLAN: </b>
         {{ form.clan() }}
         <b> SECT: </b>
         {{ form.sect() }}
-        <b> TITLES: </b>
+        <b> TITLE: </b>
         {{ form.title() }}
+        <b> BLOOD COST: </b>
+        {{ form.bloodmoreless() }}
+        {{ form.blood() }}
+        <b> POOL COST: </b>
+        {{ form.poolmoreless() }}
+        {{ form.pool() }}
+        <b> TEXT TRAITS: </b>
+        {{ form.trait() }}
+
         {{ form.submit() }}
     </form>
 {% endblock %}
 
-{% block debug %}
-    <div class="total"><b>DEBUG: {{ debug }}</b></div>
-{% endblock %}
+{% if debug %}
+    {% block debug %}
+        <div class="total"><b>DEBUG: {{ debug }}</b></div>
+    {% endblock %}
+{% endif %}
 
 {% block results %}
-    <div class="total"><b>TOTAL: {{ total }}</b></div>
-    <br>
+
+    {% if total %}
+        <div class="total"><b>TOTAL: {{ total.pop(0) }}<br>
+            {% for type in total %}
+                <img src="static/img/types/{{ type[0] }}.gif" height="26" alt="{{ type[0] }}">{{type[1]}}
+            {% endfor %}
+        </b></div><br>
+    {% endif %}
+
     {% for card in cards %}
     <div class="cards">
+
         {% for type in card['URL Type'] %}
             <img src="static/img/types/{{ type }}.gif" height="26" alt="{{ card['Type'] }}">
         {% endfor %}
+
+        {% if card['URL Clan'] %}
+            {% for clan in card['URL Clan'] %}
+                <img src="static/img/clans/{{ clan }}.gif" height="26" alt="{{ clan }}">
+            {% endfor %}
+        {% endif %}
+
+        {% if card['URL Discipline'] %}
+            {% for discipline in card['URL Discipline'] %}
+                <img src="static/img/disciplines/{{ discipline }}.gif" height="26" alt="{{ discipline }}" />
+            {% endfor %}
+        {% endif %}
 
         {% if card['Pool Cost'] %}
             <img src="static/img/misc/pool{{ card['Pool Cost'] }}.png" height="36" alt="{{ card['Pool Cost'] }}">
@@ -48,17 +79,17 @@ Library
             <img src="static/img/misc/blood{{ card['Blood Cost'] }}.png" height="36" alt="{{ card['Blood Cost'] }}">
         {% endif %}
 
-        {% if card['URL Discipline'] %}
-            {% for discipline in card['URL Discipline'] %}
-                <img src="static/img/disciplines/{{ discipline }}.gif" height="26" alt="{{ discipline }}" />
-            {% endfor %}
+        {% if card['Life'] %}
+            <img src="static/img/misc/life{{ card['Life'] }}.png" height="26" alt="{{ card['Life'] }}">
         {% endif %}
+
+        {% if card['Strength'] %}
+            <img src="static/img/misc/str{{ card['Strength'] }}.png" height="26" alt="{{ card['Strength'] }}">
+        {% endif %}
+
 
         <a href="{{ 'static/img/cards/' + card['URL Name'] + '.jpg' }}"> {{ card['Name'] }} </a>
 
-        {% if card['URL Clan'] %}
-            <img src="static/img/clans/{{ card['URL Clan'] }}.gif" height="26" alt="{{ card['Clan'] }}">
-        {% endif %}
     </div>
     {% endfor %}
 {% endblock %}

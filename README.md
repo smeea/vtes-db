@@ -2,18 +2,15 @@
 
 Vampire the Eternal Struggle (VTES) web card database.
 
-## TODO
-* Add library card search
-
 ## Installation
 
 ### Requirements
 
 * Python 3.7+
 
-### Installation
+### Installation/Deployment
 
-Below is local installation for self-usage / development only.
+Below is local installation/deployment for self-usage/development only.
 For production you should at least:
 * setup web-server (e.g. nginx) instead of flask embedded web-server
 * change app.config['SECRET_KEY']
@@ -42,6 +39,3 @@ For Windows (cmd.exe):
     set FLASK_ENV=development
     flask run
     open http://127.0.0.1:5000/crypt
-
-### License
-MIT

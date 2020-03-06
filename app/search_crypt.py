@@ -193,7 +193,7 @@ def get_crypt_by_trait(traits):
                         r'(He|She|It|They|{}) gets (.*)?{}'.format(
                             name[0], trait), card['Card Text']):
                     match_cards.append(card)
-            elif re.search(r'{}'.format(trait), card['Card Text']):
+            elif re.search(r'{}'.format(trait), card['Card Text'].lower()):
                 match_cards.append(card)
     return match_cards
 
@@ -235,11 +235,15 @@ def get_crypt_by_votes(votes):
     return match_cards
 
 
-def get_crypt_by_capacity(capacity_list):
+def get_crypt_by_capacity(capacity, moreless):
     match_cards = []
     for card in crypt:
-        if card['Capacity'] in capacity_list:
-            match_cards.append(card)
+        if moreless == '<=':
+            if card['Capacity'] <= capacity:
+                match_cards.append(card)
+        elif moreless == '>=':
+            if card['Capacity'] >= capacity:
+                match_cards.append(card)
     return match_cards
 
 
@@ -288,7 +292,7 @@ def parse_crypt_card(cards):
         else:
             card_parsed['Name'] = card['Name']
         card_parsed['URL Name'] = letters_to_ascii(
-            re.sub('[\\W]', '', card['Name'].lower()))
+            re.sub('[\\W]', '', card_parsed['Name'].lower()))
         card_parsed['URL Clan'] = re.sub('[\\W]', '', card['Clan']).lower()
 
         parsed_crypt.append(card_parsed)
@@ -297,16 +301,16 @@ def parse_crypt_card(cards):
 
 
 def print_crypt_total(cards):
-    group_counter = [0, 0, 0, 0, 0, 0]
-    total_counter = 0
     total = []
+    group_counter = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0}
     for card in cards:
-        total += card
         if card['Group'] == "ANY":
             for i in range(0, 6):
                 group_counter[i] += 1
         else:
-            group_counter[int(card['Group']) - 1] += 1
-        total_counter += 1
-    total = f"{total_counter} G: {group_counter[0]} {group_counter[1]} {group_counter[2]} {group_counter[3]} {group_counter[4]} {group_counter[5]}"
+            group_counter[int(card['Group'])] += 1
+    total.append(len(cards))
+
+    for group, quantity in group_counter.items():
+        total.append([group, quantity])
     return total

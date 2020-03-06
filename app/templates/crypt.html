@@ -11,12 +11,10 @@
 
 {% block search %}
     <form action="" method="post" novalidate>
+        <b> NAME / TEXT: </b>
+        {{ form.cardtext() }}
         <b> DISCIPLINES: </b>
         {{ form.disciplines() }}
-        <b> TEXT: </b>
-        {{ form.cardtext() }}
-        <b> TRAITS: </b>
-        {{ form.trait() }}
         <b> CAPACITY: </b>
         {{ form.capacitymoreless() }}
         {{ form.capacity() }}
@@ -26,31 +24,52 @@
         {{ form.sect() }}
         <b> VOTES: </b>
         {{ form.votes() }}
-        <b> TITLES: </b>
+        <b> TITLE: </b>
         {{ form.titles() }}
         <b> GROUP: </b>
         {{ form.group() }}
+        <b> TEXT TRAITS: </b>
+        {{ form.trait() }}
+
         {{ form.submit() }}
     </form>
 {% endblock %}
 
-{% block debug %}
-    <div class="total"><b>DEBUG: {{ debug }}</b></div>
-{% endblock %}
+{% if debug %}
+    {% block debug %}
+        <div class="total"><b>DEBUG: {{ debug }}</b></div>
+    {% endblock %}
+{% endif %}
 
 {% block results %}
-    <div class="total"><b>TOTAL: {{ total }}</b></div>
-    <br>
-    {% for card in cards %}
-    <div class="cards">
-        <img src="static/img/misc/cap{{ card['Capacity'] }}.png" height="26" alt="{{ card['Capacity'] }}">
-        {% for dis in card['Discipline'] %}
-        <img src="static/img/disciplines/{{ dis }}.gif" height="26" alt="{{ dis }}" />
+
+    {% if total %}
+    <div class="total"><b>TOTAL: {{ total.pop(0) }}<br>
+
+        {% for type in total %}
+            G{{ type[0] }}: {{type[1] }}
         {% endfor %}
-        <!-- TODO: Unfold card text on click + url to open card image-->
+
+    </b></div><br>
+    {% endif %}
+
+    {% for card in cards %}
+
+    <div class="cards">
+
+        <img src="static/img/misc/cap{{ card['Capacity'] }}.png" height="26" alt="{{ card['Capacity'] }}">
+
+        {% for dis in card['Discipline'] %}
+            <img src="static/img/disciplines/{{ dis }}.gif" height="26" alt="{{ dis }}" />
+        {% endfor %}
+
         <a href="{{ 'static/img/cards/' + card['URL Name'] + '.jpg' }}"> {{ card['Name'] }} </a>
+        <!-- TODO: Unfold card text on click + url to open card image-->
+
         <img src="static/img/clans/{{ card['URL Clan'] }}.gif" height="26" alt="{{ card['Clan'] }}">
+
         <b>G:{{ card['Group'] }}</b>
+
     </div>
 {% endfor %}
 {% endblock %}

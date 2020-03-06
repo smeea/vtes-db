@@ -58,6 +58,39 @@ def get_library_by_sect(sect):
     return match_cards
 
 
+def get_library_by_blood(cost, moreless):
+    match_cards = []
+    for card in library:
+        if moreless == '<=':
+            if card['Blood Cost'] <= cost:
+                match_cards.append(card)
+        elif moreless == '>=':
+            if card['Blood Cost'] >= cost:
+                match_cards.append(card)
+    return match_cards
+
+
+def get_library_by_pool(cost, moreless):
+    match_cards = []
+    for card in library:
+        if moreless == '<=':
+            if card['Pool Cost'] <= cost:
+                match_cards.append(card)
+        elif moreless == '>=':
+            if card['Pool Cost'] >= cost:
+                match_cards.append(card)
+    return match_cards
+
+
+def get_library_by_trait(traits):
+    match_cards = []
+    for card in library:
+        for trait in traits:
+            if re.search(r'{}'.format(trait), card['Card Text'].lower()):
+                match_cards.append(card)
+    return match_cards
+
+
 def get_overall_library(card_lists):
     match_list = card_lists.pop()
     while card_lists:
@@ -79,11 +112,16 @@ def parse_library_card(cards):
 
         if card['Discipline']:
             card_parsed['Discipline'] = re.split('/| & ', card['Discipline'])
-
             card_parsed['URL Discipline'] = []
+
             for discipline in card_parsed['Discipline']:
-                card_parsed['URL Discipline'].append(
-                    str(discipline[:3].lower()))
+                if discipline == 'Thanatosis':
+                    card_parsed['URL Discipline'].append('thn')
+                elif discipline == 'Vision':
+                    card_parsed['URL Discipline'].append('visi')
+                else:
+                    card_parsed['URL Discipline'].append(
+                        str(discipline[:3].lower()))
 
             if '/' in card['Discipline']:
                 if len(card['Discipline'].split('/')) == 3:
@@ -93,14 +131,28 @@ def parse_library_card(cards):
             if '&' in card['Discipline']:
                 card_parsed['URL Discipline'].insert(1, '+')
 
-        card_parsed['Clan'] = card['Clan']
+        if card['Type'] == 'Ally' or card['Type'] == "Retainer":
+            life = re.match(r'.*with ([0-9]) life', card['Card Text'])
+            card_parsed['Life'] = life.group(1)
+
+        if card['Type'] == 'Ally':
+            strength = re.match(r'.*([0-9]) strength', card['Card Text'])
+            card_parsed['Strength'] = strength.group(1)
+
+        if card['Clan']:
+            card_parsed['URL Clan'] = []
+            clan_list = card['Clan'].split('/')
+            for clan in clan_list:
+                card_parsed['URL Clan'].append(
+                    re.sub('[\\W]', '', clan.lower()))
+            if '/' in card['Clan']:
+                card_parsed['URL Clan'].insert(1, '/')
+
         card_parsed['Card Text'] = card['Card Text']
         card_parsed['Pool Cost'] = card['Pool Cost']
         card_parsed['Blood Cost'] = card['Blood Cost']
         card_parsed['URL Name'] = letters_to_ascii(
             re.sub('[\\W]', '', card['Name']).lower())
-
-        card_parsed['URL Clan'] = re.sub('[\\W]', '', card['Clan']).lower()
         card_parsed['URL Type'] = []
         type_list = card['Type'].split('/')
         for cardtype in type_list:
@@ -112,5 +164,29 @@ def parse_library_card(cards):
 
 
 def print_library_total(cards):
-    # Add type counter
-    return len(cards)
+    total = []
+    type_counter = {
+        'Master': 0,
+        'Action': 0,
+        'Action Modifier': 0,
+        'Ally': 0,
+        'Combat': 0,
+        'Equipment': 0,
+        'Event': 0,
+        'Political Action': 0,
+        'Reaction': 0,
+        'Retainer': 0,
+        # ('Reflex': 0,
+        'Conviction': 0,
+        'Power': 0,
+    }
+
+    for card in cards:
+        types = card['Type'].split('/')
+        for cardtype in types:
+            type_counter[cardtype] += 1
+    total.append(len(cards))
+    for cardtype, quantity in type_counter.items():
+        if quantity:
+            total.append([re.sub('[\\W]', '', cardtype).lower(), quantity])
+    return total

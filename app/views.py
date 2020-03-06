@@ -15,11 +15,14 @@ from app.search_crypt import get_overall_crypt
 from app.search_crypt import parse_crypt_card
 from app.search_crypt import print_crypt_total
 from app.search_library import get_library_by_cardtext
+from app.search_library import get_library_by_trait
 from app.search_library import get_library_by_discipline
 from app.search_library import get_library_by_title
 from app.search_library import get_library_by_sect
 from app.search_library import get_library_by_clan
 from app.search_library import get_library_by_cardtype
+from app.search_library import get_library_by_blood
+from app.search_library import get_library_by_pool
 from app.search_library import get_overall_library
 from app.search_library import parse_library_card
 from app.search_library import print_library_total
@@ -74,6 +77,7 @@ def crypt():
                                ('[:.] \+1 strength.', '+1 strength'),
                                ('[:.] \+2 strength.', '+2 strength'),
                                ('additional strike', 'Additional Strike'),
+                               ('optional maneuver', 'Maneuver'),
                                ('optional press', 'Press'),
                                ('enter combat', 'Enter combat'),
                                ('Black Hand[ .:]', 'Black Hand'),
@@ -134,6 +138,7 @@ def crypt():
             match_by_category.append(cards_by_cardtext)
 
         # Get cards by text trait
+        # TODO traits as logic AND
         trait = cryptform.trait.data
         if trait:
             parameters += 1
@@ -166,11 +171,12 @@ def crypt():
         # Get cards by capacity
         if cryptform.capacity.data != 'ANY':
             parameters += 1
-            if cryptform.capacitymoreless.data == '<=':
-                capacity = range(1, int(cryptform.capacity.data) + 1)
-            if cryptform.capacitymoreless.data == '>=':
-                capacity = range(int(cryptform.capacity.data), 12)
-            cards_by_capacity = get_crypt_by_capacity(capacity)
+            capacity = int(cryptform.capacity.data)
+            moreless = cryptform.capacitymoreless.data
+            #     capacity = range(1, int(cryptform.capacity.data) + 1)
+            # if cryptform.capacitymoreless.data == '>=':
+            #     capacity = range(int(cryptform.capacity.data), 12)
+            cards_by_capacity = get_crypt_by_capacity(capacity, moreless)
             match_by_category.append(cards_by_capacity)
 
         # Get cards by group
@@ -202,7 +208,7 @@ def crypt():
             if cards:
                 total = print_crypt_total(cards)
 
-                # Sort card by capacity, then name
+                # Sort card by capacity, name
                 sorted_cards = (sorted(sorted(cards, key=lambda x: x['Name']),
                                        key=lambda x: x['Capacity']))
 
@@ -216,8 +222,7 @@ def crypt():
         'crypt.html',
         form=cryptform,
         cards=parsed_crypt_cards,
-        # debug=parsed_crypt_cards,
-        # debug=debug,
+        # debug=,
         total=total)
 
 
@@ -260,6 +265,7 @@ def library():
         ('Chimerstry', 'Chimerstry'),
         ('Daimoinon', 'Daimoinon'),
         ('Dominate', 'Dominate'),
+        ('Flight', 'Flight'),
         ('Fortitude', 'Fortitude'),
         ('Dementation', 'Dementation'),
         ('Melpominee', 'Melpominee'),
@@ -353,6 +359,40 @@ def library():
                                 ('Ventrue antitribu', 'Ventrue Antitribu'),
                                 ('Visionary', 'Visionary')]
 
+    libraryform.bloodmoreless.choices = [('<=', '<='), ('>=', '>=')]
+    libraryform.blood.choices = [('ANY', 'ANY')]
+    for i in range(0, 5):
+        libraryform.blood.choices.append((i, i))
+
+    libraryform.poolmoreless.choices = [('<=', '<='), ('>=', '>=')]
+    libraryform.pool.choices = [('ANY', 'ANY')]
+    for i in range(0, 7):
+        libraryform.pool.choices.append((i, i))
+
+    libraryform.trait.choices = [
+        # ('\+[0-9]+ intercept', '+ Intercept'),
+        ('\-[0-9]+ stealth(?! \(d\))(?! \w)(?! action)|\+[0-9]+ intercept',
+         '+ Intercept / - Stealth'),
+        ('\+[0-9]+ stealth(?! \(d\))(?! \w)(?! action)|\-[0-9]+ intercept',
+         '+ Stealth / - Intercept'),
+        # ('\-[0-9]+ intercept', '- Intercept'),
+        ('\+[0-9]+ bleed', '+ Bleed'),
+        ('\+[0-9]+ strength', '+ Strength'),
+        ('dodge', 'Dodge'),
+        ('maneuver', 'Maneuver'),
+        ('additional strike', 'Additional Strike'),
+        ('(?<!non-)aggravated', 'Aggravated'),
+        ('(?<!un)prevent', 'Prevent'),
+        ('(optional )?press', 'Press'),
+        ('combat ends', 'Combat Ends'),
+        ('enter combat', 'Enter Combat'),
+        ('change the target of the bleed|is now bleeding', 'Bounce Bleed'),
+        ('black hand', 'Black Hand'),
+        ('seraph', 'Seraph'),
+        ('anarch', 'Anarch'),
+        ('infernal', 'Infernal'),
+    ]
+
     if libraryform.is_submitted():
         # Get cards by text
         cardtext = libraryform.cardtext.data
@@ -361,7 +401,12 @@ def library():
             cards_by_cardtext = get_library_by_cardtext(cardtext)
             match_by_category.append(cards_by_cardtext)
 
-        # TODO Add traits i.e. +bleed, +stealth, etc
+        # Get cards by trait
+        trait = libraryform.trait.data
+        if trait:
+            parameters += 1
+            cards_by_trait = get_library_by_trait(trait)
+            match_by_category.append(cards_by_trait)
 
         # Get cards by type
         cardtype = libraryform.cardtype.data
@@ -398,6 +443,22 @@ def library():
             cards_by_clan = get_library_by_clan(clan)
             match_by_category.append(cards_by_clan)
 
+        # Get cards by blood cost
+        if libraryform.blood.data != 'ANY':
+            parameters += 1
+            blood = libraryform.blood.data
+            moreless = libraryform.bloodmoreless.data
+            cards_by_blood = get_library_by_blood(blood, moreless)
+            match_by_category.append(cards_by_blood)
+
+        # Get cards by pool cost
+        if libraryform.pool.data != 'ANY':
+            parameters += 1
+            pool = libraryform.pool.data
+            moreless = libraryform.poolmoreless.data
+            cards_by_pool = get_library_by_pool(pool, moreless)
+            match_by_category.append(cards_by_pool)
+
         # Get overall matches & total
         if parameters == 0:
             flash('CHOOSE AT LEAST ONE PARAMETER.')
@@ -406,8 +467,11 @@ def library():
             if cards:
                 total = print_library_total(cards)
 
-                # Sort card by capacity, then name
-                sorted_cards = (sorted(cards, key=lambda x: x['Type']))
+                # Sort card by discipline, clan, name
+                sorted_cards = sorted(sorted(sorted(cards,
+                                                    key=lambda x: x['Name']),
+                                             key=lambda x: x['Clan']),
+                                      key=lambda x: x['Discipline'])
 
                 # Parse card text for output
                 parsed_library_cards = parse_library_card(sorted_cards)
@@ -419,5 +483,5 @@ def library():
         'library.html',
         form=libraryform,
         cards=parsed_library_cards,
-        # debug=parsed_library_cards,
+        # debug=,
         total=total)
