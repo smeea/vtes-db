@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-import re
 from flask import Blueprint, render_template, request, flash
 from app.search_crypt import get_crypt_by_cardtext
 from app.search_crypt import get_crypt_by_trait
@@ -79,11 +78,12 @@ def crypt():
                                ('additional strike', 'Additional Strike'),
                                ('optional maneuver', 'Maneuver'),
                                ('optional press', 'Press'),
+                               ('(?<!non-)aggravated', 'Aggravated'),
                                ('enter combat', 'Enter combat'),
-                               ('Black Hand[ .:]', 'Black Hand'),
-                               ('Seraph[.:]', 'Seraph'),
-                               ('Infernal[.:]', 'Infernal'),
-                               ('Red List[.:]', 'Red List')]
+                               ('black hand[ .:]', 'Black Hand'),
+                               ('seraph[.:]', 'Seraph'),
+                               ('infernal[.:]', 'Infernal'),
+                               ('red list[.:]', 'Red List')]
 
     cryptform.votes.choices = [('ANY', 'ANY'), ('0', '0'), ('1', '1+'),
                                ('2', '2+'), ('3', '3+'), ('4', '4+')]
@@ -138,7 +138,6 @@ def crypt():
             match_by_category.append(cards_by_cardtext)
 
         # Get cards by text trait
-        # TODO traits as logic AND
         trait = cryptform.trait.data
         if trait:
             parameters += 1

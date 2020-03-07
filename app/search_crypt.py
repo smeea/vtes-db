@@ -182,16 +182,16 @@ def get_crypt_by_trait(traits):
     for card in crypt:
         for trait in traits:
             if trait == 'enter combat':
-                name = re.match(r'^\w+', card['Name'])
+                name = re.match(r'^\w+', card['Name'].lower())
                 if re.search(
-                        r'(He|She|It|They|{}) (can|may)( .* to)? {}'.format(
-                            name[0], trait), card['Card Text']):
+                        r'(he|she|it|they|{}) (can|may)( .* to)? {}'.format(
+                            name[0], trait), card['Card Text'].lower()):
                     match_cards.append(card)
             elif trait == 'optional press':
-                name = re.match(r'^\w+', card['Name'])
+                name = re.match(r'^\w+', card['Name'].lower())
                 if re.search(
-                        r'(He|She|It|They|{}) gets (.*)?{}'.format(
-                            name[0], trait), card['Card Text']):
+                        r'(he|she|it|they|{}) gets (.*)?{}'.format(
+                            name[0], trait), card['Card Text'].lower()):
                     match_cards.append(card)
             elif re.search(r'{}'.format(trait), card['Card Text'].lower()):
                 match_cards.append(card)
@@ -284,9 +284,9 @@ def parse_crypt_card(cards):
         dis_list = card['Disciplines'].split()
         for dis in dis_list:
             if dis == dis.lower():
-                card_parsed['Discipline'].append(dis)
+                card_parsed['Discipline'].append([dis, 24])
             else:
-                card_parsed['Discipline'].append(dis.lower() + 's')
+                card_parsed['Discipline'].append([dis.lower() + 's', 27])
         if card['Adv']:
             card_parsed['Name'] = card['Name'] + ' [ADV]'
         else:
@@ -294,6 +294,7 @@ def parse_crypt_card(cards):
         card_parsed['URL Name'] = letters_to_ascii(
             re.sub('[\\W]', '', card_parsed['Name'].lower()))
         card_parsed['URL Clan'] = re.sub('[\\W]', '', card['Clan']).lower()
+        card_parsed['Id'] = card['Id']
 
         parsed_crypt.append(card_parsed)
 
@@ -305,7 +306,7 @@ def print_crypt_total(cards):
     group_counter = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0}
     for card in cards:
         if card['Group'] == "ANY":
-            for i in range(0, 6):
+            for i in range(1, 7):
                 group_counter[i] += 1
         else:
             group_counter[int(card['Group'])] += 1
