@@ -15,14 +15,19 @@
     {% with messages = get_flashed_messages() %}
         {% if messages %}
             {% for message in messages %}
-                <b>{{ message }}</b>
-            {% endfor %}
-        {% endif %}
+    <b>{{ message }}</b>
+    {% endfor %}
+    {% endif %}
     {% endwith %}
     {% block index %}{% endblock %}
     {% block search %}{% endblock %}
-<!-- {% block debug %}{% endblock %} -->
+    <!-- {% block debug %}{% endblock %} -->
     {% block results %}{% endblock %}
 </section>
 
 <script src="{{ url_for('static', filename ='show_div.js') }}"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
+<script>
+ const observer = lozad();
+ observer.observe();
+</script>

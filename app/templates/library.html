@@ -45,6 +45,7 @@ Library
 {% block results %}
 
     {% if total %}
+
         <div class="total"><b>TOTAL: {{ total.pop(0) }}<br>
             {% for type in total %}
                 <img src="static/img/types/{{ type[0] }}.gif" height="26" alt="{{ type[0] }}">{{type[1]}}
@@ -53,7 +54,7 @@ Library
     {% endif %}
 
     {% for card in cards %}
-    <div class="cards">
+    <div id="result" class="cards">
 
         {% for type in card['URL Type'] %}
             <img src="static/img/types/{{ type }}.gif" height="26" alt="{{ card['Type'] }}">
@@ -93,7 +94,7 @@ Library
         <input type="button" value="text" onclick="showDiv(1{{ card['Id']}})" />
         <input type="button" value="img" onclick="showDiv(2{{ card['Id']}})" />
         <div id="1{{ card['Id'] }}" style="display:none;"> {{ card['Card Text'] }} </div>
-        <div id="2{{ card['Id'] }}" style="display:none;"><img src="{{ 'static/img/cards/' + card['URL Name'] + '.jpg' }}" height="500"></div>
+        <div id="2{{ card['Id'] }}" style="display:none;"><img class="lozad" data-src="{{ 'static/img/cards/' + card['URL Name'] + '.jpg' }}" height="500"></div>
 
     </div>
     {% endfor %}

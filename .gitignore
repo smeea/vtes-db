@@ -1,4 +1,6 @@
 app/__pycache__/
+__pycache__/
 app/.#*
 app/.mypy_cache/
+node_modules/
 venv/

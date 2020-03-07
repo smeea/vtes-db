@@ -369,14 +369,12 @@ def library():
         libraryform.pool.choices.append((i, i))
 
     libraryform.trait.choices = [
-        # ('\+[0-9]+ intercept', '+ Intercept'),
         ('\-[0-9]+ stealth(?! \(d\))(?! \w)(?! action)|\+[0-9]+ intercept',
-         '+ Intercept / - Stealth'),
+         '+Intercept / -Stealth'),
         ('\+[0-9]+ stealth(?! \(d\))(?! \w)(?! action)|\-[0-9]+ intercept',
-         '+ Stealth / - Intercept'),
-        # ('\-[0-9]+ intercept', '- Intercept'),
-        ('\+[0-9]+ bleed', '+ Bleed'),
-        ('\+[0-9]+ strength', '+ Strength'),
+         '+Stealth / -Intercept'),
+        ('\+[0-9]+ bleed', '+Bleed'),
+        ('\+[0-9]+ strength', '+Strength'),
         ('dodge', 'Dodge'),
         ('maneuver', 'Maneuver'),
         ('additional strike', 'Additional Strike'),

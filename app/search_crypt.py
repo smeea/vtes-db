@@ -160,8 +160,9 @@ def get_crypt_by_discipline(discipline_input):
     for card in crypt:
         counter = 0
         for k, v in discipline_list.items():
-            if card[k] >= v:
-                counter += 1
+            if k in card:
+                if card[k] >= v:
+                    counter += 1
         if discipline_counter == counter:
             match_cards.append(card)
     return match_cards

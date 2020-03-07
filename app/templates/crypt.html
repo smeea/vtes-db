@@ -72,7 +72,7 @@
         <input type="button" value="text" onclick="showDiv(1{{ card['Id']}})" />
         <input type="button" value="img" onclick="showDiv(2{{ card['Id']}})" />
         <div id="1{{ card['Id'] }}" style="display:none;"> {{ card['Card Text'] }} </div>
-        <div id="2{{ card['Id'] }}" style="display:none;"><img src="{{ 'static/img/cards/' + card['URL Name'] + '.jpg' }}" height="500"></div>
+        <div id="2{{ card['Id'] }}" style="display:none;"><img class="lozad" data-src="{{ 'static/img/cards/' + card['URL Name'] + '.jpg' }}" height="500"></div>
     </div>
 {% endfor %}
 {% endblock %}
