@@ -280,12 +280,16 @@ def parse_crypt_card(cards):
         card_parsed['Capacity'] = card['Capacity']
         card_parsed['Clan'] = card['Clan']
         card_parsed['Group'] = card['Group']
-        card_parsed['Card Text'] = card['Card Text']
+        card_parsed['Card Text'] = []
+        card_parsed['Card Text'] = re.split(': |\n', card['Card Text'])
         card_parsed['Title'] = card['Title']
         dis_list = card['Disciplines'].split()
         for dis in dis_list:
             if dis == dis.lower():
-                card_parsed['Discipline'].append([dis, 25])
+                if card['Type'] == 'Imbued' and dis == 'vis':
+                    card_parsed['Discipline'].append(['visi', 25])
+                else:
+                    card_parsed['Discipline'].append([dis, 25])
             else:
                 card_parsed['Discipline'].append([dis.lower() + 's', 27])
         if card['Adv']:

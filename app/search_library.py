@@ -148,7 +148,20 @@ def parse_library_card(cards):
             if '/' in card['Clan']:
                 card_parsed['URL Clan'].insert(1, '/')
 
-        card_parsed['Card Text'] = card['Card Text']
+        card_parsed['Card Text'] = card['Card Text'].split('\n')
+
+        card_title_keywords = [
+            'unique', 'weapon', 'vehicle', 'equipment', 'only usable by',
+            'requires a', 'gehenna', 'out-of-turn', 'master.', 'master:',
+            'trifle.', 'archetype.', 'location.', 'discipline.', 'action.',
+            'only usable by', 'only usable before', 'only usable at',
+            'only usable if', 'do not replace', 'ammo.', 'aim.'
+        ]
+        for keyword in card_title_keywords:
+            if re.match(r'(?!^\[).*{}'.format(keyword),
+                        card_parsed['Card Text'][0].lower()):
+                card_parsed['Card Title'] = card_parsed['Card Text'].pop(0)
+                break
         card_parsed['Pool Cost'] = card['Pool Cost']
         card_parsed['Blood Cost'] = card['Blood Cost']
         card_parsed['URL Name'] = letters_to_ascii(
