@@ -46,11 +46,13 @@ Library
 
     {% if total %}
 
-        <div class="total"><b>TOTAL: {{ total.pop(0) }}<br>
+        <div id="total" class="total"><b>TOTAL: {{ total.pop(0) }}
             {% for type in total %}
                 <img src="static/img/types/{{ type[0] }}.gif" height="26" alt="{{ type[0] }}">{{type[1]}}
             {% endfor %}
-        </b></div><br>
+        </b></div>
+        <input type="button" value="show all text" onclick="showAll()" />
+        <br>
     {% endif %}
 
     {% for card in cards %}
@@ -91,11 +93,12 @@ Library
 
         <a href="{{ 'static/img/cards/' + card['URL Name'] + '.jpg' }}"> {{ card['Name'] }} </a>
 
-        <input type="button" value="text" onclick="showDiv(1{{ card['Id']}})" />
-        <input type="button" value="img" onclick="showDiv(2{{ card['Id']}})" />
-        <div id="1{{ card['Id'] }}" style="display:none;"> {{ card['Card Text'] }} </div>
+        <input type="button" value="text" onclick="showCard(1{{ card['Id']}})" />
+        <input type="button" value="img" onclick="showCard(2{{ card['Id']}})" />
+        <div id="1{{ card['Id'] }}" class="cardtext" style="display:none;"> {{ card['Card Text'] }} </div>
         <div id="2{{ card['Id'] }}" style="display:none;"><img class="lozad" data-src="{{ 'static/img/cards/' + card['URL Name'] + '.jpg' }}" height="500"></div>
 
     </div>
     {% endfor %}
+    <script>document.getElementById('total').scrollIntoView();</script>
 {% endblock %}

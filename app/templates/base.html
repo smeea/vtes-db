@@ -1,4 +1,5 @@
 <!doctype html>
+<script src="{{ url_for('static', filename ='js/show_buttons.js') }}"></script>
 <title>VTES DB - {% block title %}{% endblock %}</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
@@ -25,7 +26,6 @@
     {% block results %}{% endblock %}
 </section>
 
-<script src="{{ url_for('static', filename ='show_div.js') }}"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
 <script>
  const observer = lozad();

@@ -285,7 +285,7 @@ def parse_crypt_card(cards):
         dis_list = card['Disciplines'].split()
         for dis in dis_list:
             if dis == dis.lower():
-                card_parsed['Discipline'].append([dis, 24])
+                card_parsed['Discipline'].append([dis, 25])
             else:
                 card_parsed['Discipline'].append([dis.lower() + 's', 27])
         if card['Adv']:
