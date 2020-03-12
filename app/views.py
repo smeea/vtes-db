@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 from flask import Blueprint, render_template, request, flash
 from app.search_crypt import get_crypt_by_cardtext
 from app.search_crypt import get_crypt_by_trait
@@ -40,16 +38,45 @@ def index():
 def crypt():
 
     titles = []
+    disciplines = []
     capacity = []
     group = []
     trait = []
-    votes = ''
-    parameters = 0
-    parsed_crypt_cards = []
     match_by_category = []
+    parsed_crypt_cards = []
+    parameters = 0
     total = ''
 
     cryptform = CryptForm(request.form)
+
+    cryptform.disciplines.choices = [('abo', 'abo'), ('ABO', 'ABO'),
+                                     ('ani', 'ani'), ('ANI', 'ANI'),
+                                     ('aus', 'aus'), ('AUS', 'AUS'),
+                                     ('cel', 'cel'), ('CEL', 'CEL'),
+                                     ('chi', 'chi'), ('CHI', 'CHI'),
+                                     ('dai', 'dai'), ('DAI', 'DAI'),
+                                     ('dom', 'dom'), ('DOM', 'DOM'),
+                                     ('for', 'for'), ('FOR', 'FOR'),
+                                     ('dem', 'dem'), ('DEM', 'DEM'),
+                                     ('mel', 'mel'), ('MEL', 'MEL'),
+                                     ('myt', 'myt'), ('MYT', 'MYT'),
+                                     ('nec', 'nec'), ('NEC', 'NEC'),
+                                     ('obe', 'obe'), ('OBE', 'OBE'),
+                                     ('obf', 'obf'), ('OBF', 'OBF'),
+                                     ('obt', 'obt'), ('OBT', 'OBT'),
+                                     ('pot', 'pot'), ('POT', 'POT'),
+                                     ('pre', 'pre'), ('PRE', 'PRE'),
+                                     ('pro', 'pro'), ('PRO', 'PRO'),
+                                     ('ser', 'ser'), ('SER', 'SER'),
+                                     ('san', 'san'), ('SAN', 'SAN'),
+                                     ('spi', 'spi'), ('SPI', 'SPI'),
+                                     ('tem', 'tem'), ('TEM', 'TEM'),
+                                     ('thn', 'thn'), ('THN', 'THN'),
+                                     ('tha', 'tha'), ('THA', 'THA'),
+                                     ('qui', 'qui'), ('QUI', 'QUI'),
+                                     ('val', 'val'), ('VAL', 'VAL'),
+                                     ('vic', 'vic'), ('VIC', 'VIC'),
+                                     ('vis', 'vis'), ('VIS', 'VIS')]
 
     cryptform.titles.choices = [
         # ('kholo', 'Kholo'),
@@ -145,9 +172,7 @@ def crypt():
             match_by_category.append(cards_by_trait)
 
         # Get cards by disciplines
-        # TODO Add discipline choices as clickable icons
-        disciplines_input = cryptform.disciplines.data
-        disciplines = disciplines_input.split()
+        disciplines = cryptform.disciplines.data
         if disciplines:
             parameters += 1
             cards_by_disciplines = get_crypt_by_discipline(disciplines)

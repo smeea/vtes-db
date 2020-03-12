@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 import json
 import re
 from app.parse import letters_to_ascii
@@ -150,18 +148,39 @@ def parse_library_card(cards):
 
         card_parsed['Card Text'] = card['Card Text'].split('\n')
 
-        card_title_keywords = [
-            'unique', 'weapon', 'vehicle', 'equipment', 'only usable by',
-            'requires a', 'gehenna', 'out-of-turn', 'master.', 'master:',
-            'trifle.', 'archetype.', 'location.', 'discipline.', 'action.',
-            'only usable by', 'only usable before', 'only usable at',
-            'only usable if', 'do not replace', 'ammo.', 'aim.'
+        card_text_head_keywords = [
+            'unique', 'weapon\.', 'vehicle\.', 'equipment\.', 'electronic\.',
+            'requires a', 'requires the', 'gehenna\.', 'event\.',
+            'inquisition\.', 'government\.', 'inconnu\.', 'transient\.',
+            'out-of-turn', 'master\.', 'master:', 'trifle\.', 'archetype\.',
+            'location\.', 'discipline\.', '^(\+?\w)? (\w+)? action.',
+            'only usable \w', 'do not replace', 'ammo\.', 'aim\.',
+            '\w+ with \w+ life', 'boon\.', 'title\.', 'only one'
         ]
-        for keyword in card_title_keywords:
+
+        for keyword in card_text_head_keywords:
             if re.match(r'(?!^\[).*{}'.format(keyword),
                         card_parsed['Card Text'][0].lower()):
-                card_parsed['Card Title'] = card_parsed['Card Text'].pop(0)
+                card_parsed['Card Title Text'] = card_parsed['Card Text'].pop(
+                    0)
                 break
+
+        card_parsed['Card Middle Text'] = []
+        card_parsed['Card Other Text'] = []
+
+        for i in card_parsed['Card Text']:
+            if re.match(r'(\[+\w+\]+)', i):
+                t = re.match(r'(\[+\w+\]?\[?\w+\]+)?\s?(.*)', i)
+                card_parsed['Card Middle Text'].append(
+                    [t.group(1), t.group(2)])
+            elif re.match(r'(Strike\:)', i):
+                t = re.match(r'(Strike\:)?\s?(.*)', i)
+                card_parsed['Card Middle Text'].append(
+                    [t.group(1), t.group(2)])
+            else:
+                t = re.match(r'(.*)', i)
+                card_parsed['Card Other Text'].append(t.group(1))
+
         card_parsed['Pool Cost'] = card['Pool Cost']
         card_parsed['Blood Cost'] = card['Blood Cost']
         card_parsed['URL Name'] = letters_to_ascii(

@@ -11,7 +11,9 @@ class CryptForm(FlaskForm):
     trait = SelectMultipleField('Text Trait',
                                 option_widget=CheckboxInput(),
                                 widget=ListWidget(prefix_label=False))
-    disciplines = StringField('Disciplines')
+    disciplines = SelectMultipleField('Disciplines',
+                                      option_widget=CheckboxInput(),
+                                      widget=ListWidget(prefix_label=False))
     votes = SelectField('Votes')
     clan = SelectField('Clan')
     sect = SelectField('Sect')

@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 import json
 import re
 from app.parse import letters_to_ascii
@@ -9,136 +7,136 @@ crypt = json.load(crypt_file)
 
 
 def parse_discipline_list(discipline_input):
-    dis_list = {}
+    discipline_list = {}
     for i in discipline_input:
         if i == "abo":
-            dis_list['Abombwe'] = 1
+            discipline_list['Abombwe'] = 1
         elif i == "ABO":
-            dis_list['Abombwe'] = 2
+            discipline_list['Abombwe'] = 2
         elif i == "ani":
-            dis_list['Animalism'] = 1
+            discipline_list['Animalism'] = 1
         elif i == "ANI":
-            dis_list['Animalism'] = 2
+            discipline_list['Animalism'] = 2
         elif i == "aus":
-            dis_list['Auspex'] = 1
+            discipline_list['Auspex'] = 1
         elif i == "AUS":
-            dis_list['Auspex'] = 2
+            discipline_list['Auspex'] = 2
         elif i == "cel":
-            dis_list['Celerity'] = 1
+            discipline_list['Celerity'] = 1
         elif i == "CEL":
-            dis_list['Celerity'] = 2
+            discipline_list['Celerity'] = 2
         elif i == "chi":
-            dis_list['Chimerstry'] = 1
+            discipline_list['Chimerstry'] = 1
         elif i == "CHI":
-            dis_list['Chimerstry'] = 2
+            discipline_list['Chimerstry'] = 2
         elif i == "dai":
-            dis_list['Daimoinon'] = 1
+            discipline_list['Daimoinon'] = 1
         elif i == "DAI":
-            dis_list['Daimoinon'] = 2
+            discipline_list['Daimoinon'] = 2
         elif i == "dom":
-            dis_list['Dominate'] = 1
+            discipline_list['Dominate'] = 1
         elif i == "DOM":
-            dis_list['Dominate'] = 2
+            discipline_list['Dominate'] = 2
         elif i == "for":
-            dis_list['Fortitude'] = 1
+            discipline_list['Fortitude'] = 1
         elif i == "FOR":
-            dis_list['Fortitude'] = 2
+            discipline_list['Fortitude'] = 2
         elif i == "dem":
-            dis_list['Dementation'] = 1
+            discipline_list['Dementation'] = 1
         elif i == "DEM":
-            dis_list['Dementation'] = 2
+            discipline_list['Dementation'] = 2
         elif i == "mel":
-            dis_list['Melpominee'] = 1
+            discipline_list['Melpominee'] = 1
         elif i == "MEL":
-            dis_list['Melpominee'] = 2
+            discipline_list['Melpominee'] = 2
         elif i == "myt":
-            dis_list['Mytherceria'] = 1
+            discipline_list['Mytherceria'] = 1
         elif i == "MYT":
-            dis_list['Mytherceria'] = 2
+            discipline_list['Mytherceria'] = 2
         elif i == "nec":
-            dis_list['Necromancy'] = 1
+            discipline_list['Necromancy'] = 1
         elif i == "NEC":
-            dis_list['Necromancy'] = 2
+            discipline_list['Necromancy'] = 2
         elif i == "obe":
-            dis_list['Obeah'] = 1
+            discipline_list['Obeah'] = 1
         elif i == "OBE":
-            dis_list['Obeah'] = 2
+            discipline_list['Obeah'] = 2
         elif i == "obf":
-            dis_list['Obfuscate'] = 1
+            discipline_list['Obfuscate'] = 1
         elif i == "OBF":
-            dis_list['Obfuscate'] = 2
+            discipline_list['Obfuscate'] = 2
         elif i == "obt":
-            dis_list['Obtenebration'] = 1
+            discipline_list['Obtenebration'] = 1
         elif i == "OBT":
-            dis_list['Obtenebration'] = 2
+            discipline_list['Obtenebration'] = 2
         elif i == "pot":
-            dis_list['Potence'] = 1
+            discipline_list['Potence'] = 1
         elif i == "POT":
-            dis_list['Potence'] = 2
+            discipline_list['Potence'] = 2
         elif i == "pre":
-            dis_list['Presence'] = 1
+            discipline_list['Presence'] = 1
         elif i == "PRE":
-            dis_list['Presence'] = 2
+            discipline_list['Presence'] = 2
         elif i == "pro":
-            dis_list['Protean'] = 1
+            discipline_list['Protean'] = 1
         elif i == "PRO":
-            dis_list['Protean'] = 2
+            discipline_list['Protean'] = 2
         elif i == "ser":
-            dis_list['Serpentis'] = 1
+            discipline_list['Serpentis'] = 1
         elif i == "SER":
-            dis_list['Serpentis'] = 2
+            discipline_list['Serpentis'] = 2
         elif i == "san":
-            dis_list['Sanguinus'] = 1
+            discipline_list['Sanguinus'] = 1
         elif i == "SAN":
-            dis_list['Sanguinus'] = 2
+            discipline_list['Sanguinus'] = 2
         elif i == "spi":
-            dis_list['Spiritus'] = 1
+            discipline_list['Spiritus'] = 1
         elif i == "SPI":
-            dis_list['Spiritus'] = 2
+            discipline_list['Spiritus'] = 2
         elif i == "tem":
-            dis_list['Temporis'] = 1
+            discipline_list['Temporis'] = 1
         elif i == "TEM":
-            dis_list['Temporis'] = 2
+            discipline_list['Temporis'] = 2
         elif i == "thn":
-            dis_list['Thanatosis'] = 1
+            discipline_list['Thanatosis'] = 1
         elif i == "THN":
-            dis_list['Thanatosis'] = 2
+            discipline_list['Thanatosis'] = 2
         elif i == "tha":
-            dis_list['Thaumaturgy'] = 1
+            discipline_list['Thaumaturgy'] = 1
         elif i == "THA":
-            dis_list['Thaumaturgy'] = 2
+            discipline_list['Thaumaturgy'] = 2
         elif i == "qui":
-            dis_list['Quietus'] = 1
+            discipline_list['Quietus'] = 1
         elif i == "QUI":
-            dis_list['Quietus'] = 2
+            discipline_list['Quietus'] = 2
         elif i == "val":
-            dis_list['Valeren'] = 1
+            discipline_list['Valeren'] = 1
         elif i == "VAL":
-            dis_list['Valeren'] = 2
+            discipline_list['Valeren'] = 2
         elif i == "vic":
-            dis_list['Vicissitude'] = 1
+            discipline_list['Vicissitude'] = 1
         elif i == "VIC":
-            dis_list['Vicissitude'] = 2
+            discipline_list['Vicissitude'] = 2
         elif i == "vis":
-            dis_list['Visceratika'] = 1
+            discipline_list['Visceratika'] = 1
         elif i == "VIS":
-            dis_list['Visceratika'] = 2
+            discipline_list['Visceratika'] = 2
         # TODO IMBUED SEARCH BY DIS
         # elif i == "def":
-        #     dis_list.append('Defence')
+        #     discipline_list.append('Defence')
         # elif i == "inn":
-        #     dis_list.append('Innocence')
+        #     discipline_list.append('Innocence')
         # elif i == "jud":
-        #     dis_list.append('Judgement')
+        #     discipline_list.append('Judgement')
         # elif i == "Mar":
-        #     dis_list.append('Martyrdom')
+        #     discipline_list.append('Martyrdom')
         # elif i == "red":
-        #     dis_list.append('Redemption')
+        #     discipline_list.append('Redemption')
         # elif i == "ven":
-        #     dis_list.append('Vengeance')
+        #     discipline_list.append('Vengeance')
         # elif i == "visi":
-        #     dis_list.append('Vision')
-    return dis_list
+        #     discipline_list.append('Vision')
+    return discipline_list
 
 
 def get_overall_crypt(card_lists):
@@ -153,6 +151,23 @@ def get_overall_crypt(card_lists):
     return match_list
 
 
+# Disciplines by text
+# def get_crypt_by_discipline(discipline_input):
+#     discipline_list = parse_discipline_list(discipline_input)
+#     discipline_counter = len(discipline_list)
+#     match_cards = []
+#     for card in crypt:
+#         counter = 0
+#         for k, v in discipline_list.items():
+#             if k in card:
+#                 if card[k] >= v:
+#                     counter += 1
+#         if discipline_counter == counter:
+#             match_cards.append(card)
+#     return match_cards
+
+
+# Disciplines by checkboxes
 def get_crypt_by_discipline(discipline_input):
     discipline_list = parse_discipline_list(discipline_input)
     discipline_counter = len(discipline_list)
