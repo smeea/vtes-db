@@ -1,9 +1,12 @@
 <!doctype html>
-<script src="{{ url_for('static', filename ='js/buttons.js') }}"></script>
-<script src="{{ url_for('static', filename ='js/cards_actions.js') }}"></script>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+    </head>
+
 <title>VTES DB - {% block title %}{% endblock %}</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
 <nav>
     <h1>{% block page %}{% endblock%}</h1>
     <ul>
@@ -13,23 +16,31 @@
     </ul>
 </nav>
 
-<section class="content">
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            {% for message in messages %}
-                <b>{{ message }}</b>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
 
-    {% block index %}{% endblock %}
-    {% block search %}{% endblock %}
-    <!-- {% block debug %}{% endblock %} -->
-    {% block results %}{% endblock %}
-</section>
+<div class="flex-container">
+    <div style="width: 430px;">
+    </div>
+    <div style="width: 800px;">
+        <section class="content">
+            {% block index %}{% endblock %}
+        {% block results %}{% endblock %}
+        </section>
+    </div>
+        <div style="width: 500px;">
+        <section class="content">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <b>{{ message }}</b>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        {% block search %}{% endblock %}
+        </section>
+    </div>
+</div>
 
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
-<script>
- const observer = lozad();
- observer.observe();
-</script>
+<script src="{{ url_for('static', filename ='js/buttons.js') }}"></script>
+<script src="{{ url_for('static', filename ='js/cards_actions.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
+<script>const observer = lozad(); observer.observe()</script>

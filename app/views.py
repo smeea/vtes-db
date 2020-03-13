@@ -49,34 +49,34 @@ def crypt():
 
     cryptform = CryptForm(request.form)
 
-    cryptform.disciplines.choices = [('abo', 'abo'), ('ABO', 'ABO'),
-                                     ('ani', 'ani'), ('ANI', 'ANI'),
-                                     ('aus', 'aus'), ('AUS', 'AUS'),
-                                     ('cel', 'cel'), ('CEL', 'CEL'),
-                                     ('chi', 'chi'), ('CHI', 'CHI'),
-                                     ('dai', 'dai'), ('DAI', 'DAI'),
-                                     ('dom', 'dom'), ('DOM', 'DOM'),
-                                     ('for', 'for'), ('FOR', 'FOR'),
-                                     ('dem', 'dem'), ('DEM', 'DEM'),
-                                     ('mel', 'mel'), ('MEL', 'MEL'),
-                                     ('myt', 'myt'), ('MYT', 'MYT'),
-                                     ('nec', 'nec'), ('NEC', 'NEC'),
-                                     ('obe', 'obe'), ('OBE', 'OBE'),
-                                     ('obf', 'obf'), ('OBF', 'OBF'),
-                                     ('obt', 'obt'), ('OBT', 'OBT'),
-                                     ('pot', 'pot'), ('POT', 'POT'),
-                                     ('pre', 'pre'), ('PRE', 'PRE'),
-                                     ('pro', 'pro'), ('PRO', 'PRO'),
-                                     ('ser', 'ser'), ('SER', 'SER'),
-                                     ('san', 'san'), ('SAN', 'SAN'),
-                                     ('spi', 'spi'), ('SPI', 'SPI'),
-                                     ('tem', 'tem'), ('TEM', 'TEM'),
-                                     ('thn', 'thn'), ('THN', 'THN'),
-                                     ('tha', 'tha'), ('THA', 'THA'),
-                                     ('qui', 'qui'), ('QUI', 'QUI'),
-                                     ('val', 'val'), ('VAL', 'VAL'),
-                                     ('vic', 'vic'), ('VIC', 'VIC'),
-                                     ('vis', 'vis'), ('VIS', 'VIS')]
+    cryptform.disciplines.choices = [('abo', 'abo'), ('ABO', 'abos'),
+                                     ('ani', 'ani'), ('ANI', 'anis'),
+                                     ('aus', 'aus'), ('AUS', 'auss'),
+                                     ('cel', 'cel'), ('CEL', 'cels'),
+                                     ('chi', 'chi'), ('CHI', 'chis'),
+                                     ('dai', 'dai'), ('DAI', 'dais'),
+                                     ('dom', 'dom'), ('DOM', 'doms'),
+                                     ('for', 'for'), ('FOR', 'fors'),
+                                     ('dem', 'dem'), ('DEM', 'dems'),
+                                     ('mel', 'mel'), ('MEL', 'mels'),
+                                     ('myt', 'myt'), ('MYT', 'myts'),
+                                     ('nec', 'nec'), ('NEC', 'necs'),
+                                     ('obe', 'obe'), ('OBE', 'obes'),
+                                     ('obf', 'obf'), ('OBF', 'obfs'),
+                                     ('obt', 'obt'), ('OBT', 'obts'),
+                                     ('pot', 'pot'), ('POT', 'pots'),
+                                     ('pre', 'pre'), ('PRE', 'pres'),
+                                     ('pro', 'pro'), ('PRO', 'pros'),
+                                     ('ser', 'ser'), ('SER', 'sers'),
+                                     ('san', 'san'), ('SAN', 'sans'),
+                                     ('spi', 'spi'), ('SPI', 'spis'),
+                                     ('tem', 'tem'), ('TEM', 'tems'),
+                                     ('thn', 'thn'), ('THN', 'thns'),
+                                     ('tha', 'tha'), ('THA', 'thas'),
+                                     ('qui', 'qui'), ('QUI', 'quis'),
+                                     ('val', 'val'), ('VAL', 'vals'),
+                                     ('vic', 'vic'), ('VIC', 'vics'),
+                                     ('vis', 'vis'), ('VIS', 'viss')]
 
     cryptform.titles.choices = [
         # ('kholo', 'Kholo'),
@@ -242,12 +242,10 @@ def crypt():
             else:
                 flash('NO CARDS FOUND. WHY SO GREEDY? :(')
 
-    return render_template(
-        'crypt.html',
-        form=cryptform,
-        cards=parsed_crypt_cards,
-        # debug=,
-        total=total)
+    return render_template('crypt.html',
+                           form=cryptform,
+                           cards=parsed_crypt_cards,
+                           total=total)
 
 
 @search.route('/library', methods=('GET', 'POST'))
@@ -501,9 +499,7 @@ def library():
             else:
                 flash('NO CARDS FOUND. WHY SO GREEDY? :(')
 
-    return render_template(
-        'library.html',
-        form=libraryform,
-        cards=parsed_library_cards,
-        # debug=,
-        total=total)
+    return render_template('library.html',
+                           form=libraryform,
+                           cards=parsed_library_cards,
+                           total=total)

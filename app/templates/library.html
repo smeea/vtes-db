@@ -13,6 +13,7 @@ Library
     <form action="" method="post" novalidate>
         <b> NAME / TEXT: </b>
         {{ form.cardtext() }}
+        {{ form.submit() }}
         <b> CARD TYPE: </b>
         {{ form.cardtype() }}
         <b> DISCIPLINE: </b>
@@ -32,23 +33,16 @@ Library
         <b> TEXT TRAITS: </b>
         {{ form.trait() }}
 
-        {{ form.submit() }}
     </form>
 {% endblock %}
-
-{% if debug %}
-    {% block debug %}
-        <div class="total"><b>DEBUG: {{ debug }}</b></div>
-    {% endblock %}
-{% endif %}
 
 {% block results %}
 
     {% if total %}
 
-        <div id="total" class="total"><b>TOTAL: {{ total.pop(0) }}
+        <div id="total" class="total"><b>TOTAL: {{ total.pop(0) }} &nbsp;
             {% for type in total %}
-                <img src="static/img/types/{{ type[0] }}.gif" height="26" alt="{{ type[0] }}">{{type[1]}}
+                <img src="static/img/types/{{ type[0] }}.gif" height="26" alt="{{ type[0] }}">{{type[1]}} &nbsp;
             {% endfor %}
         </b></div>
         <input type="button" value="Show Text" onclick="showAll()" />
@@ -115,5 +109,5 @@ Library
         <div class="cardimage" id="3{{ card['Id'] }}" style="display:none;"><img class="lozad" data-src="{{ 'static/img/cards/' + card['URL Name'] + '.jpg' }}" height="500"></div>
     </div>
     {% endfor %}
-    <script>document.getElementById('total').scrollIntoView();</script>
+    <!-- <script>document.getElementById('total').scrollIntoView();</script> -->
 {% endblock %}

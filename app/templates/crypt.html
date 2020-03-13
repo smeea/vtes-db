@@ -1,5 +1,6 @@
 <!doctype html>
 {% extends 'base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
 
 {% block title %}
     Crypt
@@ -9,46 +10,13 @@
     Crypt
 {% endblock %}
 
-{% block search %}
-    <form action="" method="post" novalidate>
-        <b> NAME / TEXT: </b>
-        {{ form.cardtext() }}
-        <b> DISCIPLINES: </b>
-        {{ form.disciplines() }}
-        <b> CAPACITY: </b>
-        {{ form.capacitymoreless() }}
-        {{ form.capacity() }}
-        <b> CLAN: </b>
-        {{ form.clan() }}
-        <b> SECT: </b>
-        {{ form.sect() }}
-        <b> VOTES: </b>
-        {{ form.votes() }}
-        <b> TITLE: </b>
-        {{ form.titles() }}
-        <b> GROUP: </b>
-        {{ form.group() }}
-        <b> TEXT TRAITS: </b>
-        {{ form.trait() }}
-
-        {{ form.submit() }}
-    </form>
-{% endblock %}
-
-{% if debug %}
-    {% block debug %}
-        <div class="total"><b>DEBUG: {{ debug }}</b></div>
-    {% endblock %}
-{% endif %}
-
 {% block results %}
-
     {% if total %}
         <div id="total" class="total">
             <b>
-                TOTAL: {{ total.pop(0) }}
+                TOTAL: {{ total.pop(0) }} &nbsp;
                 {% for type in total %}
-                    G{{ type[0] }}: {{type[1] }}
+                <font color="silver">G{{ type[0] }}:</font>{{type[1] }} &nbsp;
                 {% endfor %}
             </b>
         </div>
@@ -75,7 +43,7 @@
 
             <img src="static/img/clans/{{ card['URL Clan'] }}.gif" height="26" alt="{{ card['Clan'] }}">
 
-            <b>G:{{ card['Group'] }}</b>
+            <b><font color="silver">G:</font>{{ card['Group'] }}</b>
 
             <div class="cardtext" id="2{{ card['Id'] }}" style="display:none;">
                 <b>{{ card['Card Text'].pop(0) }}</b><br>
@@ -85,5 +53,31 @@
             </div>
         </div>
     {% endfor %}
-    <script>document.getElementById('total').scrollIntoView();</script>
+        <!-- <script>document.getElementById('total').scrollIntoView();</script> -->
+{% endblock %}
+
+{% block search %}
+    <form action="" method="post" novalidate>
+        <b> NAME / TEXT: </b>
+        {{ form.cardtext() }}
+        {{ form.submit() }}
+        <b> DISCIPLINES: </b>
+        {{ form.disciplines() }}
+        <b> CAPACITY: </b>
+        {{ form.capacitymoreless() }}
+        {{ form.capacity() }}
+        <b> CLAN: </b>
+        {{ form.clan() }}
+        <b> SECT: </b>
+        {{ form.sect() }}
+        <b> VOTES: </b>
+        {{ form.votes() }}
+        <b> TITLE: </b>
+        {{ form.titles() }}
+        <b> GROUP: </b>
+        {{ form.group() }}
+        <b> TEXT TRAITS: </b>
+        {{ form.trait() }}
+
+    </form>
 {% endblock %}
