@@ -1,5 +1,5 @@
 html { font-family: sans-serif; background: #eee; padding: 1rem; }
-body { max-width: 1350px; margin: 0 auto; background: white; }
+body { max-width: 1366px; margin: 0 auto; background: white; }
 h1 { font-family: serif; color: #377ba8; margin: 1rem 0; }
 a { color: #377ba8; }
 hr { border: none; border-top: 1px solid lightgray; }
@@ -24,8 +24,7 @@ nav ul li a, nav ul li span, header .action { display: block; padding: 0.5rem; }
 .content textarea { min-height: 12em; resize: vertical; }
 input.danger { color: #cc2f2e; }
 input[type='submit'] { align-self: start; min-width: 1em; }
-input[name='disciplines'] { cursor: pointer }
 .hover_img a { position:relative; }
-.hover_img a span { position:absolute; display:none; z-index:99; transform: translate(-110%,-95%)}
+.hover_img a span { position:absolute; display:none; z-index:99; transform: translate(-105%,-95%)}
 .hover_img a:hover span { display:block; }
 .flex-container { display: flex; }

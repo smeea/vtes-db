@@ -1,6 +1,5 @@
 <!doctype html>
 {% extends 'base.html' %}
-{% import "bootstrap/wtf.html" as wtf %}
 
 {% block title %}
     Crypt
@@ -36,7 +35,7 @@
                 <a href="{{ 'static/img/cards/' + card['URL Name'] + '.jpg' }}">
                     {{ card['Name'] }}
                     <span>
-                        <img class="lozad" data-src="{{ 'static/img/cards/'+ card['URL Name'] + '.jpg' }}" alt="image" height="420" />
+                        <img class="lozad" data-src="{{ 'static/img/cards/'+ card['URL Name'] + '.jpg' }}" alt="image" height="500" />
                     </span>
                 </a>
             </span>

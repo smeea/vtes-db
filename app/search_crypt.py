@@ -151,23 +151,6 @@ def get_overall_crypt(card_lists):
     return match_list
 
 
-# Disciplines by text
-# def get_crypt_by_discipline(discipline_input):
-#     discipline_list = parse_discipline_list(discipline_input)
-#     discipline_counter = len(discipline_list)
-#     match_cards = []
-#     for card in crypt:
-#         counter = 0
-#         for k, v in discipline_list.items():
-#             if k in card:
-#                 if card[k] >= v:
-#                     counter += 1
-#         if discipline_counter == counter:
-#             match_cards.append(card)
-#     return match_cards
-
-
-# Disciplines by checkboxes
 def get_crypt_by_discipline(discipline_input):
     discipline_list = parse_discipline_list(discipline_input)
     discipline_counter = len(discipline_list)
@@ -302,9 +285,9 @@ def parse_crypt_card(cards):
         for dis in dis_list:
             if dis == dis.lower():
                 if card['Type'] == 'Imbued' and dis == 'vis':
-                    card_parsed['Discipline'].append(['visi', 25])
+                    card_parsed['Discipline'].append(['visi', 24])
                 else:
-                    card_parsed['Discipline'].append([dis, 25])
+                    card_parsed['Discipline'].append([dis, 24])
             else:
                 card_parsed['Discipline'].append([dis.lower() + 's', 27])
         if card['Adv']:

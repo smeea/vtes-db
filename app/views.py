@@ -79,11 +79,10 @@ def crypt():
                                      ('vis', 'vis'), ('VIS', 'viss')]
 
     cryptform.titles.choices = [
-        # ('kholo', 'Kholo'),
-        # ('imperator', 'Imperator'),
         ('primogen', 'Primogen'),
         ('prince', 'Prince'),
         ('justicar', 'Justicar'),
+        ('imperator', 'Imperator'),
         ('inner circle', 'Inner Circle'),
         ('bishop', 'Bishop'),
         ('archbishop', 'Archbishop'),
@@ -91,6 +90,7 @@ def crypt():
         ('cardinal', 'Cardinal'),
         ('regent', 'Regent'),
         ('magaji', 'Magaji'),
+        # ('kholo', 'Kholo'),
         ('baron', 'Baron'),
         ('1 vote', '1 vote (Independent)'),
         ('2 votes', '2 votes (Independent)')
@@ -240,7 +240,7 @@ def crypt():
                 parsed_crypt_cards = parse_crypt_card(sorted_cards)
 
             else:
-                flash('NO CARDS FOUND. WHY SO GREEDY? :(')
+                flash('NO CARDS FOUND.')
 
     return render_template('crypt.html',
                            form=cryptform,
@@ -393,9 +393,9 @@ def library():
 
     libraryform.trait.choices = [
         ('\-[0-9]+ stealth(?! \(d\))(?! \w)(?! action)|\+[0-9]+ intercept',
-         '+Intercept / -Stealth'),
+         '+Intercept / -St'),
         ('\+[0-9]+ stealth(?! \(d\))(?! \w)(?! action)|\-[0-9]+ intercept',
-         '+Stealth / -Intercept'),
+         '+Stealth / -Int'),
         ('\+[0-9]+ bleed', '+Bleed'),
         ('\+[0-9]+ strength', '+Strength'),
         ('dodge', 'Dodge'),
@@ -497,7 +497,7 @@ def library():
                 parsed_library_cards = parse_library_card(sorted_cards)
 
             else:
-                flash('NO CARDS FOUND. WHY SO GREEDY? :(')
+                flash('NO CARDS FOUND.')
 
     return render_template('library.html',
                            form=libraryform,
