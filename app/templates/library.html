@@ -9,6 +9,116 @@ Library
 Library
 {% endblock %}
 
+{% block results %}
+{% if total %}
+<div id="total" class="total"><b>
+    TOTAL: {{ total.pop(0) }} &nbsp;
+    {% for type in total %}
+    <img src="static/img/types/{{ type[0] }}.gif" height="26" alt="{{ type[0] }}">{{type[1]}} &nbsp;
+    {% endfor %}
+</b></div>
+<input type="button" value="Show Text" onclick="showAll()" />
+{% endif %}
+
+<table width="100%">
+    {% for card in cards %}
+    <tr>
+        <td width="5%">
+            <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
+                {% if card['Pool Cost'] %}
+                <img src="static/img/misc/pool{{ card['Pool Cost'] }}.png" height="36" alt="{{ card['Pool Cost'] }}">
+                {% elif card['Blood Cost'] %}
+                <img src="static/img/misc/blood{{ card['Blood Cost'] }}.png" height="36" alt="{{ card['Blood Cost'] }}">
+                {% else %}
+                &nbsp;
+                {% endif %}
+            </div>
+        </td>
+        <td width="12%">
+            <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
+                {% for type in card['URL Type'] %}
+                <img src="static/img/types/{{ type }}.gif" height="26" alt="{{ card['Type'] }}">
+                {% endfor %}
+            </div>
+        </td>
+        <td width="13%">
+            <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
+                {% if card['URL Discipline'] %}
+                {% for discipline in card['URL Discipline'] %}
+                <img src="static/img/disciplines/{{ discipline }}.gif" height="24" alt="{{ discipline }}" />
+                {% endfor %}
+                {% else %}
+                &nbsp;
+                {% endif %}
+            </div>
+        </td>
+        <td width="10%" align="center">
+            <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
+                {% if card['URL Clan'] %}
+                {% for clan in card['URL Clan'] %}
+                <img src="static/img/clans/{{ clan }}.gif" height="26" alt="{{ clan }}">
+                {% endfor %}
+                {% else %}
+                &nbsp;
+                {% endif %}
+            </div>
+        </td>
+        <td width="59%">
+            <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
+                <span class="hover_l_img">
+                    <a href="{{ 'static/img/cards/' + card['URL Name'] + '.jpg' }}">
+                        {{ card['Name'] }}
+                        <span>
+                            <img class="lozad" data-src="{{ 'static/img/cards/'+ card['URL Name'] + '.jpg' }}" alt="" height="400" />
+                        </span>
+                    </a>
+                </span>
+            </div>
+        </td>
+        <!-- <td width="11%">
+             <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
+             {% if card['Life'] %}
+             <img src="static/img/misc/life{{ card['Life'] }}.png" height="22" alt="{{ card['Life'] }}">
+             {% else %}
+             &nbsp;
+             {% endif %}
+             {% if card['Strength'] %}
+             <img src="static/img/misc/str{{ card['Strength'] }}.png" height="22" alt="{{ card['Strength'] }}">
+             {% endif %}
+             </div>
+             </td> -->
+    </tr>
+    <tr>
+        <td style="border-bottom: thin dashed; border-color: gray">
+        </td>
+        <td style="border-bottom: thin dashed; border-color: gray">
+        </td>
+        <td style="border-bottom: thin dashed; border-color: gray">
+        </td>
+        <td style="border-bottom: thin dashed; border-color: gray">
+        </td>
+        <td colspan="2" style="border-bottom: thin dashed; border-color: gray">
+            <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
+                <div class="cardtext" id="2{{ card['Id'] }}" style="display:none;">
+                    {% if card['Card Title Text'] %}
+                    <b>{{ card['Card Title Text'] }}</b><br>
+                    {% endif %}
+                    {% for i in card['Card Other Text'] %}
+                    {{ i }}<br>
+                    {% endfor %}
+                    {% if card['Card Middle Text'] %}
+                    {% for i in card['Card Middle Text'] %}
+                    <b>{{ i[0] }}</b> {{ i[1] }}<br>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
+
 {% block search %}
 <form action="" method="post" novalidate>
     <b> NAME / TEXT: </b>
@@ -33,115 +143,5 @@ Library
     {{ form.pool() }}
     <b> TEXT TRAITS: </b>
     {{ form.trait() }}
-
 </form>
-{% endblock %}
-
-{% block results %}
-
-{% if total %}
-
-<div id="total" class="total"><b>TOTAL: {{ total.pop(0) }} &nbsp;
-    {% for type in total %}
-    <img src="static/img/types/{{ type[0] }}.gif" height="26" alt="{{ type[0] }}">{{type[1]}} &nbsp;
-    {% endfor %}
-</b></div>
-<input type="button" value="Show Text" onclick="showAll()" />
-{% endif %}
-
-<table width="100%">
-    {% for card in cards %}
-    <tr>
-        <td width="11%">
-            <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
-                {% for type in card['URL Type'] %}
-                <img src="static/img/types/{{ type }}.gif" height="26" alt="{{ card['Type'] }}">
-                {% endfor %}
-            </div>
-        </td>
-        <td width="19%">
-            <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
-                {% if card['URL Discipline'] %}
-                {% for discipline in card['URL Discipline'] %}
-                <img src="static/img/disciplines/{{ discipline }}.gif" height="24" alt="{{ discipline }}" />
-                {% endfor %}
-                {% else %}
-                &nbsp;
-                {% endif %}
-            </div>
-        </td>
-        <td width="4%">
-            <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
-                {% if card['Pool Cost'] %}
-                <img src="static/img/misc/pool{{ card['Pool Cost'] }}.png" height="36" alt="{{ card['Pool Cost'] }}">
-                {% elif card['Blood Cost'] %}
-                <img src="static/img/misc/blood{{ card['Blood Cost'] }}.png" height="36" alt="{{ card['Blood Cost'] }}">
-                {% else %}
-                &nbsp;
-                {% endif %}
-            </div>
-        </td>
-        <td align="center" width="10%">
-            <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
-                {% if card['URL Clan'] %}
-                {% for clan in card['URL Clan'] %}
-                <img src="static/img/clans/{{ clan }}.gif" height="26" alt="{{ clan }}">
-                {% endfor %}
-                {% else %}
-                &nbsp;
-                {% endif %}
-            </div>
-        </td>
-        <td width="11%">
-            <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
-                {% if card['Life'] %}
-                <img src="static/img/misc/life{{ card['Life'] }}.png" height="22" alt="{{ card['Life'] }}">
-                {% else %}
-                &nbsp;
-                {% endif %}
-                {% if card['Strength'] %}
-                <img src="static/img/misc/str{{ card['Strength'] }}.png" height="22" alt="{{ card['Strength'] }}">
-                {% endif %}
-            </div>
-        </td>
-        <td width="45%">
-            <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
-                <span class="hover_l_img">
-                    <a href="{{ 'static/img/cards/' + card['URL Name'] + '.jpg' }}">
-                        {{ card['Name'] }}
-                        <span>
-                            <img class="lozad" data-src="{{ 'static/img/cards/'+ card['URL Name'] + '.jpg' }}" alt="" height="400" />
-                        </span>
-                    </a>
-                </span>
-            </div>
-        </td>
-    </tr>
-    <tr>
-        <td style="border-bottom: thin dashed; border-color: gray">
-        </td>
-        <td style="border-bottom: thin dashed; border-color: gray">
-        </td>
-        <td style="border-bottom: thin dashed; border-color: gray">
-        </td>
-        <td colspan="3" style="border-bottom: thin dashed; border-color: gray">
-            <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
-                <div class="cardtext" id="2{{ card['Id'] }}" style="display:none;">
-                    {% if card['Card Title Text'] %}
-                    <b>{{ card['Card Title Text'] }}</b><br>
-                    {% endif %}
-                    {% for i in card['Card Other Text'] %}
-                    {{ i }}<br>
-                    {% endfor %}
-                    {% if card['Card Middle Text'] %}
-                    {% for i in card['Card Middle Text'] %}
-                    <b>{{ i[0] }}</b> {{ i[1] }}<br>
-                    {% endfor %}
-                    {% endif %}
-                </div>
-            </div>
-        </td>
-    </tr>
-{% endfor %}
-</table>
 {% endblock %}

@@ -11,15 +11,12 @@ Crypt
 
 {% block results %}
 {% if total %}
-<div id="total" class="total">
-    <b>
-        TOTAL: {{ total.pop(0) }} &nbsp;
-        {% for type in total %}
-        <font color="silver">G{{ type[0] }}:</font>{{type[1] }} &nbsp;
-        {% endfor %}
-    </b>
-</div>
-
+<div id="total" class="total"><b>
+    TOTAL: {{ total.pop(0) }} &nbsp;
+    {% for type in total %}
+    <font color="silver">G{{ type[0] }}:</font>{{type[1] }} &nbsp;
+    {% endfor %}
+</b></div>
 <input type="button" value="Show Text" onclick="showAll()" />
 {% endif %}
 
@@ -35,7 +32,7 @@ Crypt
             <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
                 {% for dis in card['Discipline'] %}
                 {% if dis[0] != '-none-' %}
-                    <img src="static/img/disciplines/{{ dis[0] }}.gif" height="{{ dis[1] }}" alt="{{ dis }}" />
+                <img src="static/img/disciplines/{{ dis[0] }}.gif" height="{{ dis[1] }}" alt="{{ dis }}" />
                 {% endif %}
                 {% endfor %}
             </div>
@@ -79,7 +76,7 @@ Crypt
             </div>
         </td>
     </tr>
-{% endfor %}
+    {% endfor %}
 </table>
 {% endblock %}
 
@@ -106,6 +103,5 @@ Crypt
     {{ form.group() }}
     <b> TEXT TRAITS: </b>
     {{ form.trait() }}
-
 </form>
 {% endblock %}

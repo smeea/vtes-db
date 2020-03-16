@@ -30,7 +30,7 @@ input.danger { color: #cc2f2e; }
 .hover_c_img a span { position:absolute; display:none; z-index:99; transform: translate(-200%,-93%)}
 .hover_c_img a:hover span { display:block; }
 .hover_l_img a { position:relative; }
-.hover_l_img a span { position:absolute; display:none; z-index:99; transform: translate(-225%,-93%)}
+.hover_l_img a span { position:absolute; display:none; z-index:99; transform: translate(-194%,-93%)}
 .hover_l_img a:hover span { display:block; }
 .flex-container { display: flex; }
 .cardtext {font-size: small}

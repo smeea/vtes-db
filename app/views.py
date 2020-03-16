@@ -488,8 +488,9 @@ def library():
                 total = print_library_total(cards)
 
                 # Sort card by discipline, clan, name
-                sorted_cards = sorted(sorted(sorted(cards,
-                                                    key=lambda x: x['Name']),
+                sorted_cards = sorted(sorted(sorted(sorted(
+                    cards, key=lambda x: x['Name']),
+                                                    key=lambda x: x['Type']),
                                              key=lambda x: x['Clan']),
                                       key=lambda x: x['Discipline'])
 
