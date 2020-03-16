@@ -23,36 +23,63 @@
         <input type="button" value="Show Text" onclick="showAll()" />
     {% endif %}
 
-    {% for card in cards %}
-        <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
-            <img src="static/img/misc/cap{{ card['Capacity'] }}.png" height="26" alt="{{ card['Capacity'] }}">
-
-            {% for dis in card['Discipline'] %}
-                <img src="static/img/disciplines/{{ dis[0] }}.gif" height="{{ dis[1] }}" alt="{{ dis }}" />
-            {% endfor %}
-
-            <span class="hover_img">
-                <a href="{{ 'static/img/cards/' + card['URL Name'] + '.jpg' }}">
-                    {{ card['Name'] }}
-                    <span>
-                        <img class="lozad" data-src="{{ 'static/img/cards/'+ card['URL Name'] + '.jpg' }}" alt="image" height="500" />
-                    </span>
-                </a>
-            </span>
-
-            <img src="static/img/clans/{{ card['URL Clan'] }}.gif" height="26" alt="{{ card['Clan'] }}">
-
-            <b><font color="silver">G:</font>{{ card['Group'] }}</b>
-
-            <div class="cardtext" id="2{{ card['Id'] }}" style="display:none;">
-                <b>{{ card['Card Text'].pop(0) }}</b><br>
-                {% for i in card['Card Text'] %}
-                    {{ i }}<br>
-                {% endfor %}
+        <table width="100%">
+        {% for card in cards %}
+        <tr>
+            <td width="6%">
+                <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
+                    <img src="static/img/misc/cap{{ card['Capacity'] }}.png" height="23" alt="{{ card['Capacity'] }}">
             </div>
+            </td>
+            <td width="38%">
+                <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
+                {% for dis in card['Discipline'] %}
+                    <img src="static/img/disciplines/{{ dis[0] }}.gif" height="{{ dis[1] }}" alt="{{ dis }}" />
+                {% endfor %}
+                </div>
+            </td>
+                <td width="40%">
+                    <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
+                <span class="hover_img">
+                    <a href="{{ 'static/img/cards/' + card['URL Name'] + '.jpg' }}">
+                        {{ card['Name'] }}
+                        <span>
+                            <img class="lozad" data-src="{{ 'static/img/cards/'+ card['URL Name'] + '.jpg' }}" alt="image" height="400" />
+                        </span>
+                    </a>
+                </span>
+                </div>
+            </td>
+            <td width="9%" align="center">
+                <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
+                <img src="static/img/clans/{{ card['URL Clan'] }}.gif" height="26" alt="{{ card['Clan'] }}">
         </div>
-    {% endfor %}
-        <!-- <script>document.getElementById('total').scrollIntoView();</script> -->
+            </td>
+            <td width="7%">
+                <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
+                <b><font color="silver">G:</font>{{ card['Group'] }}</b>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="border-bottom: thin dashed; border-color: gray">
+            </td>
+            <td style="border-bottom: thin dashed; border-color: gray">
+            </td>
+            <td colspan="3" style="border-bottom: thin dashed; border-color: gray">
+                <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
+                <div class="cardtext" id="2{{ card['Id'] }}" style="display:none;">
+                    <b>{{ card['Card Text'].pop(0) }}</b><br>
+                    {% for i in card['Card Text'] %}
+                    {{ i }}<br>
+                    {% endfor %}
+                </div>
+            </td>
+                </div>
+        </tr>
+        </div>
+        {% endfor %}
+        </table>
 {% endblock %}
 
 {% block search %}

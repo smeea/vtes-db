@@ -90,10 +90,10 @@ def crypt():
         ('cardinal', 'Cardinal'),
         ('regent', 'Regent'),
         ('magaji', 'Magaji'),
-        # ('kholo', 'Kholo'),
         ('baron', 'Baron'),
         ('1 vote', '1 vote (Independent)'),
-        ('2 votes', '2 votes (Independent)')
+        ('2 votes', '2 votes (Independent)'),
+        ('3 votes', '3 votes (Independent)'),
     ]
 
     cryptform.trait.choices = [('[:.] \+1 intercept.', '+1 intercept'),
@@ -135,7 +135,7 @@ def crypt():
         ('Kiasyd', 'Kiasyd'), ('Lasombra', 'Lasombra'),
         ('Malkavian', 'Malkavian'),
         ('Malkavian antitribu', 'Malkavian Antitribu'), ('Martyr', 'Martyr'),
-        ('Nagaraja', 'Nagaraj'), ('Nosferatu', 'Nosferatu'),
+        ('Nagaraja', 'Nagaraja'), ('Nosferatu', 'Nosferatu'),
         ('Nosferatu antitribu', 'Nosferatu Antitribu'), ('Osebo', 'Osebo'),
         ('Pander', 'Pander'), ('Ravnos', 'Ravnos'), ('Redeemer', 'Redeemer'),
         ('Salubri', 'Salubri'), ('Salubri antitribu', 'Salubri Antitribu'),
@@ -259,12 +259,11 @@ def library():
 
     libraryform = LibraryForm(request.form)
     libraryform.title.choices = [
-        # ('kholo', 'Kholo'),
-        # ('imperator', 'Imperator'),
         ('ANY', 'ANY'),
         ('primogen', 'Primogen'),
         ('prince', 'Prince'),
         ('justicar', 'Justicar'),
+        ('imperator', 'Imperator'),
         ('inner circle', 'Inner Circle'),
         ('bishop', 'Bishop'),
         ('archbishop', 'Archbishop'),
@@ -274,7 +273,8 @@ def library():
         ('magaji', 'Magaji'),
         ('baron', 'Baron'),
         ('1 vote', '1 vote (Independent)'),
-        ('2 votes', '2 votes (Independent)')
+        ('2 votes', '2 votes (Independent)'),
+        ('3 votes', '3 votes (Independent)'),
     ]
 
     libraryform.discipline.choices = [
