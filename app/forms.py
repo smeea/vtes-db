@@ -2,8 +2,8 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 
 from wtforms import SelectMultipleField, SelectField
-from wtforms.widgets import ListWidget, CheckboxInput, TableWidget, html_params, HTMLString
-from markupsafe import Markup, escape
+from wtforms.widgets import CheckboxInput  # TableWidget, html_params, HTMLString
+from markupsafe import Markup  # escape
 import re
 # from wtforms.validators import Required
 
@@ -13,6 +13,7 @@ class DisciplineWidget(object):
         kwargs.setdefault("id", field.id)
         html = []
         i = 0
+        j = 0
         html.append('<table>')
         for subfield in field:
             d = re.match(r'<label .*>(\w+)</label>', str(subfield.label))
@@ -25,11 +26,12 @@ class DisciplineWidget(object):
                 html.append('<tr>')
             i += 1
             html.append(
-                "<td><span>%s <img src='static/img/disciplines/%s.gif' height=%s/></span></td>"
-                % (subfield(), dis, height))
+                "<td><label for='disciplines-%s'>%s<img src='static/img/disciplines/%s.gif' height=%s/></label></td>"
+                % (j, subfield(), dis, height))
             if i == 6:
                 html.append('</tr>')
                 i = 0
+            j += 1
         html.append('</table>')
         return Markup("".join(html))
 

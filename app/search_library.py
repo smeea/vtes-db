@@ -177,6 +177,10 @@ def parse_library_card(cards):
                 t = re.match(r'(Strike\:)?\s?(.*)', i)
                 card_parsed['Card Middle Text'].append(
                     [t.group(1), t.group(2)])
+            elif re.match(r'(Ranged strike\:)', i):
+                t = re.match(r'(Ranged strike\:)?\s?(.*)', i)
+                card_parsed['Card Middle Text'].append(
+                    [t.group(1), t.group(2)])
             else:
                 t = re.match(r'(.*)', i)
                 card_parsed['Card Other Text'].append(t.group(1))

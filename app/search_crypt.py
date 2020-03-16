@@ -283,6 +283,9 @@ def parse_crypt_card(cards):
         card_parsed['Title'] = card['Title']
         dis_list = card['Disciplines'].split()
         for dis in dis_list:
+            # if dis == '-none-':
+            #     card_parsed['Discipline'].append('-none-')
+            #     break
             if dis == dis.lower():
                 if card['Type'] == 'Imbued' and dis == 'vis':
                     card_parsed['Discipline'].append(['visi', 24])
