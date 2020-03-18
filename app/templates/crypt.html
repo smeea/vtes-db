@@ -2,53 +2,107 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Crypt
+Crypt
 {% endblock %}
 
 {% block page%}
-    Crypt
-{% endblock %}
-
-{% block search %}
-    <form action="" method="post" novalidate>
-        <b> DISCIPLINES: </b>
-        {{ form.disciplines() }}
-        <b> TEXT: </b>
-        {{ form.cardtext() }}
-        <b> TRAITS: </b>
-        {{ form.trait() }}
-        <b> CAPACITY: </b>
-        {{ form.capacitymoreless() }}
-        {{ form.capacity() }}
-        <b> SECT: </b>
-        {{ form.sect() }}
-        <b> VOTES: </b>
-        {{ form.votes() }}
-        <b> TITLES: </b>
-        {{ form.titles() }}
-        <b> GROUP: </b>
-        {{ form.group() }}
-        {{ form.submit() }}
-    </form>
-{% endblock %}
-
-{% block debug %}
-    <div class="total"><b>DEBUG: {{ debug }}</b></div>
+Crypt
 {% endblock %}
 
 {% block results %}
-    <div class="total"><b>TOTAL: {{ total }}</b></div>
-    <br>
+{% if total %}
+<div id="total" class="total"><b>
+    TOTAL: {{ total.pop(0) }} &nbsp;
+    {% for type in total %}
+    <font color="silver">G{{ type[0] }}:</font>{{type[1] }} &nbsp;
+    {% endfor %}
+</b></div>
+<input type="button" value="Show Text" onclick="showAll()" />
+{% endif %}
+
+<table width="100%">
     {% for card in cards %}
-    <div class="cards">
-        <img src="static/icons_misc/cap{{ card['Capacity'] }}.png" height="26" alt="{{ card['Capacity'] }}">
-        {% for dis in card['Discipline'] %}
-        <img src="static/icons_dis/{{ dis }}.gif" height="26" alt="{{ dis }}" />
-        {% endfor %}
-        <!-- TODO: Unfold card text on click + url to open card image-->
-        <a href="{{ 'static/cards/' + card['ASCII Name'] + '.jpg' }}"> {{ card['Name'] }} </a>
-        <img src="static/icons_clan/{{ card['ASCII Clan'] }}.gif" height="26" alt="{{ card['Clan'] }}">
-        <b>G:{{ card['Group'] }}</b>
-    </div>
-{% endfor %}
+    <tr>
+        <td width="6%">
+            <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
+                <img src="static/img/misc/cap{{ card['Capacity'] }}.png" height="23" alt="{{ card['Capacity'] }}">
+            </div>
+        </td>
+        <td width="38%">
+            <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
+                {% for dis in card['Discipline'] %}
+                {% if dis[0] != '-none-' %}
+                <img src="static/img/disciplines/{{ dis[0] }}.gif" height="{{ dis[1] }}" alt="{{ dis }}" />
+                {% endif %}
+                {% endfor %}
+            </div>
+        </td>
+        <td width="40%">
+            <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
+                <span class="hover_c_img">
+                    <a href="{{ 'static/img/cards/' + card['URL Name'] + '.jpg' }}">
+                        {{ card['Name'] }}
+                        <span>
+                            <img class="lozad" data-src="{{ 'static/img/cards/'+ card['URL Name'] + '.jpg' }}" alt="" height="400" />
+                        </span>
+                    </a>
+                </span>
+            </div>
+        </td>
+        <td width="9%" align="center">
+            <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
+                <img src="static/img/clans/{{ card['URL Clan'] }}.gif" height="26" alt="{{ card['Clan'] }}">
+            </div>
+        </td>
+        <td width="7%">
+            <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
+                <b><font color="silver">G:</font>{{ card['Group'] }}</b>
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td style="border-bottom: thin dashed; border-color: gray">
+        </td>
+        <td style="border-bottom: thin dashed; border-color: gray">
+        </td>
+        <td colspan="3" style="border-bottom: thin dashed; border-color: gray">
+            <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
+                <div class="cardtext" id="2{{ card['Id'] }}" style="display:none;">
+                    <b>{{ card['Card Text'].pop(0) }}</b><br>
+                    {% for i in card['Card Text'] %}
+                    {{ i }}<br>
+                    {% endfor %}
+                </div>
+            </div>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
+
+{% block search %}
+<form id="cryptsearchform" action="" method="post" novalidate>
+    <b> NAME / TEXT: </b>
+    {{ form.cardtext() }}
+    {{ form.submit() }}
+    <input type="button" value="Clear" onclick="clearCrypt()" />
+    <b> DISCIPLINES: </b>
+    {{ form.disciplines() }}
+    {{ form.virtues() }}
+    <b> CAPACITY: </b>
+    {{ form.capacitymoreless() }}
+    {{ form.capacity() }}
+    <b> CLAN: </b>
+    {{ form.clan() }}
+    <b> SECT: </b>
+    {{ form.sect() }}
+    <b> VOTES: </b>
+    {{ form.votes() }}
+    <b> TITLE: </b>
+    {{ form.titles() }}
+    <b> GROUP: </b>
+    {{ form.group() }}
+    <b> TEXT TRAITS: </b>
+    {{ form.trait() }}
+</form>
 {% endblock %}
