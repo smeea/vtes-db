@@ -1,46 +1,76 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-    </head>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!--@TODO заполни descriprion для поисковиков">-->
+    <meta name="description" content="">
+    <title>VTES DB - {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
 
-<title>VTES DB - {% block title %}{% endblock %}</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-<link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
-<nav>
-    <h1>{% block page %}{% endblock%}</h1>
-    <ul>
-            <li><a href="{{ url_for('search.index') }}">Index</a>
-            <li><a href="{{ url_for('search.crypt') }}">Crypt</a>
-            <li><a href="{{ url_for('search.library') }}">Library</a>
-    </ul>
-</nav>
+<body class="bg-light">
 
+    <nav class="navbar navbar-expand-xl navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="/">VTES database</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-<div class="flex-container">
-    <div style="width: 24%;">
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav mr-auto">
+
+                <!--@TODO если раздел текущий то <li class="nav-item active">-->
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('search.index') }}">Index</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('search.crypt') }}">Crypt</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('search.library') }}">Library</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="pt-5 mt-5 mb-2">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-xs-12 col-xl-3">
+                    </div>
+                    <div class="col-xs-12 col-xl-6">
+                        <!--<section class="content">-->
+                        {% block index %}{% endblock %}
+                        {% block results %}{% endblock %}
+                        <!--</section>-->
+                    </div>
+                    <div class="col-xs-12 col-xl-3">
+                        <!--<section class="content">-->
+                        {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                                {% for message in messages %}
+                                    <b>{{ message }}</b>
+                                {% endfor %}
+                            {% endif %}
+                        {% endwith %}
+                        {% block search %}{% endblock %}
+                        <!--</section>-->
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div style="width: 46%;">
-        <section class="content">
-        {% block index %}{% endblock %}
-        {% block results %}{% endblock %}
-        </section>
-    </div>
-        <div style="width: 30%;">
-        <section class="content">
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-                {% for message in messages %}
-                    <b>{{ message }}</b>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-        {% block search %}{% endblock %}
-        </section>
-    </div>
-</div>
 
-<script src="{{ url_for('static', filename ='js/buttons.js') }}"></script>
-<script src="{{ url_for('static', filename ='js/cards_actions.js') }}"></script>
-<script src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
-<script>const observer = lozad(); observer.observe()</script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename ='js/buttons.js') }}"></script>
+    <script src="{{ url_for('static', filename ='js/cards_actions.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lozad/dist/lozad.min.js"></script>
+    <script>const observer = lozad(); observer.observe()</script>
+</body>
+</html>
