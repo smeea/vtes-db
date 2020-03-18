@@ -121,21 +121,26 @@ def parse_discipline_list(discipline_input):
             discipline_list['Visceratika'] = 1
         elif i == "VIS":
             discipline_list['Visceratika'] = 2
-        # TODO IMBUED SEARCH BY DIS
-        # elif i == "def":
-        #     discipline_list.append('Defence')
-        # elif i == "inn":
-        #     discipline_list.append('Innocence')
-        # elif i == "jud":
-        #     discipline_list.append('Judgement')
-        # elif i == "Mar":
-        #     discipline_list.append('Martyrdom')
-        # elif i == "red":
-        #     discipline_list.append('Redemption')
-        # elif i == "ven":
-        #     discipline_list.append('Vengeance')
-        # elif i == "visi":
-        #     discipline_list.append('Vision')
+    return discipline_list
+
+
+def parse_virtue_list(virtue_input):
+    discipline_list = []
+    for i in discipline_input:
+        if i == "def":
+            discipline_list.append('def')
+        elif i == "inn":
+            discipline_list.append('inn')
+        elif i == "jud":
+            discipline_list.append('jud')
+        elif i == "Mar":
+            discipline_list.append('mar')
+        elif i == "red":
+            discipline_list.append('red')
+        elif i == "ven":
+            discipline_list.append('ven')
+        elif i == "visi":
+            discipline_list.append('vis')
     return discipline_list
 
 
@@ -162,6 +167,20 @@ def get_crypt_by_discipline(discipline_input):
                 if card[k] >= v:
                     counter += 1
         if discipline_counter == counter:
+            match_cards.append(card)
+    return match_cards
+
+
+def get_crypt_by_virtues(virtue_list):
+    match_cards = []
+    virtue_counter = len(virtue_list)
+    for card in crypt:
+        counter = 0
+        disciplines = card['Disciplines'].split()
+        for i in virtue_list:
+            if i in disciplines:
+                counter += 1
+        if virtue_counter == counter:
             match_cards.append(card)
     return match_cards
 
@@ -257,6 +276,9 @@ def get_crypt_by_clan(clan):
 def get_crypt_by_sect(sect):
     match_cards = []
     for card in crypt:
+        if sect == 'Imbued' and card['Type'] == sect:
+            match_cards.append(card)
+            continue
         if re.search(r'^{}[:. $]'.format(sect), card['Card Text']):
             match_cards.append(card)
     return match_cards
@@ -283,9 +305,6 @@ def parse_crypt_card(cards):
         card_parsed['Title'] = card['Title']
         dis_list = card['Disciplines'].split()
         for dis in dis_list:
-            # if dis == '-none-':
-            #     card_parsed['Discipline'].append('-none-')
-            #     break
             if dis == dis.lower():
                 if card['Type'] == 'Imbued' and dis == 'vis':
                     card_parsed['Discipline'].append(['visi', 24])

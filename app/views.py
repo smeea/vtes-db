@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, flash
 from app.search_crypt import get_crypt_by_cardtext
 from app.search_crypt import get_crypt_by_trait
 from app.search_crypt import get_crypt_by_discipline
+from app.search_crypt import get_crypt_by_virtues
 from app.search_crypt import get_crypt_by_title
 from app.search_crypt import get_crypt_by_votes
 from app.search_crypt import get_crypt_by_capacity
@@ -39,6 +40,7 @@ def crypt():
 
     titles = []
     disciplines = []
+    virtues = []
     capacity = []
     group = []
     trait = []
@@ -78,6 +80,16 @@ def crypt():
                                      ('vic', 'vic'), ('VIC', 'vics'),
                                      ('vis', 'vis'), ('VIS', 'viss')]
 
+    cryptform.virtues.choices = [
+        ('ven', 'ven'),
+        ('def', 'def'),
+        ('inn', 'inn'),
+        ('jud', 'jud'),
+        ('mar', 'mar'),
+        ('red', 'red'),
+        ('visi', 'visi'),
+    ]
+
     cryptform.titles.choices = [
         ('primogen', 'Primogen'),
         ('prince', 'Prince'),
@@ -115,36 +127,65 @@ def crypt():
     cryptform.votes.choices = [('ANY', 'ANY'), ('0', '0'), ('1', '1+'),
                                ('2', '2+'), ('3', '3+'), ('4', '4+')]
 
-    cryptform.sect.choices = [('ANY', 'ANY'), ('Camarilla', 'Camarilla'),
-                              ('Sabbat', 'Sabbat'), ('Laibon', 'Laibon'),
-                              ('Independent', 'Independent'),
-                              ('Anarch', 'Anarch')]
+    cryptform.sect.choices = [
+        ('ANY', 'ANY'),
+        ('Camarilla', 'Camarilla'),
+        ('Sabbat', 'Sabbat'),
+        ('Laibon', 'Laibon'),
+        ('Independent', 'Independent'),
+        ('Anarch', 'Anarch'),
+        ('Imbued', 'Imbued'),
+    ]
 
     cryptform.clan.choices = [
-        ('ANY', 'ANY'), ('Abomination', 'Abomination'),
-        ('Ahrimane', 'Ahrimane'), ('Akunanse', 'Akunanse'),
-        ('Assamite', 'Assamite'), ('Avenger', 'Avenger'), ('Baali', 'Baali'),
-        ('Blood Brother', 'Blood Brother'), ('Brujah', 'Brujah'),
-        ('Brujah antitribu', 'Brujah Antitribu'), ('Caitiff', 'Caitiff'),
+        ('ANY', 'ANY'),
+        ('Abomination', 'Abomination'),
+        ('Ahrimane', 'Ahrimane'),
+        ('Akunanse', 'Akunanse'),
+        ('Assamite', 'Assamite'),
+        ('Baali', 'Baali'),
+        ('Blood Brother', 'Blood Brother'),
+        ('Brujah', 'Brujah'),
+        ('Brujah antitribu', 'Brujah Antitribu'),
+        ('Caitiff', 'Caitiff'),
         ('Daughter of Cacophony', 'Daughter Of Cacophony'),
-        ('Defender', 'Defender'), ('Follower Of Set', 'Follower Of Set'),
-        ('Gangrel', 'Gangrel'), ('Gangrel antitribu', 'Gangrel Antitribu'),
-        ('Gargoyle', 'Gargoyle'), ('Giovanni', 'Giovanni'),
-        ('Guruhi', 'Guruhi'), ('Harbinger Of Skulls', 'Harbinger Of Skulls'),
-        ('Innocent', 'Innocent'), ('Ishtarri', 'Ishtarri'), ('Judge', 'Judge'),
-        ('Kiasyd', 'Kiasyd'), ('Lasombra', 'Lasombra'),
+        ('Follower Of Set', 'Follower Of Set'),
+        ('Gangrel', 'Gangrel'),
+        ('Gangrel antitribu', 'Gangrel Antitribu'),
+        ('Gargoyle', 'Gargoyle'),
+        ('Giovanni', 'Giovanni'),
+        ('Guruhi', 'Guruhi'),
+        ('Harbinger Of Skulls', 'Harbinger Of Skulls'),
+        ('Ishtarri', 'Ishtarri'),
+        ('Kiasyd', 'Kiasyd'),
+        ('Lasombra', 'Lasombra'),
         ('Malkavian', 'Malkavian'),
-        ('Malkavian antitribu', 'Malkavian Antitribu'), ('Martyr', 'Martyr'),
-        ('Nagaraja', 'Nagaraja'), ('Nosferatu', 'Nosferatu'),
-        ('Nosferatu antitribu', 'Nosferatu Antitribu'), ('Osebo', 'Osebo'),
-        ('Pander', 'Pander'), ('Ravnos', 'Ravnos'), ('Redeemer', 'Redeemer'),
-        ('Salubri', 'Salubri'), ('Salubri antitribu', 'Salubri Antitribu'),
-        ('Samedi', 'Samedi'), ('Toreador', 'Toreador'),
-        ('Toreador antitribu', 'Toreador Antitribu'), ('Tremere', 'Tremere'),
+        ('Malkavian antitribu', 'Malkavian Antitribu'),
+        ('Nagaraja', 'Nagaraja'),
+        ('Nosferatu', 'Nosferatu'),
+        ('Nosferatu antitribu', 'Nosferatu Antitribu'),
+        ('Osebo', 'Osebo'),
+        ('Pander', 'Pander'),
+        ('Ravnos', 'Ravnos'),
+        ('Salubri', 'Salubri'),
+        ('Salubri antitribu', 'Salubri Antitribu'),
+        ('Samedi', 'Samedi'),
+        ('Toreador', 'Toreador'),
+        ('Toreador antitribu', 'Toreador Antitribu'),
+        ('Tremere', 'Tremere'),
         ('Tremere antitribu', 'Tremere Antitribu'),
-        ('True Brujah', 'True Brujah'), ('Tzimisce', 'Tzimisce'),
-        ('Ventrue', 'Ventrue'), ('Ventrue antitribu', 'Ventrue Antitribu'),
-        ('Visionary', 'Visionary')
+        ('True Brujah', 'True Brujah'),
+        ('Tzimisce', 'Tzimisce'),
+        ('Ventrue', 'Ventrue'),
+        ('Ventrue antitribu', 'Ventrue Antitribu'),
+        ('', ''),
+        ('Avenger', 'Avenger'),
+        ('Defender', 'Defender'),
+        ('Innocent', 'Innocent'),
+        ('Judge', 'Judge'),
+        ('Martyr', 'Martyr'),
+        ('Redeemer', 'Redeemer'),
+        ('Visionary', 'Visionary'),
     ]
 
     cryptform.capacitymoreless.choices = [('<=', '<='), ('>=', '>=')]
@@ -177,6 +218,13 @@ def crypt():
             parameters += 1
             cards_by_disciplines = get_crypt_by_discipline(disciplines)
             match_by_category.append(cards_by_disciplines)
+
+        # Get cards by virtues
+        virtues = cryptform.virtues.data
+        if virtues:
+            parameters += 1
+            cards_by_virtues = get_crypt_by_virtues(virtues)
+            match_by_category.append(cards_by_virtues)
 
         # Get cards by title
         titles = cryptform.titles.data
@@ -310,9 +358,10 @@ def library():
         ('Valeren', 'Valeren'),
         ('Vicissitude', 'Vicissitude'),
         ('Visceratika', 'Visceratika'),
-        ('Defence', 'Defence'),
+        ('', ''),
+        ('Defense', 'Defense'),
         ('Innocence', 'Innocence'),
-        ('Judgement', 'Judgement'),
+        ('Judgment', 'Judgment'),
         ('Martyrdom', 'Martyrdom'),
         ('Redemption', 'Redemption'),
         ('Vengeance', 'Vengeance'),
@@ -332,54 +381,66 @@ def library():
         ('Reaction', 'Reaction'),
         ('Retainer', 'Retainer'),
         # ('Reflex', 'Reflex'),
+        ('', ''),
         ('Conviction', 'Conviction'),
-        ('Power', 'Power')
+        ('Power', 'Power'),
     ]
 
     libraryform.sect.choices = [('ANY', 'ANY'), ('camarilla', 'Camarilla'),
                                 ('sabbat', 'Sabbat'), ('laibon', 'Laibon'),
                                 ('independent', 'Independent'),
-                                ('anarch', 'Anarch')]
+                                ('anarch', 'Anarch'), ('imbued', 'Imbued')]
 
-    libraryform.clan.choices = [('ANY', 'ANY'), ('Abomination', 'Abomination'),
-                                ('Ahrimane', 'Ahrimane'),
-                                ('Akunanse', 'Akunanse'),
-                                ('Assamite', 'Assamite'),
-                                ('Avenger', 'Avenger'), ('Baali', 'Baali'),
-                                ('Blood Brother', 'Blood Brother'),
-                                ('Brujah', 'Brujah'),
-                                ('Brujah antitribu', 'Brujah Antitribu'),
-                                ('Caitiff', 'Caitiff'),
-                                ('Daughter of Cacophony',
-                                 'Daughter Of Cacophony'),
-                                ('Defender', 'Defender'),
-                                ('Follower Of Set', 'Follower Of Set'),
-                                ('Gangrel', 'Gangrel'),
-                                ('Gangrel antitribu', 'Gangrel Antitribu'),
-                                ('Gargoyle', 'Gargoyle'),
-                                ('Giovanni', 'Giovanni'), ('Guruhi', 'Guruhi'),
-                                ('Harbinger Of Skulls', 'Harbinger Of Skulls'),
-                                ('Innocent', 'Innocent'),
-                                ('Ishtarri', 'Ishtarri'), ('Judge', 'Judge'),
-                                ('Kiasyd', 'Kiasyd'), ('Lasombra', 'Lasombra'),
-                                ('Malkavian', 'Malkavian'),
-                                ('Malkavian antitribu', 'Malkavian Antitribu'),
-                                ('Martyr', 'Martyr'), ('Nagaraja', 'Nagaraj'),
-                                ('Nosferatu', 'Nosferatu'),
-                                ('Nosferatu antitribu', 'Nosferatu Antitribu'),
-                                ('Osebo', 'Osebo'), ('Pander', 'Pander'),
-                                ('Ravnos', 'Ravnos'), ('Redeemer', 'Redeemer'),
-                                ('Salubri', 'Salubri'),
-                                ('Salubri antitribu', 'Salubri Antitribu'),
-                                ('Samedi', 'Samedi'), ('Toreador', 'Toreador'),
-                                ('Toreador antitribu', 'Toreador Antitribu'),
-                                ('Tremere', 'Tremere'),
-                                ('Tremere antitribu', 'Tremere Antitribu'),
-                                ('True Brujah', 'True Brujah'),
-                                ('Tzimisce', 'Tzimisce'),
-                                ('Ventrue', 'Ventrue'),
-                                ('Ventrue antitribu', 'Ventrue Antitribu'),
-                                ('Visionary', 'Visionary')]
+    libraryform.clan.choices = [
+        ('ANY', 'ANY'),
+        ('Abomination', 'Abomination'),
+        ('Ahrimane', 'Ahrimane'),
+        ('Akunanse', 'Akunanse'),
+        ('Assamite', 'Assamite'),
+        ('Baali', 'Baali'),
+        ('Blood Brother', 'Blood Brother'),
+        ('Brujah', 'Brujah'),
+        ('Brujah antitribu', 'Brujah Antitribu'),
+        ('Caitiff', 'Caitiff'),
+        ('Daughter of Cacophony', 'Daughter Of Cacophony'),
+        ('Follower Of Set', 'Follower Of Set'),
+        ('Gangrel', 'Gangrel'),
+        ('Gangrel antitribu', 'Gangrel Antitribu'),
+        ('Gargoyle', 'Gargoyle'),
+        ('Giovanni', 'Giovanni'),
+        ('Guruhi', 'Guruhi'),
+        ('Harbinger Of Skulls', 'Harbinger Of Skulls'),
+        ('Ishtarri', 'Ishtarri'),
+        ('Kiasyd', 'Kiasyd'),
+        ('Lasombra', 'Lasombra'),
+        ('Malkavian', 'Malkavian'),
+        ('Malkavian antitribu', 'Malkavian Antitribu'),
+        ('Nagaraja', 'Nagaraja'),
+        ('Nosferatu', 'Nosferatu'),
+        ('Nosferatu antitribu', 'Nosferatu Antitribu'),
+        ('Osebo', 'Osebo'),
+        ('Pander', 'Pander'),
+        ('Ravnos', 'Ravnos'),
+        ('Salubri', 'Salubri'),
+        ('Salubri antitribu', 'Salubri Antitribu'),
+        ('Samedi', 'Samedi'),
+        ('Toreador', 'Toreador'),
+        ('Toreador antitribu', 'Toreador Antitribu'),
+        ('Tremere', 'Tremere'),
+        ('Tremere antitribu', 'Tremere Antitribu'),
+        ('True Brujah', 'True Brujah'),
+        ('Tzimisce', 'Tzimisce'),
+        ('Ventrue', 'Ventrue'),
+        ('Ventrue antitribu', 'Ventrue Antitribu'),
+        ('', ''),
+        ('Avenger', 'Avenger'),
+        ('Defender', 'Defender'),
+        ('Innocent', 'Innocent'),
+        ('Judge', 'Judge'),
+        ('Martyr', 'Martyr'),
+        ('Redeemer', 'Redeemer'),
+        ('Visionary', 'Visionary'),
+    ]
 
     libraryform.bloodmoreless.choices = [('<=', '<='), ('>=', '>=')]
     libraryform.blood.choices = [('ANY', 'ANY')]

@@ -18,6 +18,10 @@ function clearCrypt() {
     for (i = 0; i < d.length; i++) {
         d[i].checked = false;
     }
+    var v = document.getElementsByName('virtues');
+    for (i = 0; i < v.length; i++) {
+        v[i].checked = false;
+    }
     var t = document.getElementsByName('titles');
     for (i = 0; i < t.length; i++) {
         t[i].checked = false;

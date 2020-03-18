@@ -107,7 +107,9 @@ class CryptForm(FlaskForm):
     disciplines = SelectMultipleField('Disciplines',
                                       option_widget=CheckboxInput(),
                                       widget=DisciplineWidget())
-
+    virtues = SelectMultipleField('Virtues',
+                                  option_widget=CheckboxInput(),
+                                  widget=DisciplineWidget())
     votes = SelectField('Votes')
     clan = SelectField('Clan')
     sect = SelectField('Sect')
