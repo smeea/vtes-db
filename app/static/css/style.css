@@ -1,13 +1,12 @@
-html { font-family: sans-serif; background: #eee; padding: 1rem; }
-body { max-width: 1366px; margin: 0 auto; background: white; }
-h1 { font-family: serif; color: #377ba8; margin: 1rem 0; }
+html { font-family: sans-serif; background: #eee;}
+/*h1 { font-family: serif; color: #377ba8; margin: 1rem 0; }*/
 a { color: #377ba8; }
 hr { border: none; border-top: 1px solid lightgray; }
-nav { background: lightgray; display: flex; align-items: center; padding: 0 0.5rem; }
-nav h1 { flex: auto; margin: 0; }
-nav h1 a { text-decoration: none; padding: 0.25rem 0.5rem; }
-nav ul  { display: flex; list-style: none; margin: 0; padding: 0; }
-nav ul li a, nav ul li span, header .action { display: block; padding: 0.5rem; }
+/*nav { background: lightgray; display: flex; align-items: center; padding: 0 0.5rem; }*/
+/*nav h1 { flex: auto; margin: 0; }*/
+/*nav h1 a { text-decoration: none; padding: 0.25rem 0.5rem; }*/
+/*nav ul  { display: flex; list-style: none; margin: 0; padding: 0; }*/
+/*nav ul li a, nav ul li span, header .action { display: block; padding: 0.5rem; }*/
 .content { padding: 0 1rem 1rem; }
 .content > header { border-bottom: 1px solid lightgray; display: flex; align-items: flex-end; }
 .content > header h1 { flex: auto; margin: 1rem 0 0.25rem 0; }
@@ -32,5 +31,26 @@ input.danger { color: #cc2f2e; }
 .hover_l_img a { position:relative; }
 .hover_l_img a span { position:absolute; display:none; z-index:99; transform: translate(-194%,-93%)}
 .hover_l_img a:hover span { display:block; }
-.flex-container { display: flex; }
+/*.flex-container { display: flex; }*/
 .cardtext {font-size: small}
+
+.discipline-base-label,
+.discipline-superior-label{
+    width: 27px;
+    height: 27px;
+}
+
+.discipline-base-label:hover,
+.discipline-superior-label:hover{
+    cursor: pointer;
+}
+.discipline-container.state0 .discipline-superior-label{display: none;}
+.discipline-container.state0 .discipline-base-label{display: inline-block; opacity: 0.5;}
+.discipline-container.state0:hover .discipline-base-label{display: inline-block; opacity: 1;}
+
+.discipline-container.state1 .discipline-superior-label{display: none;}
+.discipline-container.state1 .discipline-base-label{display: inline-block;}
+
+
+.discipline-container.state2 .discipline-superior-label{display: inline-block;}
+.discipline-container.state2 .discipline-base-label{display: none;}

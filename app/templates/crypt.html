@@ -82,27 +82,314 @@ Crypt
 
 {% block search %}
 <form id="cryptsearchform" action="" method="post" novalidate>
-    <b> NAME / TEXT: </b>
-    {{ form.cardtext() }}
-    {{ form.submit() }}
-    <input type="button" value="Clear" onclick="clearCrypt()" />
-    <b> DISCIPLINES: </b>
-    {{ form.disciplines() }}
-    {{ form.virtues() }}
-    <b> CAPACITY: </b>
-    {{ form.capacitymoreless() }}
-    {{ form.capacity() }}
-    <b> CLAN: </b>
-    {{ form.clan() }}
-    <b> SECT: </b>
-    {{ form.sect() }}
-    <b> VOTES: </b>
-    {{ form.votes() }}
-    <b> TITLE: </b>
-    {{ form.titles() }}
-    <b> GROUP: </b>
-    {{ form.group() }}
-    <b> TEXT TRAITS: </b>
-    {{ form.trait() }}
+
+    <div class="form-row">
+        <div class="form-group col-6">
+            <!--@TODO виджет -->
+            <!--<b> NAME / TEXT: </b>-->
+            <!--{{ form.cardtext() }}-->
+            <!--<label for="cardtext" class="h6">Text</label>-->
+            <input type="text" class="form-control" id="cardtext" name="cardtext" placeholder="Card name/text..." value="">
+        </div>
+        <div class="form-group col-6">
+            <!--@TODO виджет -->
+            <!--{{ form.submit() }}-->
+            <button id="submit" name="submit" class="btn btn-primary" type="submit">Search</button>
+            <button id="clear-crypt" value="Clear" onclick="clearCrypt()"  class="btn btn-secondary" type="button">Clear</button>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <!--<h6>Disciplines</h6>-->
+        <div class="input-group">
+
+            <!--@TODO виджет, после отправки формы у нужного инпута ставится checked="checked" -->
+            <!--{{ form.disciplines() }}-->
+            <div class="discipline-container js-discipline-container" style="display: none;">
+                <label for="disciplines-0" class="discipline-base-label">
+                    <input class="d-none discipline-base js-discipline-base" id="disciplines-0" name="disciplines" type="checkbox" value="abo">
+                    <img src="static/img/disciplines/abo.gif" height="24">
+                </label>
+
+                <label for="disciplines-1" class="discipline-superior-label">
+                    <input class="d-none discipline-superior js-discipline-superior" id="disciplines-1" name="disciplines" type="checkbox" value="ABO">
+                    <img src="static/img/disciplines/abos.gif" height="27">
+                </label>
+            </div>
+
+            <div class="discipline-container js-discipline-container" style="display: none;">
+                <label for="disciplines-2" class="discipline-base-label">
+                    <input class="d-none discipline-base js-discipline-base" id="disciplines-2" name="disciplines" type="checkbox" value="ani">
+                    <img src="static/img/disciplines/ani.gif" height="24">
+                </label>
+
+                <label for="disciplines-3" class="discipline-superior-label">
+                    <input class="d-none discipline-superior js-discipline-superior" id="disciplines-3" name="disciplines" type="checkbox" value="ANI">
+                    <img src="static/img/disciplines/anis.gif" height="27">
+                </label>
+            </div>
+            <!--{{ form.disciplines() }}-->
+        </div>
+    </div>
+
+
+    <div class="form-row">
+        <!--<h6>Virtues</h6>-->
+        <div class="input-group">
+            <!--@TODO виджет, после отправки формы у нужного инпута ставится checked="checked" -->
+            <!--{{ form.virtues() }}-->
+            <div class="discipline-container js-discipline-container" style="display: none;">
+                <label for="virtues-0" class="discipline-base-label">
+                    <input class="d-none discipline-base js-discipline-base" id="virtues-0" name="virtues" type="checkbox" value="ven">
+                    <img src="static/img/disciplines/ven.gif" height="24">
+                </label>
+            </div>
+
+            <div class="discipline-container js-discipline-container" style="display: none;">
+                <label for="virtues-2" class="discipline-base-label">
+                    <input class="d-none discipline-base js-discipline-base" id="virtues-2" name="virtues" type="checkbox" value="def">
+                    <img src="static/img/disciplines/def.gif" height="24">
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-3">
+            <label class="h6">Capacity:</label>
+        </div>
+        <div class="form-group col-9">
+            <div class="input-group">
+                <!--@TODO виджет, после отправки формы у нужного option ставится selected="selected" -->
+                <!--{{ form.capacitymoreless() }}-->
+                <!--{{ form.capacity() }}-->
+                <select class="custom-select" id="capacitymoreless" name="capacitymoreless">
+                    <option value="<="><=</option>
+                    <option value=">=">>=</option>
+                </select>
+                <select class="custom-select" id="capacity" name="capacity">
+                    <option selected value="ANY">ANY</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-3">
+            <label class="h6">Clan:</label>
+        </div>
+        <div class="form-group col-9">
+            <!--@TODO виджет, после отправки формы у нужного option ставится selected="selected" -->
+            <!--{{ form.clan() }}-->
+            <select class="custom-select" id="clan" name="clan">
+                <option selected="" value="ANY">ANY</option><option value="Abomination">Abomination</option><option value="Ahrimane">Ahrimane</option><option value="Akunanse">Akunanse</option><option value="Assamite">Assamite</option><option value="Baali">Baali</option><option value="Blood Brother">Blood Brother</option><option value="Brujah">Brujah</option><option value="Brujah antitribu">Brujah Antitribu</option><option value="Caitiff">Caitiff</option><option value="Daughter of Cacophony">Daughter Of Cacophony</option><option value="Follower Of Set">Follower Of Set</option><option value="Gangrel">Gangrel</option><option value="Gangrel antitribu">Gangrel Antitribu</option><option value="Gargoyle">Gargoyle</option><option value="Giovanni">Giovanni</option><option value="Guruhi">Guruhi</option><option value="Harbinger Of Skulls">Harbinger Of Skulls</option><option value="Ishtarri">Ishtarri</option><option value="Kiasyd">Kiasyd</option><option value="Lasombra">Lasombra</option><option value="Malkavian">Malkavian</option><option value="Malkavian antitribu">Malkavian Antitribu</option><option value="Nagaraja">Nagaraja</option><option value="Nosferatu">Nosferatu</option><option value="Nosferatu antitribu">Nosferatu Antitribu</option><option value="Osebo">Osebo</option><option value="Pander">Pander</option><option value="Ravnos">Ravnos</option><option value="Salubri">Salubri</option><option value="Salubri antitribu">Salubri Antitribu</option><option value="Samedi">Samedi</option><option value="Toreador">Toreador</option><option value="Toreador antitribu">Toreador Antitribu</option><option value="Tremere">Tremere</option><option value="Tremere antitribu">Tremere Antitribu</option><option value="True Brujah">True Brujah</option><option value="Tzimisce">Tzimisce</option><option value="Ventrue">Ventrue</option><option value="Ventrue antitribu">Ventrue Antitribu</option><option value=""></option><option value="Avenger">Avenger</option><option value="Defender">Defender</option><option value="Innocent">Innocent</option><option value="Judge">Judge</option><option value="Martyr">Martyr</option><option value="Redeemer">Redeemer</option><option value="Visionary">Visionary</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-3">
+            <label class="h6">Sect:</label>
+        </div>
+        <div class="form-group col-9">
+            <!--@TODO виджет, после отправки формы у нужного option ставится selected="selected" -->
+            <!--{{ form.sect() }}-->
+            <select class="custom-select" id="sect" name="sect">
+                <option selected value="ANY">ANY</option>
+                <option value="Camarilla">Camarilla</option>
+                <option value="Sabbat">Sabbat</option>
+                <option value="Laibon">Laibon</option>
+                <option value="Independent">Independent</option>
+                <option value="Anarch">Anarch</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-3">
+            <label class="h6">Votes:</label>
+        </div>
+        <div class="form-group col-9">
+            <!--@TODO виджет, после отправки формы у нужного option ставится selected="selected" -->
+            <!--{{ form.votes() }}-->
+            <select class="custom-select" id="votes" name="votes">
+                <option selected value="ANY">ANY</option>
+                <option value="0">0</option>
+                <option value="1">1+</option>
+                <option value="2">2+</option>
+                <option value="3">3+</option>
+                <option value="4">4+</option>
+            </select>
+        </div>
+    </div>
+
+    <h6>Title:</h6>
+    <div class="form-row small">
+        <!-- @TODO виджет-->
+        <!--{{ form.titles() }}-->
+        <div class="col">
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" name="titles" id="titles-0" value="primogen">
+                <label class="custom-control-label" for="titles-0">primogen</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" name="titles" id="titles-1" value="prince">
+                <label class="custom-control-label" for="titles-1">prince</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" name="titles" id="titles-2" value="justicar">
+                <label class="custom-control-label" for="titles-2">justicar</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" name="titles" id="titles-3" value="inner circle">
+                <label class="custom-control-label" for="titles-3">inner circle</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" name="titles" id="titles-4" value="bishop">
+                <label class="custom-control-label" for="titles-4">bishop</label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" name="titles" id="titles-5" value="archbishop">
+                <label class="custom-control-label" for="titles-5">archbishop</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" name="titles" id="titles-6" value="priscus">
+                <label class="custom-control-label" for="titles-6">priscus</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" name="titles" id="titles-7" value="cardinal">
+                <label class="custom-control-label" for="titles-7">cardinal</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" name="titles" id="titles-8" value="regent">
+                <label class="custom-control-label" for="titles-8">regent</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" name="titles" id="titles-9" value="magaji">
+                <label class="custom-control-label" for="titles-9">magaji</label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" name="titles" id="titles-10" value="baron">
+            <label class="custom-control-label" for="titles-10">baron</label>
+        </div>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" name="titles" id="titles-11" value="1 vote">
+                <label class="custom-control-label" for="titles-11">1 vote (Independent)</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" name="titles" id="titles-12" value="2 votes">
+                <label class="custom-control-label" for="titles-12">2 votes (Independent)</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" name="titles" id="titles-12" value="2 votes">
+                <label class="custom-control-label" for="titles-12">3 votes (Independent)</label>
+            </div>
+        </div>
+    </div>
+
+    <br/>
+    <h6>Group:</h6>
+    <div class="input-group small">
+        <!-- @TODO виджет -->
+        <!--{{ form.group() }}-->
+        <div class="mr-2 custom-control custom-checkbox">
+            <input type="checkbox" class="mr-2 custom-control-input" name="group" id="group-0" value="1">
+            <label class="mr-2 custom-control-label" for="group-0">1</label>
+        </div>
+        <div class="mr-2 custom-control custom-checkbox">
+            <input type="checkbox" class="mr-2 custom-control-input" name="group" id="group-1" value="2">
+            <label class="mr-2 custom-control-label" for="group-1">2</label>
+        </div>
+        <div class="mr-2 custom-control custom-checkbox">
+            <input type="checkbox" class="mr-2 custom-control-input" name="group" id="group-2" value="3">
+            <label class="mr-2 custom-control-label" for="group-2">3</label>
+        </div>
+        <div class="mr-2 custom-control custom-checkbox">
+            <input type="checkbox" class="mr-2 custom-control-input" name="group" id="group-3" value="4">
+            <label class="mr-2 custom-control-label" for="group-3">4</label>
+        </div>
+        <div class="mr-2 custom-control custom-checkbox">
+            <input type="checkbox" class="mr-2 custom-control-input" name="group" id="group-4" value="5">
+            <label class="mr-2 custom-control-label" for="group-4">5</label>
+        </div>
+        <div class="mr-2 custom-control custom-checkbox">
+            <input type="checkbox" class="mr-2 custom-control-input" name="group" id="group-5" value="6">
+            <label class="mr-2 custom-control-label" for="group-5">6</label>
+        </div>
+    </div>
+
+    <br/>
+    <h6>Traits:</h6>
+    <div class="form-row small">
+        <!-- @TODO виджет-->
+        <!--{{ form.trait() }}-->
+        <div class="col">
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" name="trait" id="trait-0" value="[:.] \+1 intercept.">
+                <label class="custom-control-label" for="trait-0">+1 intercept</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" name="trait" id="trait-1" value="[:.] \+1 stealth.">
+                <label class="custom-control-label" for="trait-1">+1 stealth</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" name="trait" id="trait-2" value="[:.] \+1 bleed.">
+                <label class="custom-control-label" for="trait-2">+1 bleed</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" name="trait" id="trait-3" value="[:.] \+2 bleed.">
+                <label class="custom-control-label" for="trait-3">+2 bleed</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" name="trait" id="trait-4" value="[:.] \+1 strength.">
+                <label class="custom-control-label" for="trait-4">+1 strength</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" name="trait" id="trait-5" value="[:.] \+2 strength.">
+                <label class="custom-control-label" for="trait-5">+2 strength</label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" name="trait" id="trait-6" value="additional strike">
+                <label class="custom-control-label" for="trait-6">Additional Strike</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" name="trait" id="trait-7" value="optional press">
+                <label class="custom-control-label" for="trait-7">Press</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" name="trait" id="trait-8" value="enter combat">
+                <label class="custom-control-label" for="trait-8">Enter combat</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" name="trait" id="trait-9" value="Black Hand[ .:]">
+                <label class="custom-control-label" for="trait-9">Black Hand</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" name="trait" id="trait-10" value="Seraph[.:]">
+                <label class="custom-control-label" for="trait-10">Seraph</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" name="trait" id="trait-11" value="Infernal[.:]">
+                <label class="custom-control-label" for="trait-11">Infernal</label>
+            </div>
+        </div>
+        <div class="col">
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" name="trait" id="trait-12" value="Red List[.:]">
+                <label class="custom-control-label" for="trait-12">Red List</label>
+            </div>
+        </div>
+    </div>
 </form>
 {% endblock %}
