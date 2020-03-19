@@ -14,7 +14,7 @@
 
 <body class="bg-light">
 
-    <nav class="navbar navbar-expand-xl navbar-dark fixed-top bg-dark">
+    <nav class="navbar navbar-expand-xl navbar-dark bg-dark">
         <a class="navbar-brand" href="/">VTES database</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -37,34 +37,32 @@
         </div>
     </nav>
 
-    <div class="container-fluid">
-        <div class="pt-5 mt-5 mb-2">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-xs-12 col-xl-3">
-                    </div>
-                    <div class="col-xs-12 col-xl-6">
-                        <!--<section class="content">-->
-                        {% block index %}{% endblock %}
-                        {% block results %}{% endblock %}
-                        <!--</section>-->
-                    </div>
-                    <div class="col-xs-12 col-xl-3">
-                        <!--<section class="content">-->
-                        {% with messages = get_flashed_messages() %}
-                            {% if messages %}
-                                {% for message in messages %}
-                                    <b>{{ message }}</b>
-                                {% endfor %}
-                            {% endif %}
-                        {% endwith %}
-                        {% block search %}{% endblock %}
-                        <!--</section>-->
-                    </div>
-                </div>
+
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-xs-12 col-xl-3">
+            </div>
+            <div class="col-xs-12 col-xl-6">
+                <!--<section class="content">-->
+                {% block index %}{% endblock %}
+                {% block results %}{% endblock %}
+                <!--</section>-->
+            </div>
+            <div class="col-xs-12 col-xl-3">
+                <!--<section class="content">-->
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <b>{{ message }}</b>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                {% block search %}{% endblock %}
+                <!--</section>-->
             </div>
         </div>
     </div>
+
 
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
     <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>

@@ -84,14 +84,14 @@ Crypt
 <form id="cryptsearchform" action="" method="post" novalidate>
 
     <div class="form-row">
-        <div class="form-group col-6">
+        <div class="form-group w-100">
             <!--@TODO виджет -->
             <!--<b> NAME / TEXT: </b>-->
             <!--{{ form.cardtext() }}-->
             <!--<label for="cardtext" class="h6">Text</label>-->
-            <input type="text" class="form-control" id="cardtext" name="cardtext" placeholder="Card name/text..." value="">
+            <input type="text" class="form-control w-100" id="cardtext" name="cardtext" placeholder="Card name/text..." value="">
         </div>
-        <div class="form-group col-6">
+        <div class="form-group">
             <!--@TODO виджет -->
             <!--{{ form.submit() }}-->
             <button id="submit" name="submit" class="btn btn-primary" type="submit">Search</button>
@@ -106,6 +106,8 @@ Crypt
             <!--@TODO виджет, после отправки формы у нужного инпута ставится checked="checked" -->
             <!--{{ form.disciplines() }}-->
             <div class="discipline-container js-discipline-container" style="display: none;">
+                <div class="discipline-button-holder js-discipline-button-holder"></div>
+
                 <label for="disciplines-0" class="discipline-base-label">
                     <input class="d-none discipline-base js-discipline-base" id="disciplines-0" name="disciplines" type="checkbox" value="abo">
                     <img src="static/img/disciplines/abo.gif" height="24">
@@ -118,6 +120,8 @@ Crypt
             </div>
 
             <div class="discipline-container js-discipline-container" style="display: none;">
+                <div class="discipline-button-holder js-discipline-button-holder"></div>
+
                 <label for="disciplines-2" class="discipline-base-label">
                     <input class="d-none discipline-base js-discipline-base" id="disciplines-2" name="disciplines" type="checkbox" value="ani">
                     <img src="static/img/disciplines/ani.gif" height="24">
@@ -138,16 +142,16 @@ Crypt
         <div class="input-group">
             <!--@TODO виджет, после отправки формы у нужного инпута ставится checked="checked" -->
             <!--{{ form.virtues() }}-->
-            <div class="discipline-container js-discipline-container" style="display: none;">
-                <label for="virtues-0" class="discipline-base-label">
-                    <input class="d-none discipline-base js-discipline-base" id="virtues-0" name="virtues" type="checkbox" value="ven">
+            <div class="virtues-container js-virtues-container">
+                <label for="virtues-0" class="virtues-base-label">
+                    <input class="d-none virtues-base js-virtues-base" id="virtues-0" name="virtues" type="checkbox" value="ven">
                     <img src="static/img/disciplines/ven.gif" height="24">
                 </label>
             </div>
 
-            <div class="discipline-container js-discipline-container" style="display: none;">
-                <label for="virtues-2" class="discipline-base-label">
-                    <input class="d-none discipline-base js-discipline-base" id="virtues-2" name="virtues" type="checkbox" value="def">
+            <div class="virtues-container js-virtues-container">
+                <label for="virtues-2" class="virtues-base-label">
+                    <input class="d-none virtues-base js-virtues-base" id="virtues-2" name="virtues" type="checkbox" value="def">
                     <img src="static/img/disciplines/def.gif" height="24">
                 </label>
             </div>
@@ -253,8 +257,7 @@ Crypt
                 <input type="checkbox" class="custom-control-input" name="titles" id="titles-4" value="bishop">
                 <label class="custom-control-label" for="titles-4">bishop</label>
             </div>
-        </div>
-        <div class="col">
+
             <div class="custom-control custom-checkbox">
                 <input type="checkbox" class="custom-control-input" name="titles" id="titles-5" value="archbishop">
                 <label class="custom-control-label" for="titles-5">archbishop</label>
@@ -263,6 +266,8 @@ Crypt
                 <input type="checkbox" class="custom-control-input" name="titles" id="titles-6" value="priscus">
                 <label class="custom-control-label" for="titles-6">priscus</label>
             </div>
+        </div>
+        <div class="col">
             <div class="custom-control custom-checkbox">
                 <input type="checkbox" class="custom-control-input" name="titles" id="titles-7" value="cardinal">
                 <label class="custom-control-label" for="titles-7">cardinal</label>
@@ -275,12 +280,10 @@ Crypt
                 <input type="checkbox" class="custom-control-input" name="titles" id="titles-9" value="magaji">
                 <label class="custom-control-label" for="titles-9">magaji</label>
             </div>
-        </div>
-        <div class="col">
             <div class="custom-control custom-checkbox">
-            <input type="checkbox" class="custom-control-input" name="titles" id="titles-10" value="baron">
-            <label class="custom-control-label" for="titles-10">baron</label>
-        </div>
+                <input type="checkbox" class="custom-control-input" name="titles" id="titles-10" value="baron">
+                <label class="custom-control-label" for="titles-10">baron</label>
+            </div>
             <div class="custom-control custom-checkbox">
                 <input type="checkbox" class="custom-control-input" name="titles" id="titles-11" value="1 vote">
                 <label class="custom-control-label" for="titles-11">1 vote (Independent)</label>
@@ -383,8 +386,6 @@ Crypt
                 <input type="checkbox" class="custom-control-input" name="trait" id="trait-11" value="Infernal[.:]">
                 <label class="custom-control-label" for="trait-11">Infernal</label>
             </div>
-        </div>
-        <div class="col">
             <div class="custom-control custom-checkbox">
                 <input type="checkbox" class="custom-control-input" name="trait" id="trait-12" value="Red List[.:]">
                 <label class="custom-control-label" for="trait-12">Red List</label>
