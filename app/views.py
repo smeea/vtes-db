@@ -331,7 +331,6 @@ def crypt():
 @search.route('/library', methods=('GET', 'POST'))
 def library():
 
-    titles = []
     parameters = 0
     parsed_library_cards = []
     match_by_category = []

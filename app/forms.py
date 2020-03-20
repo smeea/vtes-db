@@ -2,19 +2,17 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 
 from wtforms import SelectMultipleField, SelectField
-from wtforms.widgets import CheckboxInput, TableWidget, html_params, HTMLString
+from wtforms.widgets import CheckboxInput, html_params
 from markupsafe import Markup, escape
-import re
 # from wtforms.validators import Required
 
 
 class DisciplineWidget(object):
     def __call__(self, field, **kwargs):
-        kwargs.setdefault("id", field.id)
         html = []
         i = True
         for subfield in field:
-            if i == True:
+            if i is True:
                 i = False
                 html.append(
                     '<div name="discipline-checkbox" class="discipline-container js-discipline-container" style="display: none;">'
@@ -41,7 +39,7 @@ class DisciplineWidget(object):
                     % html_params(
                         name=field.name, value=subfield._value(), **kwargs))
                 html.append(
-                    '<img src="static/img/disciplines/%ss.gif" height="33">' %
+                    '<img src="static/img/disciplines/%ss.gif" height="32">' %
                     subfield._value().lower())
                 html.append('</label>')
                 html.append('</div>')
@@ -51,9 +49,7 @@ class DisciplineWidget(object):
 
 class VirtuesWidget(object):
     def __call__(self, field, **kwargs):
-        kwargs.setdefault("id", field.id)
         html = []
-        i = 0
         for subfield in field:
             html.append('<div class="virtues-container js-virtues-container">')
             html.append('<label class="virtues-base-label" %s>' %
@@ -67,7 +63,6 @@ class VirtuesWidget(object):
                 subfield._value())
             html.append('</label>')
             html.append('</div>')
-
         return Markup("".join(html))
 
 
@@ -157,10 +152,6 @@ class SingleSelect(object):
 
     @classmethod
     def render_option(cls, value, label, selected, **kwargs):
-        if value is True:
-            # Handle the special case of a 'True' value.
-            value = text_type(value)
-
         options = dict(kwargs, value=value)
         if selected:
             options["selected"] = True

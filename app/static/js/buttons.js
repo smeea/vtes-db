@@ -72,15 +72,15 @@ $(document).ready(function(){
             let inputSuperior = container.find('.js-discipline-superior');
             if(inputSuperior.is(':checked')) {
                 container.removeClass('state0').removeClass('state1').addClass('state2');
-            }else if(inputBase.is(':checked')) {
+            } else if (inputBase.is(':checked')) {
                 container.removeClass('state0').removeClass('state2').addClass('state1');
-            }else {
+            } else {
                 container.removeClass('state1').removeClass('state2').addClass('state0');
             }
         });
     };
-    function disciplineChecker(buttton) {
-        let container = $(buttton).parent('.js-discipline-container');
+    function disciplineChecker(button) {
+        let container = $(button).parent('.js-discipline-container');
         let inputBase = container.find('.js-discipline-base');
         let inputSuperior = container.find('.js-discipline-superior');
 

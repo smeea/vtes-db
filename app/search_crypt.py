@@ -125,23 +125,23 @@ def parse_discipline_list(discipline_input):
 
 
 def parse_virtue_list(virtue_input):
-    discipline_list = []
-    for i in discipline_input:
+    virtue_list = []
+    for i in virtue_input:
         if i == "def":
-            discipline_list.append('def')
+            virtue_list.append('def')
         elif i == "inn":
-            discipline_list.append('inn')
+            virtue_list.append('inn')
         elif i == "jud":
-            discipline_list.append('jud')
+            virtue_list.append('jud')
         elif i == "Mar":
-            discipline_list.append('mar')
+            virtue_list.append('mar')
         elif i == "red":
-            discipline_list.append('red')
+            virtue_list.append('red')
         elif i == "ven":
-            discipline_list.append('ven')
+            virtue_list.append('ven')
         elif i == "visi":
-            discipline_list.append('vis')
-    return discipline_list
+            virtue_list.append('vis')
+    return virtue_list
 
 
 def get_overall_crypt(card_lists):

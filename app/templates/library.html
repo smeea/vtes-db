@@ -1,9 +1,8 @@
 <!doctype html>
 {% extends 'base.html' %}
 
-{% block title %}
-Library
-{% endblock %}
+{% block title %} Library {% endblock %}
+
 {% block navbar %}
 <li class="nav-item">
     <a class="nav-link" href="{{ url_for('search.index') }}">Index</a>
@@ -82,18 +81,6 @@ Library
                 </span>
             </div>
         </td>
-        <!-- <td width="11%">
-             <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
-             {% if card['Life'] %}
-             <img src="static/img/misc/life{{ card['Life'] }}.png" height="22" alt="{{ card['Life'] }}">
-             {% else %}
-             &nbsp;
-             {% endif %}
-             {% if card['Strength'] %}
-             <img src="static/img/misc/str{{ card['Strength'] }}.png" height="22" alt="{{ card['Strength'] }}">
-             {% endif %}
-             </div>
-             </td> -->
     </tr>
     <tr>
         <td style="border-bottom: thin dashed; border-color: gray">
