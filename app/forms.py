@@ -2,8 +2,8 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 
 from wtforms import SelectMultipleField, SelectField
-from wtforms.widgets import CheckboxInput  # TableWidget, html_params, HTMLString
-from markupsafe import Markup  # escape
+from wtforms.widgets import CheckboxInput, TableWidget, html_params, HTMLString
+from markupsafe import Markup, escape
 import re
 # from wtforms.validators import Required
 
@@ -12,116 +12,186 @@ class DisciplineWidget(object):
     def __call__(self, field, **kwargs):
         kwargs.setdefault("id", field.id)
         html = []
-        i = 0
-        j = 0
-        html.append('<table>')
+        i = True
         for subfield in field:
-            d = re.match(r'<label .*>(\w+)</label>', str(subfield.label))
-            dis = d.group(1)
-            if len(dis) == 3:
-                height = '24'
+            if i == True:
+                i = False
+                html.append(
+                    '<div name="discipline-checkbox" class="discipline-container js-discipline-container" style="display: none;">'
+                )
+                html.append(
+                    '<div class="discipline-button-holder js-discipline-button-holder"></div>'
+                )
+                html.append('<label class="discipline-base-label" %s>' %
+                            html_params(for_=subfield.id, **kwargs))
+                html.append(
+                    '<input class="d-none discipline-base js-discipline-base" type="checkbox" %s>'
+                    % html_params(
+                        name=field.name, value=subfield._value(), **kwargs))
+                html.append(
+                    '<img src="static/img/disciplines/%s.gif" height="28">' %
+                    subfield._value())
+                html.append('</label>')
             else:
-                height = '27'
-            if i < 1:
-                html.append('<tr>')
-            i += 1
+                i = True
+                html.append('<label class="discipline-superior-label" %s>' %
+                            html_params(for_=subfield.id, **kwargs))
+                html.append(
+                    '<input class="d-none discipline-superior js-discipline-superior" type="checkbox" %s>'
+                    % html_params(
+                        name=field.name, value=subfield._value(), **kwargs))
+                html.append(
+                    '<img src="static/img/disciplines/%ss.gif" height="33">' %
+                    subfield._value().lower())
+                html.append('</label>')
+                html.append('</div>')
+
+        return Markup("".join(html))
+
+
+class VirtuesWidget(object):
+    def __call__(self, field, **kwargs):
+        kwargs.setdefault("id", field.id)
+        html = []
+        i = 0
+        for subfield in field:
+            html.append('<div class="virtues-container js-virtues-container">')
+            html.append('<label class="virtues-base-label" %s>' %
+                        html_params(for_=subfield.id, **kwargs))
             html.append(
-                "<td><label for='disciplines-%s'>%s<img src='static/img/disciplines/%s.gif' height=%s/></label></td>"
-                % (j, subfield(), dis, height))
-            if i == 6:
-                html.append('</tr>')
-                i = 0
-            j += 1
-        html.append('</table>')
+                '<input class="d-none virtues-base js-virtues-base" type="checkbox" %s>'
+                % html_params(
+                    name=field.name, value=subfield._value(), **kwargs))
+            html.append(
+                '<img src="static/img/disciplines/%s.gif" height="28">' %
+                subfield._value())
+            html.append('</label>')
+            html.append('</div>')
+
         return Markup("".join(html))
 
 
 class TitleWidget(object):
     def __call__(self, field, **kwargs):
-        kwargs.setdefault("id", field.id)
         html = []
         i = 0
-        html.append('<table>')
-        html.append('<tr>')
-        html.append('<td valign=top>')
+        html.append('<div class="col">')
         for subfield in field:
-            i += 1
-            html.append(
-                "<span style='font-size:x-small' align='top'>%s %s</span><br>"
-                % (subfield(), subfield.label))
             if i == 5:
-                html.append('</td>')
-                html.append('<td valign=top>')
+                html.append('</div>')
+                html.append('<div class="col">')
                 i = 0
-        html.append('</td>')
-        html.append('</tr>')
-        html.append('</table>')
+            i += 1
+            input = "<input class='mr-2 custom-control-input' type='checkbox' %s>" % html_params(
+                name=field.name,
+                id=subfield.id,
+                value=subfield._value(),
+                **kwargs)
+            label = "<label class='mr-2 custom-control-label' %s>%s</label>" % (
+                html_params(name=field.name, for_=subfield.id, **
+                            kwargs), subfield.label.text)
+            html.append(
+                "<div class=\"mr-2 custom-control custom-checkbox\">%s %s</div>"
+                % (input, label))
+        html.append('</div>')
         return Markup("".join(html))
 
 
 class GroupWidget(object):
     def __call__(self, field, **kwargs):
-        kwargs.setdefault("id", field.id)
         html = []
-        html.append('<table>')
-        html.append('<tr>')
         for subfield in field:
+            input = "<input class='mr-2 custom-control-input' type='checkbox' %s>" % html_params(
+                name=field.name,
+                id=subfield.id,
+                value=subfield._value(),
+                **kwargs)
+            label = "<label class='mr-2 custom-control-label' %s>%s</label>" % (
+                html_params(name=field.name, for_=subfield.id, **
+                            kwargs), subfield.label.text)
             html.append(
-                "<td><span style='font-size:x-small' align='top'>%s %s</span></td>"
-                % (subfield(), subfield.label))
-        html.append('</tr>')
-        html.append('</table>')
+                "<div class=\"mr-2 custom-control custom-checkbox\">%s %s</div>"
+                % (input, label))
         return Markup("".join(html))
 
 
 class TraitWidget(object):
     def __call__(self, field, **kwargs):
-        kwargs.setdefault("id", field.id)
         html = []
         i = 0
-        html.append('<table>')
-        html.append('<tr>')
-        html.append('<td valign=top>')
+        html.append('<div class="col">')
         for subfield in field:
-            i += 1
-            html.append(
-                "<span style='font-size:x-small' align='top'>%s %s</span><br>"
-                % (subfield(), subfield.label))
-            if i == 6:
-                html.append('</td>')
-                html.append('<td valign=top>')
+            if i == 8:
+                html.append('</div>')
+                html.append('<div class="col">')
                 i = 0
-        html.append('</td>')
-        html.append('</tr>')
-        html.append('</table>')
+            i += 1
+            input = "<input class='mr-2 custom-control-input' type='checkbox' %s>" % html_params(
+                name=field.name,
+                id=subfield.id,
+                value=subfield._value(),
+                **kwargs)
+            label = "<label class='mr-2 custom-control-label' %s>%s</label>" % (
+                html_params(name=field.name, for_=subfield.id, **
+                            kwargs), subfield.label.text)
+            html.append(
+                "<div class=\"mr-2 custom-control custom-checkbox\">%s %s</div>"
+                % (input, label))
+        html.append('</div>')
         return Markup("".join(html))
+
+
+class SingleSelect(object):
+    def __init__(self, id='select'):
+        self.kek = id
+
+    def __call__(self, field, **kwargs):
+        html = [
+            "<select %s>" % html_params(
+                name=field.name, class_='custom-select', id=self.kek, **kwargs)
+        ]
+        for val, label, selected in field.iter_choices():
+            html.append(self.render_option(val, label, selected))
+        html.append("</select>")
+        return Markup("".join(html))
+
+    @classmethod
+    def render_option(cls, value, label, selected, **kwargs):
+        if value is True:
+            # Handle the special case of a 'True' value.
+            value = text_type(value)
+
+        options = dict(kwargs, value=value)
+        if selected:
+            options["selected"] = True
+        return Markup("<option %s>%s</option>" %
+                      (html_params(**options), escape(label)))
 
 
 class CryptForm(FlaskForm):
 
     cardtext = StringField('Card Text')
-    trait = SelectMultipleField('Text Trait',
-                                option_widget=CheckboxInput(),
-                                widget=TraitWidget())
-
     disciplines = SelectMultipleField('Disciplines',
                                       option_widget=CheckboxInput(),
                                       widget=DisciplineWidget())
     virtues = SelectMultipleField('Virtues',
                                   option_widget=CheckboxInput(),
-                                  widget=DisciplineWidget())
-    votes = SelectField('Votes')
-    clan = SelectField('Clan')
-    sect = SelectField('Sect')
+                                  widget=VirtuesWidget())
+    votes = SelectField('Votes', widget=SingleSelect(id='votes'))
+    clan = SelectField('Clan', widget=SingleSelect(id='clan'))
+    sect = SelectField('Sect', widget=SingleSelect(id='sect'))
     titles = SelectMultipleField('Titles',
                                  option_widget=CheckboxInput(),
                                  widget=TitleWidget())
-    capacitymoreless = SelectField('Capacity More-Less')
-    capacity = SelectField('Capacity')
+    capacitymoreless = SelectField('Capacity More-Less',
+                                   widget=SingleSelect(id='capacitymoreless'))
+    capacity = SelectField('Capacity', widget=SingleSelect(id='capacity'))
     group = SelectMultipleField('Group',
                                 option_widget=CheckboxInput(),
                                 widget=GroupWidget())
-
+    trait = SelectMultipleField('Text Trait',
+                                option_widget=CheckboxInput(),
+                                widget=TraitWidget())
     submit = SubmitField('Search')
 
 

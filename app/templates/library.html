@@ -4,9 +4,16 @@
 {% block title %}
 Library
 {% endblock %}
-
-{% block page%}
-Library
+{% block navbar %}
+<li class="nav-item">
+    <a class="nav-link" href="{{ url_for('search.index') }}">Index</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="{{ url_for('search.crypt') }}">Crypt</a>
+</li>
+<li class="nav-item active">
+    <a class="nav-link" href="{{ url_for('search.library') }}">Library</a>
+</li>
 {% endblock %}
 
 {% block results %}
