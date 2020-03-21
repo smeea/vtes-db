@@ -169,10 +169,28 @@ def parse_library_card(cards):
         card_parsed['Card Other Text'] = []
 
         for i in card_parsed['Card Text']:
+
             if re.match(r'(\[+\w+\]+)', i):
-                t = re.match(r'(\[+\w+\]?\[?\w+\]+)?\s?(.*)', i)
-                card_parsed['Card Middle Text'].append(
-                    [t.group(1), t.group(2)])
+                t = re.match(r'\[(\w+)\]\[?(\w+)?\]?\s?(.*)', i)
+                if t.group(2):
+                    if t.group(1) == t.group(1).lower():
+                        card_parsed['Card Middle Text'].append(
+                            [t.group(1), t.group(2),
+                             t.group(3)])
+                    else:
+                        card_parsed['Card Middle Text'].append([
+                            t.group(1).lower() + 's',
+                            t.group(2).lower() + 's',
+                            t.group(3)
+                        ])
+                else:
+                    if t.group(1) == t.group(1).lower():
+                        card_parsed['Card Middle Text'].append(
+                            [t.group(1), t.group(3)])
+                    else:
+                        card_parsed['Card Middle Text'].append(
+                            [t.group(1).lower() + 's',
+                             t.group(3)])
             elif re.match(r'(Strike\:)', i):
                 t = re.match(r'(Strike\:)?\s?(.*)', i)
                 card_parsed['Card Middle Text'].append(

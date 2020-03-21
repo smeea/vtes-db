@@ -101,9 +101,14 @@
                     {{ i }}<br>
                     {% endfor %}
                     {% if card['Card Middle Text'] %}
-                    {% for i in card['Card Middle Text'] %}
-                    <b>{{ i[0] }}</b> {{ i[1] }}<br>
-                    {% endfor %}
+                        {% for i in card['Card Middle Text'] %}
+                        {% if i[2] %}
+                        <b> <img src="static/img/disciplines/{{ i[0] }}.gif" height="20" alt="{{ i[0] }}"> </b>
+                        <b> <img src="static/img/disciplines/{{ i[1] }}.gif" height="20" alt="{{ i[1] }}"> </b> {{ i[2] }}<br>
+                        {% else %}
+                        <b> <img src="static/img/disciplines/{{ i[0] }}.gif" height="20" alt="{{ i[0] }}"> </b> {{ i[1] }}<br>
+                        {% endif %}
+                        {% endfor %}
                     {% endif %}
                 </div>
             </div>
