@@ -55,17 +55,15 @@ class VirtuesWidget(object):
     def __call__(self, field, **kwargs):
         html = []
         for subfield in field:
-            html.append(
-                '<div class="discipline-container js-discipline-container" style:"display: none">'
-            )
+            html.append('<div class="virtue-container" style:"display: none">')
             html.append('<label class="virtue-base-label" %s>' %
                         html_params(for_=subfield.id, **kwargs))
             html.append(
-                '<input class="d-none discipline-base js-discipline-base" type="checkbox" %s>'
-                % html_params(name=field.name,
-                              value=subfield._value(),
-                              id=subfield.id,
-                              **kwargs))
+                '<input class="d-none virtue-base" type="checkbox" %s>' %
+                html_params(name=field.name,
+                            value=subfield._value(),
+                            id=subfield.id,
+                            **kwargs))
             html.append(
                 '<img src="static/img/disciplines/%s.gif" height="28">' %
                 subfield._value())

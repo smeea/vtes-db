@@ -34,29 +34,39 @@ input.danger { color: #cc2f2e; }
     position: absolute;
     top: 0;
     left: 0;
-    width: 27px;
+    width: 35px;
     height: 27px;
     z-index: 1;
 }
 
 .discipline-base-label,
-.discipline-superior-label{
-    width: 27px;
+.discipline-superior-label {
+    width: 35px;
     height: 27px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
 }
 
-.discipline-button-holder:hover{
+.discipline-button-holder:hover {
     cursor: pointer;
 }
-.discipline-container.state0 .discipline-superior-label{display: none;}
-.discipline-container.state0 .discipline-base-label{display: inline-block; opacity: 0.4;}
+.discipline-container.state0 .discipline-superior-label {display: none;}
+.discipline-container.state0 .discipline-base-label {
+    display: flex;
+    opacity: 0.35;
+}
 
-.discipline-container.state1 .discipline-superior-label{display: none;}
-.discipline-container.state1 .discipline-base-label{display: inline-block;}
+.discipline-container.state1 .discipline-superior-label {display: none;}
+.discipline-container.state1 .discipline-base-label {display: flex;}
 
-.discipline-container.state2 .discipline-superior-label{display: inline-block;}
-.discipline-container.state2 .discipline-base-label{display: none;}
+.discipline-container.state2 .discipline-superior-label {display: flex;}
+.discipline-container.state2 .discipline-base-label {display: none;}
 
 .virtue-base-label:hover {cursor: pointer;}
-.virtue-base-label img {opacity: 0.4;}
+.virtue-base-label img {opacity: 0.35;}
 .virtue-base-label .virtue-base:checked + img {opacity: 1;}
+.virtue-base-label {
+    margin-left: 4px;
+    margin-right: 3px;
+}
