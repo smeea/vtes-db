@@ -199,22 +199,34 @@ def get_crypt_by_cardtext(cardtext):
 
 def get_crypt_by_trait(traits):
     match_cards = []
+    trait_counter = len(traits)
     for card in crypt:
+        counter = 0
         for trait in traits:
             if trait == 'enter combat':
                 name = re.match(r'^\w+', card['Name'].lower())
                 if re.search(
                         r'(he|she|it|they|{}) (can|may)( .* to)? {}'.format(
                             name[0], trait), card['Card Text'].lower()):
-                    match_cards.append(card)
+                    counter += 1
             elif trait == 'optional press':
                 name = re.match(r'^\w+', card['Name'].lower())
                 if re.search(
                         r'(he|she|it|they|{}) gets (.*)?{}'.format(
                             name[0], trait), card['Card Text'].lower()):
-                    match_cards.append(card)
+                    counter += 1
+            elif trait == '[:.] \+1 bleed.':
+                if re.search(r'{}'.format('[:.] \+. bleed.'),
+                             card['Card Text'].lower()):
+                    counter += 1
+            elif trait == '[:.] \+1 strength.':
+                if re.search(r'{}'.format('[:.] \+. strength.'),
+                             card['Card Text'].lower()):
+                    counter += 1
             elif re.search(r'{}'.format(trait), card['Card Text'].lower()):
-                match_cards.append(card)
+                counter += 1
+        if trait_counter == counter:
+            match_cards.append(card)
     return match_cards
 
 

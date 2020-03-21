@@ -169,7 +169,6 @@ def parse_library_card(cards):
         card_parsed['Card Other Text'] = []
 
         for i in card_parsed['Card Text']:
-
             if re.match(r'(\[+\w+\]+)', i):
                 t = re.match(r'\[(\w+)\]\[?(\w+)?\]?\s?(.*)', i)
                 if t.group(2):
@@ -187,6 +186,9 @@ def parse_library_card(cards):
                     if t.group(1) == t.group(1).lower():
                         card_parsed['Card Middle Text'].append(
                             [t.group(1), t.group(3)])
+                    elif t.group(1) == 'FLIGHT':
+                        card_parsed['Card Middle Text'].append(
+                            ['fli', t.group(3)])
                     else:
                         card_parsed['Card Middle Text'].append(
                             [t.group(1).lower() + 's',

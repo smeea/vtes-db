@@ -154,7 +154,8 @@ def crypt():
                                ('black hand[ .:]', 'Black Hand'),
                                ('seraph[.:]', 'Seraph'),
                                ('infernal[.:]', 'Infernal'),
-                               ('red list[.:]', 'Red List')]
+                               ('red list[.:]', 'Red List'),
+                               ('\[flight\]\.', 'Flight')]
 
     cryptform.votes.choices = [('ANY', 'ANY'), ('0', '0'), ('1', '1+'),
                                ('2', '2+'), ('3', '3+'), ('4', '4+')]
