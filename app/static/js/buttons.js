@@ -16,7 +16,7 @@ function clearCrypt() {
     var i;
     var d = document.getElementsByName('disciplines');
     for (i = 0; i < d.length; i++) {
-        d[i].checked = false;
+        d[i].removeAttribute("checked");
     }
     var n = document.getElementsByName('discipline-checkbox');
     for (i = 0; i < n.length; i++) {

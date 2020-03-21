@@ -24,8 +24,10 @@ class DisciplineWidget(object):
                             html_params(for_=subfield.id, **kwargs))
                 html.append(
                     '<input class="d-none discipline-base js-discipline-base" type="checkbox" %s>'
-                    % html_params(
-                        name=field.name, value=subfield._value(), **kwargs))
+                    % html_params(name=field.name,
+                                  value=subfield._value(),
+                                  id=subfield.id,
+                                  **kwargs))
                 html.append(
                     '<img src="static/img/disciplines/%s.gif" height="28">' %
                     subfield._value())
@@ -36,8 +38,10 @@ class DisciplineWidget(object):
                             html_params(for_=subfield.id, **kwargs))
                 html.append(
                     '<input class="d-none discipline-superior js-discipline-superior" type="checkbox" %s>'
-                    % html_params(
-                        name=field.name, value=subfield._value(), **kwargs))
+                    % html_params(name=field.name,
+                                  value=subfield._value(),
+                                  id=subfield.id,
+                                  **kwargs))
                 html.append(
                     '<img src="static/img/disciplines/%ss.gif" height="32">' %
                     subfield._value().lower())
@@ -51,13 +55,17 @@ class VirtuesWidget(object):
     def __call__(self, field, **kwargs):
         html = []
         for subfield in field:
-            html.append('<div class="virtues-container js-virtues-container">')
-            html.append('<label class="virtues-base-label" %s>' %
+            html.append(
+                '<div class="discipline-container js-discipline-container" style:"display: none">'
+            )
+            html.append('<label class="virtue-base-label" %s>' %
                         html_params(for_=subfield.id, **kwargs))
             html.append(
-                '<input class="d-none virtues-base js-virtues-base" type="checkbox" %s>'
-                % html_params(
-                    name=field.name, value=subfield._value(), **kwargs))
+                '<input class="d-none discipline-base js-discipline-base" type="checkbox" %s>'
+                % html_params(name=field.name,
+                              value=subfield._value(),
+                              id=subfield.id,
+                              **kwargs))
             html.append(
                 '<img src="static/img/disciplines/%s.gif" height="28">' %
                 subfield._value())
@@ -160,7 +168,6 @@ class SingleSelect(object):
 
 
 class CryptForm(FlaskForm):
-
     cardtext = StringField('Card Text')
     disciplines = SelectMultipleField('Disciplines',
                                       option_widget=CheckboxInput(),
@@ -191,13 +198,16 @@ class LibraryForm(FlaskForm):
     trait = SelectMultipleField('Text Trait',
                                 option_widget=CheckboxInput(),
                                 widget=TraitWidget())
-    discipline = SelectField('Disciplines')
-    cardtype = SelectField('Card Type')
-    clan = SelectField('Clan')
-    sect = SelectField('Sect')
-    title = SelectField('Titles')
+    discipline = SelectField('Disciplines',
+                             widget=SingleSelect(id='discipline'))
+    cardtype = SelectField('Card Type', widget=SingleSelect(id='cardtype'))
+    clan = SelectField('Clan', widget=SingleSelect(id='clan'))
+    sect = SelectField('Sect', widget=SingleSelect(id='sect'))
+    title = SelectField('Title', widget=SingleSelect(id='title'))
+    poolmoreless = SelectField('Pool More-Less',
+                               widget=SingleSelect(id='poolmoreless'))
+    pool = SelectField('Pool Cost', widget=SingleSelect(id='pool'))
+    bloodmoreless = SelectField('Blood More-Less',
+                                widget=SingleSelect(id='bloodmoreless'))
+    blood = SelectField('Blood Cost', widget=SingleSelect(id='blood'))
     submit = SubmitField('Search')
-    poolmoreless = SelectField('Pool More-Less')
-    pool = SelectField('Pool Cost')
-    bloodmoreless = SelectField('Blood More-Less')
-    blood = SelectField('Blood Cost')

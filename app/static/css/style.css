@@ -57,6 +57,6 @@ input.danger { color: #cc2f2e; }
 .discipline-container.state2 .discipline-superior-label{display: inline-block;}
 .discipline-container.state2 .discipline-base-label{display: none;}
 
-.virtues-base-label:hover {cursor: pointer;}
-.virtues-base-label img {opacity: 0.4;}
-.virtues-base-label .virtues-base:checked + img {opacity: 1;}
+.virtue-base-label:hover {cursor: pointer;}
+.virtue-base-label img {opacity: 0.4;}
+.virtue-base-label .virtue-base:checked + img {opacity: 1;}

@@ -114,28 +114,100 @@
 {% endblock %}
 
 {% block search %}
-<form action="" method="post" novalidate>
-    <b> NAME / TEXT: </b>
-    {{ form.cardtext() }}
-    {{ form.submit() }}
-    <input type="button" value="Clear" onclick="clearLibrary()" />
-    <b> CARD TYPE: </b>
-    {{ form.cardtype() }}
-    <b> DISCIPLINE: </b>
-    {{ form.discipline() }}
-    <b> CLAN: </b>
-    {{ form.clan() }}
-    <b> SECT: </b>
-    {{ form.sect() }}
-    <b> TITLE: </b>
-    {{ form.title() }}
-    <b> BLOOD COST: </b>
-    {{ form.bloodmoreless() }}
-    {{ form.blood() }}
-    <b> POOL COST: </b>
-    {{ form.poolmoreless() }}
-    {{ form.pool() }}
-    <b> TEXT TRAITS: </b>
-    {{ form.trait() }}
+<form id="librarysearchform" action="" method="post" novalidate>
+    <div class="form-row">
+        <div class="form-group w-100">
+            <input type="text" class="form-control w-100" id="cardtext" name="cardtext" placeholder="Card Name / Text" value="">
+        </div>
+        <div class="form-group">
+            <button id="submit" name="submit" class="btn btn-primary" type="submit">Search</button>
+            <button id="clear-library" value="Clear" onclick="clearLibrary()"  class="btn btn-secondary" type="button">Clear</button>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-3">
+            <label class="h6">Type:</label>
+        </div>
+        <div class="form-group col-9">
+            <div class="input-group">
+                {{ form.cardtype() }}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-3">
+            <label class="h6">Discipline:</label>
+        </div>
+        <div class="form-group col-9">
+            <div class="input-group">
+                {{ form.discipline() }}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-3">
+            <label class="h6">Clan:</label>
+        </div>
+        <div class="form-group col-9">
+            <div class="input-group">
+                {{ form.clan() }}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-3">
+            <label class="h6">Sect:</label>
+        </div>
+        <div class="form-group col-9">
+            <div class="input-group">
+                {{ form.sect() }}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-3">
+            <label class="h6">Title:</label>
+        </div>
+        <div class="form-group col-9">
+            <div class="input-group">
+                {{ form.title() }}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-3">
+            <label class="h6">Blood Cost:</label>
+        </div>
+        <div class="form-group col-9">
+            <div class="input-group">
+                {{ form.bloodmoreless() }}
+                {{ form.blood() }}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-3">
+            <label class="h6">Pool Cost:</label>
+        </div>
+        <div class="form-group col-9">
+            <div class="input-group">
+                {{ form.poolmoreless() }}
+                {{ form.pool() }}
+            </div>
+        </div>
+    </div>
+
+    <h6>Traits:</h6>
+    <div class="form-row small">
+        {{ form.trait() }}
+    </div>
+
 </form>
 {% endblock %}

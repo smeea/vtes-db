@@ -171,17 +171,19 @@ def get_crypt_by_discipline(discipline_input):
     return match_cards
 
 
-def get_crypt_by_virtues(virtue_list):
+def get_crypt_by_virtues(virtue_input):
     match_cards = []
+    virtue_list = parse_virtue_list(virtue_input)
     virtue_counter = len(virtue_list)
     for card in crypt:
-        counter = 0
-        disciplines = card['Disciplines'].split()
-        for i in virtue_list:
-            if i in disciplines:
-                counter += 1
-        if virtue_counter == counter:
-            match_cards.append(card)
+        if card['Type'] == 'Imbued':
+            counter = 0
+            disciplines = card['Disciplines'].split()
+            for i in virtue_list:
+                if i in disciplines:
+                    counter += 1
+            if virtue_counter == counter:
+                match_cards.append(card)
     return match_cards
 
 
@@ -300,6 +302,7 @@ def parse_crypt_card(cards):
         card_parsed['Capacity'] = card['Capacity']
         card_parsed['Clan'] = card['Clan']
         card_parsed['Group'] = card['Group']
+        card_parsed['Type'] = card['Type']
         card_parsed['Card Text'] = []
         card_parsed['Card Text'] = re.split(': |\n', card['Card Text'])
         card_parsed['Title'] = card['Title']

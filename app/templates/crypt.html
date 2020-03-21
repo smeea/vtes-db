@@ -19,11 +19,11 @@
 {% if total %}
 <div id="total" class="total"><b>
     TOTAL: {{ total.pop(0) }} &nbsp;
-    {% for type in total %}
-    <font color="silver">G{{ type[0] }}:</font>{{type[1] }} &nbsp;
+    {% for group in total %}
+    <font color="#aaaaaa">G{{ group[0] }}:</font>{{group[1] }} &nbsp;
     {% endfor %}
 </b></div>
-<button id="show-all-text" value="Show Text" onclick="showAll()"  class="btn btn-secondary" type="button">Show All Text</button>
+<button id="show-all-text" value="Show Text" onclick="showAll()"  class="btn btn-secondary" type="button">Toggle Text</button>
 {% endif %}
 
 <table width="100%">
@@ -62,7 +62,7 @@
         </td>
         <td width="7%">
             <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
-                <b><font color="silver">G:</font>{{ card['Group'] }}</b>
+                <b><font color="aaaaaa">G</font>{{ card['Group'] }}</b>
             </div>
         </td>
     </tr>
@@ -74,7 +74,9 @@
         <td colspan="3" style="border-bottom: thin dashed; border-color: gray">
             <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
                 <div class="cardtext" id="2{{ card['Id'] }}" style="display:none;">
+                    {% if card['Type'] == 'Vampire' %}
                     <b>{{ card['Card Text'].pop(0) }}</b><br>
+                    {% endif %}
                     {% for i in card['Card Text'] %}
                     {{ i }}<br>
                     {% endfor %}
@@ -121,7 +123,6 @@
                 {{ form.capacitymoreless() }}
                 {{ form.capacity() }}
             </div>
-
         </div>
     </div>
 
@@ -167,5 +168,6 @@
     <div class="form-row small">
         {{ form.trait() }}
     </div>
+
 </form>
 {% endblock %}
