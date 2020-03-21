@@ -23,7 +23,7 @@
     <img src="static/img/types/{{ type[0] }}.gif" height="26" alt="{{ type[0] }}">{{type[1]}} &nbsp;
     {% endfor %}
 </b></div>
-<input type="button" value="Show Text" onclick="showAll()" />
+<button id="show-all-text" value="Show Text" onclick="showAll()"  class="btn btn-secondary" type="button">Text</button>
 {% endif %}
 
 <table width="100%">
@@ -71,7 +71,7 @@
         </td>
         <td width="59%">
             <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
-                <span class="hover_l_img">
+                <span class="hover_img">
                     <a href="{{ 'static/img/cards/' + card['URL Name'] + '.jpg' }}">
                         {{ card['Name'] }}
                         <span>

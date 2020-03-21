@@ -23,7 +23,7 @@
     <font color="#aaaaaa">G{{ group[0] }}:</font>{{group[1] }} &nbsp;
     {% endfor %}
 </b></div>
-<button id="show-all-text" value="Show Text" onclick="showAll()"  class="btn btn-secondary" type="button">Toggle Text</button>
+<button id="show-all-text" value="Show Text" onclick="showAll()"  class="btn btn-secondary" type="button">Text</button>
 {% endif %}
 
 <table width="100%">
@@ -45,7 +45,7 @@
         </td>
         <td width="40%">
             <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
-                <span class="hover_c_img">
+                <span class="hover_img">
                     <a href="{{ 'static/img/cards/' + card['URL Name'] + '.jpg' }}">
                         {{ card['Name'] }}
                         <span>

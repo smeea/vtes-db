@@ -313,7 +313,10 @@ def parse_crypt_card(cards):
         card_parsed['Discipline'] = []
         card_parsed['Capacity'] = card['Capacity']
         card_parsed['Clan'] = card['Clan']
-        card_parsed['Group'] = card['Group']
+        if card['Group'] == 'ANY':
+            card_parsed['Group'] = 'X'
+        else:
+            card_parsed['Group'] = card['Group']
         card_parsed['Type'] = card['Type']
         card_parsed['Card Text'] = []
         card_parsed['Card Text'] = re.split(': |\n', card['Card Text'])
