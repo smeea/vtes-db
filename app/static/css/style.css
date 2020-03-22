@@ -18,8 +18,8 @@ a { color: #306090; }
 
 .discipline-base-label,
 .discipline-superior-label {
-    width: 35px;
-    height: 27px;
+    width: 38px;
+    height: 31px;
     align-items: center;
     justify-content: center;
     display: flex;
@@ -46,4 +46,20 @@ a { color: #306090; }
 .virtue-base-label {
     margin-left: 4px;
     margin-right: 3px;
+}
+
+.btn-primary {
+    background-color: white;
+    border-color: lightgray;
+}
+
+.btn-secondary {
+    background-color: white;
+    border-color: lightgray;
+    color: #505050;
+}
+
+.navbar {
+    padding-top: 0rem;
+    padding-bottom: 0rem;
 }

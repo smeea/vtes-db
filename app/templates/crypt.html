@@ -4,6 +4,7 @@
 {% block title %} Crypt {% endblock %}
 
 {% block navbar %}
+
 <li class="nav-item">
     <a class="nav-link" href="{{ url_for('search.index') }}">Index</a>
 </li>
@@ -13,18 +14,17 @@
 <li class="nav-item">
     <a class="nav-link" href="{{ url_for('search.library') }}">Library</a>
 </li>
+
+{% if total %}
+TOTAL: {{ total.pop(0) }} &nbsp;
+{% for group in total %}
+<font color="#aaaaaa">G{{ group[0] }}:</font>{{group[1] }} &nbsp;
+{% endfor %}
+{% endif %}
+
 {% endblock %}
 
 {% block results %}
-{% if total %}
-<div id="total" class="total"><b>
-    TOTAL: {{ total.pop(0) }} &nbsp;
-    {% for group in total %}
-    <font color="#aaaaaa">G{{ group[0] }}:</font>{{group[1] }} &nbsp;
-    {% endfor %}
-</b></div>
-<button id="show-all-text" value="Show Text" onclick="showAll()"  class="btn btn-secondary" type="button">Text</button>
-{% endif %}
 
 <table width="100%">
     {% for card in cards %}
@@ -34,7 +34,7 @@
                 <img src="static/img/misc/cap{{ card['Capacity'] }}.png" height="23" alt="{{ card['Capacity'] }}">
             </div>
         </td>
-        <td width="38%">
+        <td width="40%">
             <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
                 {% for dis in card['Discipline'] %}
                 {% if dis[0] != '-none-' %}
@@ -55,12 +55,12 @@
                 </span>
             </div>
         </td>
-        <td width="9%" align="center">
+        <td width="10%" align="center">
             <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
                 <img src="static/img/clans/{{ card['URL Clan'] }}.gif" height="26" alt="{{ card['Clan'] }}">
             </div>
         </td>
-        <td width="7%">
+        <td width="4%">
             <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
                 <b><font color="aaaaaa">G</font>{{ card['Group'] }}</b>
             </div>
@@ -90,16 +90,17 @@
 
 {% block search %}
 <form id="cryptsearchform" action="" method="post" novalidate>
-
     <div class="form-row">
-        <div class="form-group w-100">
-            <input type="text" class="form-control w-100" id="cardtext" name="cardtext" placeholder="Card Name / Text" value="">
+        <div class="col-7">
+            <input type="text" class="form-control" id="cardtext" name="cardtext" placeholder="Card Name / Text" value="">
         </div>
-        <div class="form-group">
-            <button id="submit" name="submit" class="btn btn-primary" type="submit">Search</button>
-            <button id="clear-crypt" value="Clear" onclick="clearCrypt()"  class="btn btn-secondary" type="button">Clear</button>
+        <div class="col-5">
+            <button id="submit" name="submit" class="btn btn-primary" type="submit">&#x1F50D</button>
+            <button id="clear-crypt" value="Clear" onclick="clearCrypt()"  class="btn btn-secondary" type="button">🗑</button>
+            <button id="show-all-text" value="Show Text" onclick="showAll()"  class="btn btn-secondary" type="button">☰</button>
         </div>
     </div>
+    <br>
 
     <div class="form-row">
         <div class="input-group">
@@ -152,21 +153,28 @@
         </div>
     </div>
 
-    <h6>Title:</h6>
     <div class="form-row small">
+        <div class="col">
+            <h6>Title:</h6>
+        </div>
         {{ form.titles() }}
     </div>
 
     <br/>
-    <h6>Group:</h6>
-    <div class="input-group small">
-        {{ form.group() }}
+    <div class="form-row small">
+        <div class="col">
+            <h6>Traits:</h6>
+        </div>
+        {{ form.trait() }}
     </div>
 
     <br/>
-    <h6>Traits:</h6>
+    <!-- <div class="input-group small"> -->
     <div class="form-row small">
-        {{ form.trait() }}
+        <div class="col">
+            <h6>Group:</h6>
+        </div>
+        {{ form.group() }}
     </div>
 
 </form>

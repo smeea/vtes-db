@@ -1,8 +1,7 @@
-* Add library card type images in text preview e.g. 'Shadow Boxing'
+* Fix navbar burger menu
+* Fix results in navbar
+* Fix library card type/discipline images in text preview for 3+ type/discipline e.g. 'Shadow Boxing'
 * Add descriptin to index
-* Adjust column width for image/preview/forms
 * Add popup preview on hover
-* Decrease navbar height
-* Description for selfhost via Docker
-* Contacts
+* Add contacts
 * D O N A T I O N S

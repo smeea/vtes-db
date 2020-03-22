@@ -4,6 +4,7 @@
 {% block title %} Library {% endblock %}
 
 {% block navbar %}
+
 <li class="nav-item">
     <a class="nav-link" href="{{ url_for('search.index') }}">Index</a>
 </li>
@@ -13,18 +14,17 @@
 <li class="nav-item active">
     <a class="nav-link" href="{{ url_for('search.library') }}">Library</a>
 </li>
+
+{% if total %}
+TOTAL: {{ total.pop(0) }} &nbsp;
+{% for type in total %}
+<img src="static/img/types/{{ type[0] }}.gif" height="26" alt="{{ type[0] }}">{{type[1]}} &nbsp;
+{% endfor %}
+{% endif %}
+
 {% endblock %}
 
 {% block results %}
-{% if total %}
-<div id="total" class="total"><b>
-    TOTAL: {{ total.pop(0) }} &nbsp;
-    {% for type in total %}
-    <img src="static/img/types/{{ type[0] }}.gif" height="26" alt="{{ type[0] }}">{{type[1]}} &nbsp;
-    {% endfor %}
-</b></div>
-<button id="show-all-text" value="Show Text" onclick="showAll()"  class="btn btn-secondary" type="button">Text</button>
-{% endif %}
 
 <table width="100%">
     {% for card in cards %}
@@ -47,7 +47,7 @@
                 {% endfor %}
             </div>
         </td>
-        <td width="13%">
+        <td width="20%">
             <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
                 {% if card['URL Discipline'] %}
                 {% for discipline in card['URL Discipline'] %}
@@ -58,18 +58,7 @@
                 {% endif %}
             </div>
         </td>
-        <td width="10%" align="center">
-            <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
-                {% if card['URL Clan'] %}
-                {% for clan in card['URL Clan'] %}
-                <img src="static/img/clans/{{ clan }}.gif" height="26" alt="{{ clan }}">
-                {% endfor %}
-                {% else %}
-                &nbsp;
-                {% endif %}
-            </div>
-        </td>
-        <td width="59%">
+        <td width="50%">
             <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
                 <span class="hover_img">
                     <a href="{{ 'static/img/cards/' + card['URL Name'] + '.jpg' }}">
@@ -81,6 +70,17 @@
                 </span>
             </div>
         </td>
+        <td width="13%" align="center">
+            <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
+                {% if card['URL Clan'] %}
+                {% for clan in card['URL Clan'] %}
+                <img src="static/img/clans/{{ clan }}.gif" height="26" alt="{{ clan }}">
+                {% endfor %}
+                {% else %}
+                &nbsp;
+                {% endif %}
+            </div>
+        </td>
     </tr>
     <tr>
         <td style="border-bottom: thin dashed; border-color: gray">
@@ -89,9 +89,7 @@
         </td>
         <td style="border-bottom: thin dashed; border-color: gray">
         </td>
-        <td style="border-bottom: thin dashed; border-color: gray">
-        </td>
-        <td colspan="2" style="border-bottom: thin dashed; border-color: gray">
+        <td colspan="3" style="border-bottom: thin dashed; border-color: gray">
             <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
                 <div class="cardtext" id="2{{ card['Id'] }}" style="display:none;">
                     {% if card['Card Title Text'] %}
@@ -101,14 +99,14 @@
                     {{ i }}<br>
                     {% endfor %}
                     {% if card['Card Middle Text'] %}
-                        {% for i in card['Card Middle Text'] %}
-                        {% if i[2] %}
-                        <b> <img src="static/img/disciplines/{{ i[0] }}.gif" height="20" alt="{{ i[0] }}"> </b>
-                        <b> <img src="static/img/disciplines/{{ i[1] }}.gif" height="20" alt="{{ i[1] }}"> </b> {{ i[2] }}<br>
-                        {% else %}
-                        <b> <img src="static/img/disciplines/{{ i[0] }}.gif" height="20" alt="{{ i[0] }}"> </b> {{ i[1] }}<br>
-                        {% endif %}
-                        {% endfor %}
+                    {% for i in card['Card Middle Text'] %}
+                    {% if i[2] %}
+                    <b> <img src="static/img/disciplines/{{ i[0] }}.gif" height="20" alt="{{ i[0] }}"> </b>
+                    <b> <img src="static/img/disciplines/{{ i[1] }}.gif" height="20" alt="{{ i[1] }}"> </b> {{ i[2] }}<br>
+                    {% else %}
+                    <b> <img src="static/img/disciplines/{{ i[0] }}.gif" height="20" alt="{{ i[0] }}"> </b> {{ i[1] }}<br>
+                    {% endif %}
+                    {% endfor %}
                     {% endif %}
                 </div>
             </div>
@@ -121,20 +119,22 @@
 {% block search %}
 <form id="librarysearchform" action="" method="post" novalidate>
     <div class="form-row">
-        <div class="form-group w-100">
-            <input type="text" class="form-control w-100" id="cardtext" name="cardtext" placeholder="Card Name / Text" value="">
+        <div class="col-7">
+            <input type="text" class="form-control" id="cardtext" name="cardtext" placeholder="Card Name / Text" value="">
         </div>
-        <div class="form-group">
-            <button id="submit" name="submit" class="btn btn-primary" type="submit">Search</button>
-            <button id="clear-library" value="Clear" onclick="clearLibrary()"  class="btn btn-secondary" type="button">Clear</button>
+        <div class="col-5">
+            <button id="submit" name="submit" class="btn btn-primary" type="submit">&#x1F50D</button>
+            <button id="clear-library" value="Clear" onclick="clearLibrary()"  class="btn btn-secondary" type="button">🗑</button>
+            <button id="show-all-text" value="Show Text" onclick="showAll()"  class="btn btn-secondary" type="button">☰</button>
         </div>
     </div>
+    <br>
 
     <div class="form-row">
-        <div class="form-group col-3">
+        <div class="form-group col-4">
             <label class="h6">Type:</label>
         </div>
-        <div class="form-group col-9">
+        <div class="form-group col-8">
             <div class="input-group">
                 {{ form.cardtype() }}
             </div>
@@ -142,10 +142,10 @@
     </div>
 
     <div class="form-row">
-        <div class="form-group col-3">
+        <div class="form-group col-4">
             <label class="h6">Discipline:</label>
         </div>
-        <div class="form-group col-9">
+        <div class="form-group col-8">
             <div class="input-group">
                 {{ form.discipline() }}
             </div>
@@ -153,10 +153,10 @@
     </div>
 
     <div class="form-row">
-        <div class="form-group col-3">
+        <div class="form-group col-4">
             <label class="h6">Clan:</label>
         </div>
-        <div class="form-group col-9">
+        <div class="form-group col-8">
             <div class="input-group">
                 {{ form.clan() }}
             </div>
@@ -164,10 +164,10 @@
     </div>
 
     <div class="form-row">
-        <div class="form-group col-3">
+        <div class="form-group col-4">
             <label class="h6">Sect:</label>
         </div>
-        <div class="form-group col-9">
+        <div class="form-group col-8">
             <div class="input-group">
                 {{ form.sect() }}
             </div>
@@ -175,10 +175,10 @@
     </div>
 
     <div class="form-row">
-        <div class="form-group col-3">
+        <div class="form-group col-4">
             <label class="h6">Title:</label>
         </div>
-        <div class="form-group col-9">
+        <div class="form-group col-8">
             <div class="input-group">
                 {{ form.title() }}
             </div>
@@ -186,10 +186,10 @@
     </div>
 
     <div class="form-row">
-        <div class="form-group col-3">
+        <div class="form-group col-4">
             <label class="h6">Blood Cost:</label>
         </div>
-        <div class="form-group col-9">
+        <div class="form-group col-8">
             <div class="input-group">
                 {{ form.bloodmoreless() }}
                 {{ form.blood() }}
@@ -198,10 +198,10 @@
     </div>
 
     <div class="form-row">
-        <div class="form-group col-3">
+        <div class="form-group col-4">
             <label class="h6">Pool Cost:</label>
         </div>
-        <div class="form-group col-9">
+        <div class="form-group col-8">
             <div class="input-group">
                 {{ form.poolmoreless() }}
                 {{ form.pool() }}
@@ -209,8 +209,10 @@
         </div>
     </div>
 
-    <h6>Traits:</h6>
     <div class="form-row small">
+        <div class="form-group col-2">
+            <h6>Traits:</h6>
+        </div>
         {{ form.trait() }}
     </div>
 

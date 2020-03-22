@@ -29,7 +29,7 @@ class DisciplineWidget(object):
                                   id=subfield.id,
                                   **kwargs))
                 html.append(
-                    '<img src="static/img/disciplines/%s.gif" height="28">' %
+                    '<img src="static/img/disciplines/%s.gif" height="32">' %
                     subfield._value())
                 html.append('</label>')
             else:
@@ -43,7 +43,7 @@ class DisciplineWidget(object):
                                   id=subfield.id,
                                   **kwargs))
                 html.append(
-                    '<img src="static/img/disciplines/%ss.gif" height="32">' %
+                    '<img src="static/img/disciplines/%ss.gif" height="36">' %
                     subfield._value().lower())
                 html.append('</label>')
                 html.append('</div>')
@@ -78,7 +78,7 @@ class TitleWidget(object):
         i = 0
         html.append('<div class="col">')
         for subfield in field:
-            if i == 5:
+            if i == 9:
                 html.append('</div>')
                 html.append('<div class="col">')
                 i = 0
@@ -122,7 +122,7 @@ class TraitWidget(object):
         i = 0
         html.append('<div class="col">')
         for subfield in field:
-            if i == 8:
+            if i == 9:
                 html.append('</div>')
                 html.append('<div class="col">')
                 i = 0

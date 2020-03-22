@@ -181,10 +181,10 @@ def parse_library_card(cards):
                     dis = 'mod'
                 elif t.group(1) == '[REACTION]':
                     dis = 'rea'
+                elif t.group(1) == '[REFLEX]':
+                    dis = 'ref'
                 elif t.group(1) == '[COMBAT]':
                     dis = 'com'
-                elif t.group(1) == '[FLIGHT]':
-                    dis = 'fli'
                 elif t.group(1) == '[1 CONVICTION]':
                     dis = 'con1'
                 elif t.group(1) == '[2 CONVICTION]':
@@ -200,10 +200,10 @@ def parse_library_card(cards):
                     dis2 = 'mod'
                 elif t.group(2) == '[REACTION]':
                     dis2 = 'rea'
+                elif t.group(2) == '[REFLEX]':
+                    dis2 = 'ref'
                 elif t.group(2) == '[COMBAT]':
                     dis2 = 'com'
-                elif t.group(2) == '[FLIGHT]':
-                    dis2 = 'fli'
                 elif t.group(2) == '[1 CONVICTION]':
                     dis2 = 'con1'
                 elif t.group(2) == '[2 CONVICTION]':
