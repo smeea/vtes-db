@@ -11,15 +11,15 @@ a { color: #306090; }
     position: absolute;
     top: 0;
     left: 0;
-    width: 35px;
-    height: 27px;
+    width: 36px;
+    height: 36px;
     z-index: 1;
 }
 
 .discipline-base-label,
 .discipline-superior-label {
-    width: 38px;
-    height: 31px;
+    width: 43px;
+    height: 35px;
     align-items: center;
     justify-content: center;
     display: flex;
@@ -44,8 +44,8 @@ a { color: #306090; }
 .virtue-base-label img {opacity: 0.35;}
 .virtue-base-label .virtue-base:checked + img {opacity: 1;}
 .virtue-base-label {
-    margin-left: 4px;
-    margin-right: 3px;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .btn-primary {

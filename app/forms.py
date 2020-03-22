@@ -29,7 +29,7 @@ class DisciplineWidget(object):
                                   id=subfield.id,
                                   **kwargs))
                 html.append(
-                    '<img src="static/img/disciplines/%s.gif" height="32">' %
+                    '<img src="static/img/disciplines/%s.gif" height="34">' %
                     subfield._value())
                 html.append('</label>')
             else:
@@ -43,7 +43,7 @@ class DisciplineWidget(object):
                                   id=subfield.id,
                                   **kwargs))
                 html.append(
-                    '<img src="static/img/disciplines/%ss.gif" height="36">' %
+                    '<img src="static/img/disciplines/%ss.gif" height="40">' %
                     subfield._value().lower())
                 html.append('</label>')
                 html.append('</div>')
@@ -65,7 +65,7 @@ class VirtuesWidget(object):
                             id=subfield.id,
                             **kwargs))
             html.append(
-                '<img src="static/img/disciplines/%s.gif" height="28">' %
+                '<img src="static/img/disciplines/%s.gif" height="33">' %
                 subfield._value())
             html.append('</label>')
             html.append('</div>')
