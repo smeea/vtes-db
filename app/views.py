@@ -314,7 +314,9 @@ def crypt():
                 total = print_crypt_total(cards)
 
                 # Sort card by capacity, name
-                sorted_cards = (sorted(sorted(cards, key=lambda x: x['Name']),
+                sorted_cards = (sorted(sorted(sorted(cards,
+                                                     key=lambda x: x['Name']),
+                                              key=lambda x: x['Group']),
                                        key=lambda x: x['Capacity']))
 
                 # Parse card text for output
