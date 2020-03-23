@@ -28,7 +28,7 @@ TOTAL: {{ total.pop(0) }} &nbsp;
 
 <table width="100%">
     {% for card in cards %}
-    <tr>
+    <tr class="cardresult_{{ loop.cycle('odd', 'even') }}">
         <td width="6%">
             <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
                 <img src="static/img/misc/cap{{ card['Capacity'] }}.png" height="23" alt="{{ card['Capacity'] }}">
@@ -66,12 +66,12 @@ TOTAL: {{ total.pop(0) }} &nbsp;
             </div>
         </td>
     </tr>
-    <tr>
-        <td style="border-bottom: thin dashed; border-color: gray">
+    <tr class="cardresult_{{ loop.cycle('odd', 'even') }}">
+        <td>
         </td>
-        <td style="border-bottom: thin dashed; border-color: gray">
+        <td>
         </td>
-        <td colspan="3" style="border-bottom: thin dashed; border-color: gray">
+        <td colspan="3">
             <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
                 <div class="cardtext" id="2{{ card['Id'] }}" style="display:none;">
                     {% if card['Type'] == 'Vampire' %}
@@ -107,7 +107,6 @@ TOTAL: {{ total.pop(0) }} &nbsp;
             {{ form.disciplines() }}
         </div>
     </div>
-
 
     <div class="form-row">
         <div class="input-group">
@@ -153,28 +152,20 @@ TOTAL: {{ total.pop(0) }} &nbsp;
         </div>
     </div>
 
-    <div class="form-row small">
-        <div class="col">
-            <h6>Title:</h6>
-        </div>
+    <div class="form-row">
         {{ form.titles() }}
     </div>
 
-    <br/>
-    <div class="form-row small">
-        <div class="col">
-            <h6>Traits:</h6>
-        </div>
-        {{ form.trait() }}
-    </div>
-
-    <br/>
-    <!-- <div class="input-group small"> -->
-    <div class="form-row small">
+    <div class="form-row">
         <div class="col">
             <h6>Group:</h6>
         </div>
         {{ form.group() }}
+    </div>
+
+    <h6>Traits:</h6>
+    <div class="form-row">
+        {{ form.trait() }}
     </div>
 
 </form>

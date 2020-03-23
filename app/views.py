@@ -128,15 +128,15 @@ def crypt():
         ('justicar', 'Justicar'),
         # ('imperator', 'Imperator'),
         ('inner circle', 'Inner Circle'),
+        ('baron', 'Baron'),
+        ('1 vote', '1 vote (Independent)'),
+        ('2 votes', '2 votes (Independent)'),
         ('bishop', 'Bishop'),
         ('archbishop', 'Archbishop'),
         ('priscus', 'Priscus'),
         ('cardinal', 'Cardinal'),
         ('regent', 'Regent'),
         ('magaji', 'Magaji'),
-        ('baron', 'Baron'),
-        ('1 vote', '1 vote (Independent)'),
-        ('2 votes', '2 votes (Independent)'),
         # ('3 votes', '3 votes (Independent)'),
     ]
 
@@ -181,14 +181,14 @@ def crypt():
         ('Brujah', 'Brujah'),
         ('Brujah antitribu', 'Brujah Antitribu'),
         ('Caitiff', 'Caitiff'),
-        ('Daughter of Cacophony', 'Daughter Of Cacophony'),
-        ('Follower Of Set', 'Follower Of Set'),
+        ('Daughter of Cacophony', 'Daughter of Cacophony'),
+        ('Follower of Set', 'Follower of Set'),
         ('Gangrel', 'Gangrel'),
         ('Gangrel antitribu', 'Gangrel Antitribu'),
         ('Gargoyle', 'Gargoyle'),
         ('Giovanni', 'Giovanni'),
         ('Guruhi', 'Guruhi'),
-        ('Harbinger Of Skulls', 'Harbinger Of Skulls'),
+        ('Harbinger of Skulls', 'Harbinger of Skulls'),
         ('Ishtarri', 'Ishtarri'),
         ('Kiasyd', 'Kiasyd'),
         ('Lasombra', 'Lasombra'),
@@ -314,8 +314,9 @@ def crypt():
                 total = print_crypt_total(cards)
 
                 # Sort card by capacity, name
-                sorted_cards = (sorted(sorted(sorted(cards,
-                                                     key=lambda x: x['Name']),
+                sorted_cards = (sorted(sorted(sorted(sorted(
+                    cards, key=lambda x: x['Name']),
+                                                     key=lambda x: x['Clan']),
                                               key=lambda x: x['Group']),
                                        key=lambda x: x['Capacity']))
 
@@ -436,14 +437,14 @@ def library():
         ('Brujah', 'Brujah'),
         ('Brujah antitribu', 'Brujah Antitribu'),
         ('Caitiff', 'Caitiff'),
-        ('Daughter of Cacophony', 'Daughter Of Cacophony'),
-        ('Follower Of Set', 'Follower Of Set'),
+        ('Daughter of Cacophony', 'Daughter of Cacophony'),
+        ('Follower of Set', 'Follower of Set'),
         ('Gangrel', 'Gangrel'),
         ('Gangrel antitribu', 'Gangrel Antitribu'),
         ('Gargoyle', 'Gargoyle'),
         ('Giovanni', 'Giovanni'),
         ('Guruhi', 'Guruhi'),
-        ('Harbinger Of Skulls', 'Harbinger Of Skulls'),
+        ('Harbinger of Skulls', 'Harbinger of Skulls'),
         ('Ishtarri', 'Ishtarri'),
         ('Kiasyd', 'Kiasyd'),
         ('Lasombra', 'Lasombra'),
@@ -488,9 +489,9 @@ def library():
 
     libraryform.trait.choices = [
         ('\-[0-9]+ stealth(?! \(d\))(?! \w)(?! action)|\+[0-9]+ intercept',
-         '+Intercept / -St'),
+         '+Intercept / -Stealth'),
         ('\+[0-9]+ stealth(?! \(d\))(?! \w)(?! action)|\-[0-9]+ intercept',
-         '+Stealth / -Int'),
+         '+Stealth / -Intercept'),
         ('\+[0-9]+ bleed', '+Bleed'),
         ('\+[0-9]+ strength', '+Strength'),
         ('dodge', 'Dodge'),

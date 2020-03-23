@@ -28,8 +28,8 @@ TOTAL: {{ total.pop(0) }} &nbsp;
 
 <table width="100%">
     {% for card in cards %}
-    <tr>
-        <td width="5%">
+    <tr class="cardresult_{{ loop.cycle('odd', 'even') }}">
+        <td class="cards" width="5%">
             <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
                 {% if card['Pool Cost'] %}
                 <img src="static/img/misc/pool{{ card['Pool Cost'] }}.png" height="36" alt="{{ card['Pool Cost'] }}">
@@ -47,7 +47,7 @@ TOTAL: {{ total.pop(0) }} &nbsp;
                 {% endfor %}
             </div>
         </td>
-        <td width="20%">
+        <td width="21%">
             <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
                 {% if card['URL Discipline'] %}
                 {% for discipline in card['URL Discipline'] %}
@@ -58,7 +58,7 @@ TOTAL: {{ total.pop(0) }} &nbsp;
                 {% endif %}
             </div>
         </td>
-        <td width="50%">
+        <td width="49%">
             <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
                 <span class="hover_img">
                     <a href="{{ 'static/img/cards/' + card['URL Name'] + '.jpg' }}">
@@ -82,14 +82,14 @@ TOTAL: {{ total.pop(0) }} &nbsp;
             </div>
         </td>
     </tr>
-    <tr>
-        <td style="border-bottom: thin dashed; border-color: gray">
+    <tr class="cardresult_{{ loop.cycle('odd', 'even') }}">
+        <td>
         </td>
-        <td style="border-bottom: thin dashed; border-color: gray">
+        <td>
         </td>
-        <td style="border-bottom: thin dashed; border-color: gray">
+        <td>
         </td>
-        <td colspan="3" style="border-bottom: thin dashed; border-color: gray">
+        <td colspan="3">
             <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
                 <div class="cardtext" id="2{{ card['Id'] }}" style="display:none;">
                     {% if card['Card Title Text'] %}
@@ -209,10 +209,8 @@ TOTAL: {{ total.pop(0) }} &nbsp;
         </div>
     </div>
 
-    <div class="form-row small">
-        <div class="form-group col-2">
-            <h6>Traits:</h6>
-        </div>
+    <h6>Traits:</h6>
+    <div class="form-row">
         {{ form.trait() }}
     </div>
 

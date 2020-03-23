@@ -63,3 +63,7 @@ a { color: #306090; }
     padding-top: 0rem;
     padding-bottom: 0rem;
 }
+
+.cardresult_odd {
+    background-color: #eeeeee;
+}

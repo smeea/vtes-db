@@ -76,11 +76,11 @@ class TitleWidget(object):
     def __call__(self, field, **kwargs):
         html = []
         i = 0
-        html.append('<div class="col">')
+        html.append('<div class="form-group col-7">')
         for subfield in field:
-            if i == 9:
+            if i == 7:
                 html.append('</div>')
-                html.append('<div class="col">')
+                html.append('<div class="form-group col-5">')
                 i = 0
             i += 1
             input = "<input class='mr-2 custom-control-input' type='checkbox' %s>" % html_params(
@@ -120,11 +120,11 @@ class TraitWidget(object):
     def __call__(self, field, **kwargs):
         html = []
         i = 0
-        html.append('<div class="col">')
+        html.append('<div class="form-group col-7">')
         for subfield in field:
             if i == 9:
                 html.append('</div>')
-                html.append('<div class="col">')
+                html.append('<div class="col-5">')
                 i = 0
             i += 1
             input = "<input class='mr-2 custom-control-input' type='checkbox' %s>" % html_params(
