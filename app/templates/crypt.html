@@ -6,46 +6,65 @@
 {% block navbar %}
 
 <li class="nav-item">
-    <a class="nav-link" href="{{ url_for('search.index') }}">Index</a>
+    <a class="nav-link" href="{{ url_for('search.index') }}">/About/</a>
 </li>
 <li class="nav-item active">
-    <a class="nav-link" href="{{ url_for('search.crypt') }}">Crypt</a>
+    <a class="nav-link" href="{{ url_for('search.crypt') }}">/Crypt/</a>
 </li>
 <li class="nav-item">
-    <a class="nav-link" href="{{ url_for('search.library') }}">Library</a>
+    <a class="nav-link" href="{{ url_for('search.library') }}">/Library/</a>
 </li>
 
+{% endblock %}
+
+{% block total %}
 {% if total %}
 TOTAL: {{ total.pop(0) }} &nbsp;
 {% for group in total %}
 <font color="#aaaaaa">G{{ group[0] }}:</font>{{group[1] }} &nbsp;
 {% endfor %}
 {% endif %}
-
 {% endblock %}
 
 {% block results %}
 
 <table width="100%">
     {% for card in cards %}
-    <tr class="cardresult_{{ loop.cycle('odd', 'even') }}">
+    <tr class="crypt-result-{{ loop.cycle('odd', 'even') }}">
         <td width="6%">
             <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
                 <img src="static/img/misc/cap{{ card['Capacity'] }}.png" height="23" alt="{{ card['Capacity'] }}">
             </div>
         </td>
-        <td width="40%">
-            <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
+        <td width="37%">
+            <div class="crypt-result-disciplines d-flex" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
+                <div class="crypt-result-disciplines d-flex" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
                 {% for dis in card['Discipline'] %}
                 {% if dis[0] != '-none-' %}
+                <div style='width: 27px; text-align: center'>
                 <img src="static/img/disciplines/{{ dis[0] }}.gif" height="{{ dis[1] }}" alt="{{ dis }}" />
+                </div>
                 {% endif %}
                 {% endfor %}
             </div>
         </td>
-        <td width="40%">
-            <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
-                <span class="hover_img">
+        <td width="41%">
+            <div class="crypt-result-name d-flex" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
+                <span class="hover_img d-inline d-sm-none">
+                    <a href="javascript: void(0);" data-toggle="modal" data-target="#crypt-modal-{{ card['Id'] }}">
+                        {{ card['Name'] }}
+                    </a>
+                </span>
+
+                <div class="modal" id="crypt-modal-{{ card['Id'] }}" tabindex="-1" role="dialog" aria-labelledby="crypt-modal-label-{{ card['Id'] }}" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                            <button type="image" id="closemodalbutton" class="btn btn-secondary" data-dismiss="modal">
+                                <img class="lozad" data-src="{{ 'static/img/cards/'+ card['URL Name'] + '.jpg' }}" alt="" />
+                            </button>
+                    </div>
+                </div>
+
+                <span class="hover_img d-none d-sm-inline">
                     <a href="{{ 'static/img/cards/' + card['URL Name'] + '.jpg' }}">
                         {{ card['Name'] }}
                         <span>
@@ -54,19 +73,20 @@ TOTAL: {{ total.pop(0) }} &nbsp;
                     </a>
                 </span>
             </div>
+
         </td>
         <td width="10%" align="center">
-            <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
+            <div class="crypt-result-clan" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
                 <img src="static/img/clans/{{ card['URL Clan'] }}.gif" height="26" alt="{{ card['Clan'] }}">
             </div>
         </td>
-        <td width="4%">
-            <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
+        <td width="6%">
+            <div class="crypt-result-group" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
                 <b><font color="aaaaaa">G</font>{{ card['Group'] }}</b>
             </div>
         </td>
     </tr>
-    <tr class="cardresult_{{ loop.cycle('odd', 'even') }}">
+    <tr class="crypt-result-{{ loop.cycle('odd', 'even') }}">
         <td>
         </td>
         <td>
@@ -161,6 +181,97 @@ TOTAL: {{ total.pop(0) }} &nbsp;
             <h6>Group:</h6>
         </div>
         {{ form.group() }}
+        <div class="col">
+            <h6>Gay Group:</h6>
+        </div>
+        <label for="formControlRange">Example Range input</label>
+        <input type="range" class="form-control-range" id="formControlRange" min="1" max="6">
+    </div>
+
+    <h6>Traits:</h6>
+    <div class="form-row">
+        {{ form.trait() }}
+    </div>
+
+</form>
+{% endblock %}
+
+{% block navsearch %}
+<form id="cryptsearchform" action="" method="post" novalidate>
+    <div class="form-row">
+        <div class="col-7">
+            <input type="text" class="form-control" id="cardtext" name="cardtext" placeholder="Card Name / Text" value="">
+        </div>
+        <div class="col-5">
+            <button id="submit" name="submit" class="btn btn-primary" type="submit">&#x1F50D</button>
+            <button id="clear-crypt" value="Clear" onclick="clearCrypt()"  class="btn btn-secondary" type="button">🗑</button>
+            <button id="show-all-text" value="Show Text" onclick="showAll()"  class="btn btn-secondary" type="button">☰</button>
+        </div>
+    </div>
+    <br>
+
+    <div class="form-row">
+        <div class="input-group">
+            {{ form.disciplines() }}
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="input-group">
+            {{ form.virtues() }}
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-3">
+            <label class="h6">Capacity:</label>
+        </div>
+        <div class="form-group col-9">
+            <div class="input-group">
+                {{ form.capacitymoreless() }}
+                {{ form.capacity() }}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-3">
+            <label class="h6">Clan:</label>
+        </div>
+        <div class="form-group col-9">
+            {{ form.clan() }}
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-3">
+            <label class="h6">Sect:</label>
+        </div>
+        <div class="form-group col-9">
+            {{ form.sect() }}
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-3">
+            <label class="h6">Votes:</label>
+        </div>
+        <div class="form-group col-9">
+            {{ form.votes() }}
+        </div>
+    </div>
+
+    <div class="form-row">
+        {{ form.titles() }}
+    </div>
+
+    <div class="form-row">
+        <div class="col">
+            <h6>Group:</h6>
+        </div>
+        {{ form.group() }}
+        <div class="col">
+            <h6>Range Group:</h6>
+        </div>
     </div>
 
     <h6>Traits:</h6>

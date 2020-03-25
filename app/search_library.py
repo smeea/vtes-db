@@ -170,9 +170,11 @@ def parse_library_card(cards):
 
         for i in card_parsed['Card Text']:
             if re.match(r'(\[+.*?\]+)', i):
-                t = re.match(r'(\[.*?\])\s?(\[.*?\])?\s?(.*)', i)
+                t = re.match(r'(\[.*?\])\s?(\[.*?\])?\s?(\[.*?\])?\s?(.*)', i)
                 dis = ''
                 dis2 = ''
+                dis3 = ''
+
                 if t.group(1) == '[FLIGHT]':
                     dis = 'fli'
                 elif t.group(1) == '[ACTION]':
@@ -211,27 +213,60 @@ def parse_library_card(cards):
                 elif t.group(2):
                     b = t.group(2).replace('[', '')
                     dis2 = b.replace(']', '')
-                if dis2:
+                if t.group(3) == '[FLIGHT]':
+                    dis3 = 'fli'
+                elif t.group(3) == '[ACTION]':
+                    dis3 = 'act'
+                elif t.group(3) == '[ACTION MODIFIER]':
+                    dis3 = 'mod'
+                elif t.group(3) == '[REACTION]':
+                    dis3 = 'rea'
+                elif t.group(3) == '[REFLEX]':
+                    dis3 = 'ref'
+                elif t.group(3) == '[COMBAT]':
+                    dis3 = 'com'
+                elif t.group(3) == '[1 CONVICTION]':
+                    dis3 = 'con1'
+                elif t.group(3) == '[2 CONVICTION]':
+                    dis3 = 'con2'
+                elif t.group(3):
+                    b = t.group(3).replace('[', '')
+                    dis3 = b.replace(']', '')
+                if dis3:
                     if dis == dis.lower():
                         card_parsed['Card Middle Text'].append(
-                            [dis, dis2, t.group(3)])
+                            [dis, dis2, dis3, t.group(4)])
+                    elif dis2 == dis2.lower():
+                        card_parsed['Card Middle Text'].append(
+                            [dis.lower() + 's', dis2, dis3,
+                             t.group(4)])
+                    else:
+                        card_parsed['Card Middle Text'].append([
+                            dis.lower() + 's',
+                            dis2.lower() + 's', dis3,
+                            t.group(4)
+                        ])
+                elif dis2:
+                    if dis == dis.lower():
+                        card_parsed['Card Middle Text'].append(
+                            [dis, dis2, t.group(4)])
                     elif dis2 == dis2.lower():
                         card_parsed['Card Middle Text'].append(
                             [dis.lower() + 's', dis2,
-                             t.group(3)])
+                             t.group(4)])
                     else:
                         card_parsed['Card Middle Text'].append([
                             dis.lower() + 's',
                             dis2.lower() + 's',
-                            t.group(3)
+                            t.group(4)
                         ])
                 else:
                     if dis == dis.lower():
                         card_parsed['Card Middle Text'].append(
-                            [dis, t.group(3)])
+                            [dis, t.group(4)])
                     else:
                         card_parsed['Card Middle Text'].append(
-                            [dis.lower() + 's', t.group(3)])
+                            [dis.lower() + 's', t.group(4)])
             elif re.match(r'(Strike\:)', i):
                 t = re.match(r'(Strike\:)?\s?(.*)', i)
                 card_parsed['Card Middle Text'].append(

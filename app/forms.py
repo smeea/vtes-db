@@ -2,6 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 
 from wtforms import SelectMultipleField, SelectField
+# from wtforms.fields.html5 import DecimalRangeField, IntegerRangeField
 from wtforms.widgets import CheckboxInput, html_params
 from markupsafe import Markup, escape
 # from wtforms.validators import Required
@@ -188,6 +189,7 @@ class CryptForm(FlaskForm):
     trait = SelectMultipleField('Text Trait',
                                 option_widget=CheckboxInput(),
                                 widget=TraitWidget())
+    # rangegroup = IntegerRangeField('Range Group')
     submit = SubmitField('Search')
 
 

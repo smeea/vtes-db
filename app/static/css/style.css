@@ -11,14 +11,14 @@ a { color: #306090; }
     position: absolute;
     top: 0;
     left: 0;
-    width: 36px;
-    height: 36px;
+    width: 42px;
+    height: 39px;
     z-index: 1;
 }
 
 .discipline-base-label,
 .discipline-superior-label {
-    width: 43px;
+    width: 42px;
     height: 35px;
     align-items: center;
     justify-content: center;
@@ -44,7 +44,7 @@ a { color: #306090; }
 .virtue-base-label img {opacity: 0.35;}
 .virtue-base-label .virtue-base:checked + img {opacity: 1;}
 .virtue-base-label {
-    margin-left: 5px;
+    margin-left: 4px;
     margin-right: 5px;
 }
 
@@ -60,10 +60,39 @@ a { color: #306090; }
 }
 
 .navbar {
-    padding-top: 0rem;
+    padding: 0rem;
     padding-bottom: 0rem;
+    padding-left: 0rem;
+    padding-right: 0rem;
 }
 
-.cardresult_odd {
-    background-color: #eeeeee;
+.navbar-collapse {
+    background-color: #fafafa;
 }
+
+.library-result-odd,
+.crypt-result-odd { background-color: #eaeaea; }
+
+h6,.h6 {
+    font-weight: bold;
+    color: #6060cc;
+}
+
+.form-control:focus,
+.custom-select:focus {
+    box-shadow: none;
+    border-color: #999;
+}
+
+/* OK on high-res mobile */
+/* TODO test on small resolution mobile */
+.library-result-disciplines { min-width: 106px; }
+/* .library-result-type { min-width: 58px; } */
+/* .library-result-name { min-width: 106px; } */
+
+/* TODO adjust + test on hi-res mobile */
+/* TODO adjust + test on low-res mobile */
+/* .crypt-result-name { max-width: 90px; } */
+/* .crypt-result-disciplines { max-width: 180px; } */
+/* .crypt-result-clan { max-width: 25px; } */
+/* .crypt-result-group { max-width: 20px; } */

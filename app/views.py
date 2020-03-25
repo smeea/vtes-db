@@ -231,6 +231,7 @@ def crypt():
         cryptform.group.choices.append((i, i))
 
     if cryptform.is_submitted():
+
         # Get cards by text
         cardtext = cryptform.cardtext.data
         if cardtext:
@@ -285,6 +286,7 @@ def crypt():
             match_by_category.append(cards_by_capacity)
 
         # Get cards by group
+        # group = cryptform.rgroup.data
         group = cryptform.group.data
         if group:
             parameters += 1

@@ -11,15 +11,18 @@
         <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
     </head>
     <body class="bg-light">
-        <nav class="navbar navbar-expand-xl navbar-dark bg-dark">
-            <a class="navbar-brand" href="/">VTES DB</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <nav class="navbar navbar-dark bg-dark sticky-top">
+            <ul class="navbar-nav mr-auto">
+                {% block navbar %}{% endblock %}
+            </ul>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsMain" aria-controls="navbarsMain" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <div class="collapse navbar-collapse" id="navbarsMain">
                 <ul class="navbar-nav mr-auto">
-                    {% block navbar %}{% endblock %}
+                    {% block search %}{% endblock %}
                 </ul>
             </div>
         </nav>
@@ -30,6 +33,7 @@
                 </div>
                 <div class="col-xs-12 col-xl-6">
                     {% block index %}{% endblock %}
+                    {% block total %}{% endblock %}
                     {% block results %}{% endblock %}
                 </div>
                 <div class="col-xs-12 col-xl-4">
@@ -40,12 +44,12 @@
                     {% endfor %}
                     {% endif %}
                     {% endwith %}
-                    {% block search %}{% endblock %}
+                    {% block navsearch %}{% endblock %}
                 </div>
             </div>
         </div>
-        <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
         <script src="{{ url_for('static', filename='js/jquery-3.4.1.slim.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
         <script src="{{ url_for('static', filename ='js/buttons.js') }}"></script>
         <script src="{{ url_for('static', filename ='js/cards_actions.js') }}"></script>
         <script src="{{ url_for('static', filename ='js/lozad.min.js') }}"></script>

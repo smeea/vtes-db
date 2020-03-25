@@ -6,14 +6,18 @@
 {% block navbar %}
 
 <li class="nav-item">
-    <a class="nav-link" href="{{ url_for('search.index') }}">Index</a>
+    <a class="nav-link" href="{{ url_for('search.index') }}">/About/</a>
 </li>
 <li class="nav-item">
-    <a class="nav-link" href="{{ url_for('search.crypt') }}">Crypt</a>
+    <a class="nav-link" href="{{ url_for('search.crypt') }}">/Crypt/</a>
 </li>
 <li class="nav-item active">
-    <a class="nav-link" href="{{ url_for('search.library') }}">Library</a>
+    <a class="nav-link" href="{{ url_for('search.library') }}">/Library/</a>
 </li>
+
+{% endblock %}
+
+{% block total %}
 
 {% if total %}
 TOTAL: {{ total.pop(0) }} &nbsp;
@@ -28,9 +32,9 @@ TOTAL: {{ total.pop(0) }} &nbsp;
 
 <table width="100%">
     {% for card in cards %}
-    <tr class="cardresult_{{ loop.cycle('odd', 'even') }}">
+    <tr class="library-result-{{ loop.cycle('odd', 'even') }}">
         <td class="cards" width="5%">
-            <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
+            <div class="library-result-cost" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
                 {% if card['Pool Cost'] %}
                 <img src="static/img/misc/pool{{ card['Pool Cost'] }}.png" height="36" alt="{{ card['Pool Cost'] }}">
                 {% elif card['Blood Cost'] %}
@@ -41,14 +45,14 @@ TOTAL: {{ total.pop(0) }} &nbsp;
             </div>
         </td>
         <td width="12%">
-            <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
+            <div class="library-result-type" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
                 {% for type in card['URL Type'] %}
                 <img src="static/img/types/{{ type }}.gif" height="26" alt="{{ card['Type'] }}">
                 {% endfor %}
             </div>
         </td>
         <td width="21%">
-            <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
+            <div class="library-result-disciplines" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
                 {% if card['URL Discipline'] %}
                 {% for discipline in card['URL Discipline'] %}
                 <img src="static/img/disciplines/{{ discipline }}.gif" height="24" alt="{{ discipline }}" />
@@ -59,7 +63,7 @@ TOTAL: {{ total.pop(0) }} &nbsp;
             </div>
         </td>
         <td width="49%">
-            <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
+            <div class="library-result-name" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
                 <span class="hover_img">
                     <a href="{{ 'static/img/cards/' + card['URL Name'] + '.jpg' }}">
                         {{ card['Name'] }}
@@ -71,7 +75,7 @@ TOTAL: {{ total.pop(0) }} &nbsp;
             </div>
         </td>
         <td width="13%" align="center">
-            <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
+            <div class="library-result-clan" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
                 {% if card['URL Clan'] %}
                 {% for clan in card['URL Clan'] %}
                 <img src="static/img/clans/{{ clan }}.gif" height="26" alt="{{ clan }}">
@@ -82,7 +86,7 @@ TOTAL: {{ total.pop(0) }} &nbsp;
             </div>
         </td>
     </tr>
-    <tr class="cardresult_{{ loop.cycle('odd', 'even') }}">
+    <tr class="library-result-{{ loop.cycle('odd', 'even') }}">
         <td>
         </td>
         <td>
@@ -91,7 +95,7 @@ TOTAL: {{ total.pop(0) }} &nbsp;
         </td>
         <td colspan="3">
             <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
-                <div class="cardtext" id="2{{ card['Id'] }}" style="display:none;">
+                <div class="library-result-text" id="2{{ card['Id'] }}" style="display:none;">
                     {% if card['Card Title Text'] %}
                     <b>{{ card['Card Title Text'] }}</b><br>
                     {% endif %}
@@ -100,11 +104,15 @@ TOTAL: {{ total.pop(0) }} &nbsp;
                     {% endfor %}
                     {% if card['Card Middle Text'] %}
                     {% for i in card['Card Middle Text'] %}
-                    {% if i[2] %}
+                    {% if i[3] %}
+                    <b> <img src="static/img/disciplines/{{ i[0] }}.gif" height="20" alt="{{ i[0] }}"> </b>
+                    <b> <img src="static/img/disciplines/{{ i[1] }}.gif" height="20" alt="{{ i[1] }}"> </b>
+                    <b> <img src="static/img/disciplines/{{ i[2] }}.gif" height="20" alt="{{ i[2] }}"> </b> {{ i[3] }}<br>
+                    {% elif i[2] %}
                     <b> <img src="static/img/disciplines/{{ i[0] }}.gif" height="20" alt="{{ i[0] }}"> </b>
                     <b> <img src="static/img/disciplines/{{ i[1] }}.gif" height="20" alt="{{ i[1] }}"> </b> {{ i[2] }}<br>
                     {% else %}
-                    <b> <img src="static/img/disciplines/{{ i[0] }}.gif" height="20" alt="{{ i[0] }}"> </b> {{ i[1] }}<br>
+                    <b> <img src="static/img/disciplines/{{ i[0] }}.gif" height="20" alt="{{ i[0] }}"> </b> {{ i[1] }} kek<br>
                     {% endif %}
                     {% endfor %}
                     {% endif %}
@@ -117,6 +125,107 @@ TOTAL: {{ total.pop(0) }} &nbsp;
 {% endblock %}
 
 {% block search %}
+<form id="librarysearchform" action="" method="post" novalidate>
+    <div class="form-row">
+        <div class="col-7">
+            <input type="text" class="form-control" id="cardtext" name="cardtext" placeholder="Card Name / Text" value="">
+        </div>
+        <div class="col-5">
+            <button id="submit" name="submit" class="btn btn-primary" type="submit">&#x1F50D</button>
+            <button id="clear-library" value="Clear" onclick="clearLibrary()"  class="btn btn-secondary" type="button">🗑</button>
+            <button id="show-all-text" value="Show Text" onclick="showAll()"  class="btn btn-secondary" type="button">☰</button>
+        </div>
+    </div>
+    <br>
+
+    <div class="form-row">
+        <div class="form-group col-4">
+            <label class="h6">Type:</label>
+        </div>
+        <div class="form-group col-8">
+            <div class="input-group">
+                {{ form.cardtype() }}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-4">
+            <label class="h6">Discipline:</label>
+        </div>
+        <div class="form-group col-8">
+            <div class="input-group">
+                {{ form.discipline() }}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-4">
+            <label class="h6">Clan:</label>
+        </div>
+        <div class="form-group col-8">
+            <div class="input-group">
+                {{ form.clan() }}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-4">
+            <label class="h6">Sect:</label>
+        </div>
+        <div class="form-group col-8">
+            <div class="input-group">
+                {{ form.sect() }}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-4">
+            <label class="h6">Title:</label>
+        </div>
+        <div class="form-group col-8">
+            <div class="input-group">
+                {{ form.title() }}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-4">
+            <label class="h6">Blood Cost:</label>
+        </div>
+        <div class="form-group col-8">
+            <div class="input-group">
+                {{ form.bloodmoreless() }}
+                {{ form.blood() }}
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="form-group col-4">
+            <label class="h6">Pool Cost:</label>
+        </div>
+        <div class="form-group col-8">
+            <div class="input-group">
+                {{ form.poolmoreless() }}
+                {{ form.pool() }}
+            </div>
+        </div>
+    </div>
+
+    <h6>Traits:</h6>
+    <div class="form-row">
+        {{ form.trait() }}
+    </div>
+
+</form>
+{% endblock %}
+
+{% block navsearch %}
 <form id="librarysearchform" action="" method="post" novalidate>
     <div class="form-row">
         <div class="col-7">
