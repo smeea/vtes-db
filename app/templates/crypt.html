@@ -4,17 +4,15 @@
 {% block title %} Crypt {% endblock %}
 
 {% block navbar %}
-
 <li class="nav-item">
-    <a class="nav-link" href="{{ url_for('search.index') }}">/About/</a>
+    <a class="nav-link px-2" href="{{ url_for('search.index') }}">About</a>
 </li>
 <li class="nav-item active">
-    <a class="nav-link" href="{{ url_for('search.crypt') }}">/Crypt/</a>
+    <a class="nav-link px-2" href="{{ url_for('search.crypt') }}">Crypt</a>
 </li>
 <li class="nav-item">
-    <a class="nav-link" href="{{ url_for('search.library') }}">/Library/</a>
+    <a class="nav-link px-2 pr-xl-2" href="{{ url_for('search.library') }}">Library</a>
 </li>
-
 {% endblock %}
 
 {% block total %}
@@ -181,11 +179,6 @@ TOTAL: {{ total.pop(0) }} &nbsp;
             <h6>Group:</h6>
         </div>
         {{ form.group() }}
-        <div class="col">
-            <h6>Gay Group:</h6>
-        </div>
-        <label for="formControlRange">Example Range input</label>
-        <input type="range" class="form-control-range" id="formControlRange" min="1" max="6">
     </div>
 
     <h6>Traits:</h6>
@@ -269,9 +262,6 @@ TOTAL: {{ total.pop(0) }} &nbsp;
             <h6>Group:</h6>
         </div>
         {{ form.group() }}
-        <div class="col">
-            <h6>Range Group:</h6>
-        </div>
     </div>
 
     <h6>Traits:</h6>

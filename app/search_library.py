@@ -174,64 +174,35 @@ def parse_library_card(cards):
                 dis = ''
                 dis2 = ''
                 dis3 = ''
+                img_list = [('[FLIGHT]', 'fli'), ('[ACTION]', 'act'),
+                            ('[ACTION MODIFIER]', 'mod'),
+                            ('[REACTION]', 'rea'), ('[REFLEX]', 'ref'),
+                            ('[COMBAT]', 'com'), ('[COMBAT]', 'com'),
+                            ('[1 CONVICTION]', 'con1'),
+                            ('[2 CONVICTION]', 'con2')]
 
-                if t.group(1) == '[FLIGHT]':
-                    dis = 'fli'
-                elif t.group(1) == '[ACTION]':
-                    dis = 'act'
-                elif t.group(1) == '[ACTION MODIFIER]':
-                    dis = 'mod'
-                elif t.group(1) == '[REACTION]':
-                    dis = 'rea'
-                elif t.group(1) == '[REFLEX]':
-                    dis = 'ref'
-                elif t.group(1) == '[COMBAT]':
-                    dis = 'com'
-                elif t.group(1) == '[1 CONVICTION]':
-                    dis = 'con1'
-                elif t.group(1) == '[2 CONVICTION]':
-                    dis = 'con2'
-                elif t.group(1):
-                    a = t.group(1).replace('[', '')
-                    dis = a.replace(']', '')
-                if t.group(2) == '[FLIGHT]':
-                    dis2 = 'fli'
-                elif t.group(2) == '[ACTION]':
-                    dis2 = 'act'
-                elif t.group(2) == '[ACTION MODIFIER]':
-                    dis2 = 'mod'
-                elif t.group(2) == '[REACTION]':
-                    dis2 = 'rea'
-                elif t.group(2) == '[REFLEX]':
-                    dis2 = 'ref'
-                elif t.group(2) == '[COMBAT]':
-                    dis2 = 'com'
-                elif t.group(2) == '[1 CONVICTION]':
-                    dis2 = 'con1'
-                elif t.group(2) == '[2 CONVICTION]':
-                    dis2 = 'con2'
-                elif t.group(2):
-                    b = t.group(2).replace('[', '')
-                    dis2 = b.replace(']', '')
-                if t.group(3) == '[FLIGHT]':
-                    dis3 = 'fli'
-                elif t.group(3) == '[ACTION]':
-                    dis3 = 'act'
-                elif t.group(3) == '[ACTION MODIFIER]':
-                    dis3 = 'mod'
-                elif t.group(3) == '[REACTION]':
-                    dis3 = 'rea'
-                elif t.group(3) == '[REFLEX]':
-                    dis3 = 'ref'
-                elif t.group(3) == '[COMBAT]':
-                    dis3 = 'com'
-                elif t.group(3) == '[1 CONVICTION]':
-                    dis3 = 'con1'
-                elif t.group(3) == '[2 CONVICTION]':
-                    dis3 = 'con2'
-                elif t.group(3):
-                    b = t.group(3).replace('[', '')
-                    dis3 = b.replace(']', '')
+                i = 0
+                for i in range(0, len(img_list)):
+                    if img_list[i][0] == t.group(1):
+                        dis = img_list[i][1]
+                    elif img_list[i][0] == t.group(2):
+                        dis2 = img_list[i][1]
+                    elif img_list[i][0] == t.group(3):
+                        dis3 = img_list[i][1]
+
+                    print(i, img_list[i])
+
+                    if i == len(img_list) - 1:
+                        if not dis and t.group(1):
+                            a = t.group(1).replace('[', '')
+                            dis = a.replace(']', '')
+                        if not dis2 and t.group(2):
+                            a = t.group(2).replace('[', '')
+                            dis2 = a.replace(']', '')
+                        if not dis3 and t.group(3):
+                            a = t.group(3).replace('[', '')
+                            dis3 = a.replace(']', '')
+
                 if dis3:
                     if dis == dis.lower():
                         card_parsed['Card Middle Text'].append(
@@ -267,6 +238,7 @@ def parse_library_card(cards):
                     else:
                         card_parsed['Card Middle Text'].append(
                             [dis.lower() + 's', t.group(4)])
+
             elif re.match(r'(Strike\:)', i):
                 t = re.match(r'(Strike\:)?\s?(.*)', i)
                 card_parsed['Card Middle Text'].append(

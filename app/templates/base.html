@@ -12,18 +12,22 @@
     </head>
     <body class="bg-light">
         <nav class="navbar navbar-dark bg-dark sticky-top">
-            <ul class="navbar-nav mr-auto">
-                {% block navbar %}{% endblock %}
-            </ul>
+            <div class="container justify-content-end">
+                <ul class="navbar-nav flex-row">
+                    {% block navbar %}{% endblock %}
+                </ul>
 
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsMain" aria-controls="navbarsMain" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler d-inline d-xl-none" type="button" data-toggle="collapse" data-target="#navbarsMain" aria-controls="navbarsMain" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+            </div>
 
             <div class="collapse navbar-collapse" id="navbarsMain">
+                <div class="container mt-3">
                 <ul class="navbar-nav mr-auto">
                     {% block search %}{% endblock %}
                 </ul>
+                </div>
             </div>
         </nav>
 
@@ -36,7 +40,7 @@
                     {% block total %}{% endblock %}
                     {% block results %}{% endblock %}
                 </div>
-                <div class="col-xs-12 col-xl-4">
+                <div class="col-xs-12 col-xl-4 d-none d-lg-flex">
                     {% with messages = get_flashed_messages() %}
                     {% if messages %}
                     {% for message in messages %}
