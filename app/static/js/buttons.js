@@ -105,4 +105,69 @@ $(document).ready(function(){
     $(".js-discipline-button-holder").on("click", function(e) {
         disciplineChecker(this);
     });
+
+    //---------------------
+
+    function getResponsiveBreakpoint() {
+        let envs = {xs:"d-none", sm:"d-sm-none", md:"d-md-none", lg:"d-lg-none", xl:"d-xl-none"};
+        let env = "";
+
+        let $el = $("<div>");
+        $el.appendTo($("body"));
+
+        for (let i = Object.keys(envs).length - 1; i >= 0; i--) {
+            env = Object.keys(envs)[i];
+            $el.addClass(envs[env]);
+            if ($el.is(":hidden")) {
+                break; // env detected
+            }
+        }
+        $el.remove();
+        return env;
+    };
+
+    function toggleFilter() {
+        let filter = $('#js-filter');
+        let breakpoint = getResponsiveBreakpoint();
+        // console.log(getResponsiveBreakpoint());
+        if(breakpoint == 'xl') {
+            filter.addClass('show');
+            filter.removeClass('fixed-filter');
+        }else {
+            filter.removeClass('show');
+            filter.addClass('fixed-filter');
+        }
+    }
+
+    toggleFilter();
+    if($('.result-table tr').length <= 0) {
+        $('#js-filter').addClass('show');
+    }
+    $(window).resize(function() {
+        toggleFilter();
+    });
+
+
+    function setCardPosition(card) {
+        let img = $(card).find('.js-cardimage');
+        img.css('top', 0);
+        let imgOffset = img.offset();
+        let imgHeight = img.height()
+        let winddowHeight = $(window).height();
+        let k = (imgOffset.top + imgHeight) - (winddowHeight + $(window).scrollTop());
+        if(k > 0) {
+            img.css('top', -1*k);
+        } else {
+            img.css('top', 0);
+        }
+    }
+
+    $('.js-cardname').hover(function () {
+        setCardPosition(this);
+        // console.log((imgOffset.top + imgHeight) + '__' + winddowHeight);
+    });
+
+
 });
+
+

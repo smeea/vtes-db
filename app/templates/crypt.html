@@ -26,7 +26,7 @@ TOTAL: {{ total.pop(0) }} &nbsp;
 
 {% block results %}
 
-<table width="100%">
+<table width="100%" class="result-table">
     {% for card in cards %}
     <tr class="crypt-result-{{ loop.cycle('odd', 'even') }}">
         <td width="6%">
@@ -63,9 +63,9 @@ TOTAL: {{ total.pop(0) }} &nbsp;
                 </div>
 
                 <span class="hover_img d-none d-sm-inline">
-                    <a href="{{ 'static/img/cards/' + card['URL Name'] + '.jpg' }}">
+                    <a href="{{ 'static/img/cards/' + card['URL Name'] + '.jpg' }}" class="js-cardname">
                         {{ card['Name'] }}
-                        <span>
+                        <span class="js-cardimage">
                             <img class="lozad" data-src="{{ 'static/img/cards/'+ card['URL Name'] + '.jpg' }}" alt="" height="400" />
                         </span>
                     </a>
