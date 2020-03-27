@@ -288,8 +288,11 @@ def print_library_total(cards):
         types = card['Type'].split('/')
         for cardtype in types:
             type_counter[cardtype] += 1
-            total.append(len(cards))
+
+    total.append(len(cards))
+
     for cardtype, quantity in type_counter.items():
         if quantity:
             total.append([re.sub('[\\W]', '', cardtype).lower(), quantity])
+
     return total
