@@ -96,7 +96,7 @@ def get_overall_library(card_lists):
         for i in card_lists.pop():
             if i in match_list:
                 pre_match_list.append(i)
-        match_list = pre_match_list
+                match_list = pre_match_list
 
     return match_list
 
@@ -124,7 +124,7 @@ def parse_library_card(cards):
             if '/' in card['Discipline']:
                 if len(card['Discipline'].split('/')) == 3:
                     card_parsed['URL Discipline'].insert(2, '/')
-                card_parsed['URL Discipline'].insert(1, '/')
+                    card_parsed['URL Discipline'].insert(1, '/')
 
             if '&' in card['Discipline']:
                 card_parsed['URL Discipline'].insert(1, '+')
@@ -260,8 +260,8 @@ def parse_library_card(cards):
         for cardtype in type_list:
             card_parsed['URL Type'].append(
                 re.sub('[\\W]', '', cardtype).lower())
-        card_parsed['Id'] = card['Id']
-        parsed_library.append(card_parsed)
+            card_parsed['Id'] = card['Id']
+            parsed_library.append(card_parsed)
 
     return parsed_library
 
@@ -288,7 +288,7 @@ def print_library_total(cards):
         types = card['Type'].split('/')
         for cardtype in types:
             type_counter[cardtype] += 1
-    total.append(len(cards))
+            total.append(len(cards))
     for cardtype, quantity in type_counter.items():
         if quantity:
             total.append([re.sub('[\\W]', '', cardtype).lower(), quantity])

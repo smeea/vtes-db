@@ -19,7 +19,7 @@
 {% if total %}
 TOTAL: {{ total.pop(0) }} &nbsp;
 {% for group in total %}
-<font color="#aaaaaa">G{{ group[0] }}:</font>{{group[1] }} &nbsp;
+<font color="#a0a0a0"><b>G{{ group[0] }}:</b></font>{{group[1] }} &nbsp;
 {% endfor %}
 {% endif %}
 {% endblock %}
@@ -37,14 +37,14 @@ TOTAL: {{ total.pop(0) }} &nbsp;
         <td width="37%">
             <div class="crypt-result-disciplines d-flex" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
                 <div class="crypt-result-disciplines d-flex" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
-                {% for dis in card['Discipline'] %}
-                {% if dis[0] != '-none-' %}
-                <div style='width: 27px; text-align: center'>
-                <img src="static/img/disciplines/{{ dis[0] }}.gif" height="{{ dis[1] }}" alt="{{ dis }}" />
+                    {% for dis in card['Discipline'] %}
+                    {% if dis[0] != '-none-' %}
+                    <div style='width: 27px; text-align: center'>
+                        <img src="static/img/disciplines/{{ dis[0] }}.gif" height="{{ dis[1] }}" alt="{{ dis }}" />
+                    </div>
+                    {% endif %}
+                    {% endfor %}
                 </div>
-                {% endif %}
-                {% endfor %}
-            </div>
         </td>
         <td width="41%">
             <div class="crypt-result-name d-flex" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
@@ -56,9 +56,9 @@ TOTAL: {{ total.pop(0) }} &nbsp;
 
                 <div class="modal" id="crypt-modal-{{ card['Id'] }}" tabindex="-1" role="dialog" aria-labelledby="crypt-modal-label-{{ card['Id'] }}" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
-                            <button type="image" id="closemodalbutton" class="btn btn-secondary" data-dismiss="modal">
-                                <img class="lozad" data-src="{{ 'static/img/cards/'+ card['URL Name'] + '.jpg' }}" alt="" />
-                            </button>
+                        <button type="image" id="closemodalbutton" class="btn btn-secondary" data-dismiss="modal">
+                            <img class="lozad" data-src="{{ 'static/img/cards/'+ card['URL Name'] + '.jpg' }}" alt="" id="crypt-image" />
+                        </button>
                     </div>
                 </div>
 
@@ -80,7 +80,7 @@ TOTAL: {{ total.pop(0) }} &nbsp;
         </td>
         <td width="6%">
             <div class="crypt-result-group" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
-                <b><font color="aaaaaa">G</font>{{ card['Group'] }}</b>
+                <b><font color="a0a0a0">G</font>{{ card['Group'] }}</b>
             </div>
         </td>
     </tr>
@@ -161,6 +161,7 @@ TOTAL: {{ total.pop(0) }} &nbsp;
             {{ form.sect() }}
         </div>
     </div>
+
     <div class="form-row">
         <div class="form-group col-3">
             <label class="h6">Votes:</label>

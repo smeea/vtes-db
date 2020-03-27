@@ -50,7 +50,7 @@ TOTAL: {{ total.pop(0) }} &nbsp;
             </div>
         </td>
         <td width="21%">
-            <div class="library-result-disciplines" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
+            <div class="library-result-disciplines d-flex" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
                 {% if card['URL Discipline'] %}
                 {% for discipline in card['URL Discipline'] %}
                 <img src="static/img/disciplines/{{ discipline }}.gif" height="24" alt="{{ discipline }}" />
@@ -61,8 +61,23 @@ TOTAL: {{ total.pop(0) }} &nbsp;
             </div>
         </td>
         <td width="49%">
-            <div class="library-result-name" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
-                <span class="hover_img">
+            <div class="library-result-name d-flex" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
+
+                <span class="hover_img d-inline d-sm-none">
+                    <a href="javascript: void(0);" data-toggle="modal" data-target="#library-modal-{{ card['Id'] }}">
+                        {{ card['Name'] }}
+                    </a>
+                </span>
+
+                <div class="modal" id="library-modal-{{ card['Id'] }}" tabindex="-1" role="dialog" aria-labelledby="library-modal-label-{{ card['Id'] }}" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <button type="image" id="closemodalbutton" class="btn btn-secondary" data-dismiss="modal">
+                            <img class="lozad" data-src="{{ 'static/img/cards/'+ card['URL Name'] + '.jpg' }}" alt="" id="library-image" />
+                        </button>
+                    </div>
+                </div>
+
+                <span class="hover_img d-none d-sm-inline">
                     <a href="{{ 'static/img/cards/' + card['URL Name'] + '.jpg' }}">
                         {{ card['Name'] }}
                         <span>
@@ -70,6 +85,7 @@ TOTAL: {{ total.pop(0) }} &nbsp;
                         </span>
                     </a>
                 </span>
+
             </div>
         </td>
         <td width="13%" align="center">
