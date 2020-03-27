@@ -121,6 +121,7 @@ def parse_discipline_list(discipline_input):
             discipline_list['Visceratika'] = 1
         elif i == "VIS":
             discipline_list['Visceratika'] = 2
+
     return discipline_list
 
 
@@ -141,6 +142,7 @@ def parse_virtue_list(virtue_input):
             virtue_list.append('ven')
         elif i == "visi":
             virtue_list.append('vis')
+
     return virtue_list
 
 
@@ -151,6 +153,7 @@ def get_overall_crypt(card_lists):
         for i in card_lists.pop():
             if i in match_list:
                 pre_match_list.append(i)
+
         match_list = pre_match_list
 
     return match_list
@@ -166,8 +169,10 @@ def get_crypt_by_discipline(discipline_input):
             if k in card:
                 if card[k] >= v:
                     counter += 1
+
         if discipline_counter == counter:
             match_cards.append(card)
+
     return match_cards
 
 
@@ -182,8 +187,10 @@ def get_crypt_by_virtues(virtue_input):
             for i in virtue_list:
                 if i in disciplines:
                     counter += 1
+
             if virtue_counter == counter:
                 match_cards.append(card)
+
     return match_cards
 
 
@@ -194,6 +201,7 @@ def get_crypt_by_cardtext(cardtext):
         if cardtext in card['Card Text'].lower(
         ) or cardtext in card['Name'].lower():
             match_cards.append(card)
+
     return match_cards
 
 
@@ -209,24 +217,30 @@ def get_crypt_by_trait(traits):
                         r'(he|she|it|they|{}) (can|may)( .* to)? {}'.format(
                             name[0], trait), card['Card Text'].lower()):
                     counter += 1
+
             elif trait == 'optional press':
                 name = re.match(r'^\w+', card['Name'].lower())
                 if re.search(
                         r'(he|she|it|they|{}) gets (.*)?{}'.format(
                             name[0], trait), card['Card Text'].lower()):
                     counter += 1
+
             elif trait == '[:.] \+1 bleed.':
                 if re.search(r'{}'.format('[:.] \+. bleed.'),
                              card['Card Text'].lower()):
                     counter += 1
+
             elif trait == '[:.] \+1 strength.':
                 if re.search(r'{}'.format('[:.] \+. strength.'),
                              card['Card Text'].lower()):
                     counter += 1
+
             elif re.search(r'{}'.format(trait), card['Card Text'].lower()):
                 counter += 1
+
         if trait_counter == counter:
             match_cards.append(card)
+
     return match_cards
 
 
@@ -235,6 +249,7 @@ def get_crypt_by_title(title_list):
     for card in crypt:
         if card['Title'] in title_list:
             match_cards.append(card)
+
     return match_cards
 
 
@@ -261,6 +276,7 @@ def get_crypt_by_votes(votes):
         if card['Title'] and votes != 0:
             if title_worth[card['Title']] >= votes:
                 match_cards.append(card)
+
         elif card['Title'] == '' and votes == 0:
             match_cards.append(card)
 
@@ -273,9 +289,11 @@ def get_crypt_by_capacity(capacity, moreless):
         if moreless == '<=':
             if card['Capacity'] <= capacity:
                 match_cards.append(card)
+
         elif moreless == '>=':
             if card['Capacity'] >= capacity:
                 match_cards.append(card)
+
     return match_cards
 
 
@@ -284,6 +302,7 @@ def get_crypt_by_clan(clan):
     for card in crypt:
         if card['Clan'] == clan:
             match_cards.append(card)
+
     return match_cards
 
 
@@ -293,8 +312,10 @@ def get_crypt_by_sect(sect):
         if sect == 'Imbued' and card['Type'] == sect:
             match_cards.append(card)
             continue
+
         if re.search(r'^{}[:. $]'.format(sect), card['Card Text']):
             match_cards.append(card)
+
     return match_cards
 
 
@@ -303,6 +324,7 @@ def get_crypt_by_group(group_list):
     for card in crypt:
         if card['Group'] in group_list or card['Group'] == 'ANY':
             match_cards.append(card)
+
     return match_cards
 
 
@@ -330,10 +352,12 @@ def parse_crypt_card(cards):
                     card_parsed['Discipline'].append([dis, 24])
             else:
                 card_parsed['Discipline'].append([dis.lower() + 's', 27])
+
         if card['Adv']:
             card_parsed['Name'] = card['Name'] + ' [ADV]'
         else:
             card_parsed['Name'] = card['Name']
+
         card_parsed['URL Name'] = letters_to_ascii(
             re.sub('[\\W]', '', card_parsed['Name'].lower()))
         card_parsed['URL Clan'] = re.sub('[\\W]', '', card['Clan']).lower()
@@ -353,8 +377,10 @@ def print_crypt_total(cards):
                 group_counter[i] += 1
         else:
             group_counter[int(card['Group'])] += 1
+
     total.append(len(cards))
 
     for group, quantity in group_counter.items():
         total.append([group, quantity])
+
     return total

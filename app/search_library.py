@@ -13,6 +13,7 @@ def get_library_by_cardtext(cardtext):
         if cardtext in card['Card Text'].lower(
         ) or cardtext in card['Name'].lower():
             match_cards.append(card)
+
     return match_cards
 
 
@@ -21,6 +22,7 @@ def get_library_by_cardtype(cardtype):
     for card in library:
         if cardtype in card['Type'].split('/'):
             match_cards.append(card)
+
     return match_cards
 
 
@@ -29,6 +31,7 @@ def get_library_by_discipline(discipline):
     for card in library:
         if discipline in card['Discipline']:
             match_cards.append(card)
+
     return match_cards
 
 
@@ -37,6 +40,7 @@ def get_library_by_clan(clan):
     for card in library:
         if clan == card['Clan']:
             match_cards.append(card)
+
     return match_cards
 
 
@@ -45,6 +49,7 @@ def get_library_by_title(title):
     for card in library:
         if title in card['Requirement'].lower():
             match_cards.append(card)
+
     return match_cards
 
 
@@ -53,6 +58,7 @@ def get_library_by_sect(sect):
     for card in library:
         if sect in card['Requirement'].lower():
             match_cards.append(card)
+
     return match_cards
 
 
@@ -62,9 +68,11 @@ def get_library_by_blood(cost, moreless):
         if moreless == '<=':
             if card['Blood Cost'] <= cost:
                 match_cards.append(card)
+
         elif moreless == '>=':
             if card['Blood Cost'] >= cost:
                 match_cards.append(card)
+
     return match_cards
 
 
@@ -74,9 +82,11 @@ def get_library_by_pool(cost, moreless):
         if moreless == '<=':
             if card['Pool Cost'] <= cost:
                 match_cards.append(card)
+
         elif moreless == '>=':
             if card['Pool Cost'] >= cost:
                 match_cards.append(card)
+
     return match_cards
 
 
@@ -86,6 +96,7 @@ def get_library_by_trait(traits):
         for trait in traits:
             if re.search(r'{}'.format(trait), card['Card Text'].lower()):
                 match_cards.append(card)
+
     return match_cards
 
 
@@ -143,6 +154,7 @@ def parse_library_card(cards):
             for clan in clan_list:
                 card_parsed['URL Clan'].append(
                     re.sub('[\\W]', '', clan.lower()))
+
             if '/' in card['Clan']:
                 card_parsed['URL Clan'].insert(1, '/')
 
@@ -196,9 +208,11 @@ def parse_library_card(cards):
                         if not dis and t.group(1):
                             a = t.group(1).replace('[', '')
                             dis = a.replace(']', '')
+
                         if not dis2 and t.group(2):
                             a = t.group(2).replace('[', '')
                             dis2 = a.replace(']', '')
+
                         if not dis3 and t.group(3):
                             a = t.group(3).replace('[', '')
                             dis3 = a.replace(']', '')
@@ -257,6 +271,7 @@ def parse_library_card(cards):
             re.sub('[\\W]', '', card['Name']).lower())
         card_parsed['URL Type'] = []
         type_list = card['Type'].split('/')
+
         for cardtype in type_list:
             card_parsed['URL Type'].append(
                 re.sub('[\\W]', '', cardtype).lower())
