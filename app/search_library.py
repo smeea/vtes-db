@@ -275,8 +275,9 @@ def parse_library_card(cards):
         for cardtype in type_list:
             card_parsed['URL Type'].append(
                 re.sub('[\\W]', '', cardtype).lower())
-            card_parsed['Id'] = card['Id']
-            parsed_library.append(card_parsed)
+
+        card_parsed['Id'] = card['Id']
+        parsed_library.append(card_parsed)
 
     return parsed_library
 

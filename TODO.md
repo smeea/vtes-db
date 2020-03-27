@@ -1,9 +1,8 @@
 # High priority
 * Adjust results table widths for hi-res mobile, low-res mobile & desktop
 * Fix preserve discipline / checkboxes preservation after submit button 
-* Add centered popup preview on hover
-* Fix search in navbar burger menu to be open by default
 # Middle priority
+* Fix too narrow width of search column on desktop
 * Align discipline/virtues forms to center
 * Change library/crypt clan form to icons
 * Change library type form to icons
