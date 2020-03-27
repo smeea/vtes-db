@@ -17,17 +17,9 @@
                     {% block navbar %}{% endblock %}
                 </ul>
 
-                <button class="navbar-toggler d-inline d-xl-none" type="button" data-toggle="collapse" data-target="#navbarsMain" aria-controls="navbarsMain" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler d-inline d-xl-none" type="button" data-toggle="collapse" data-target="#js-filter" aria-controls="navbarsMain" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-            </div>
-
-            <div class="collapse navbar-collapse" id="navbarsMain">
-                <div class="container mt-3">
-                    <ul class="navbar-nav mr-auto">
-                        {% block search %}{% endblock %}
-                    </ul>
-                </div>
             </div>
         </nav>
 
@@ -36,6 +28,7 @@
                 <div class="col-xs-12 col-xl-2">
                 </div>
                 <div class="col-xs-12 col-xl-6">
+
                     {% block index %}{% endblock %}
                     {% block total %}{% endblock %}
                     {% block results %}{% endblock %}
@@ -46,9 +39,14 @@
                     {% endfor %}
                     {% endif %}
                     {% endwith %}
+
                 </div>
-                <div class="col-xs-12 col-xl-4 d-none d-lg-flex">
-                    {% block navsearch %}{% endblock %}
+                <div class="col-xs-12 col-xl-4 ">
+                    <div class="collapse navbar-collapse w-100 fixed-filter" id="js-filter">
+                        <div class="container bg-light py-4 filter">
+                            {% block navsearch %}{% endblock %}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
