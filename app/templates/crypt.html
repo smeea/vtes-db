@@ -91,7 +91,7 @@ TOTAL: {{ total.pop(0) }} &nbsp;
         </td>
         <td colspan="3">
             <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
-                <div class="cardtext" id="2{{ card['Id'] }}" style="display:none;">
+                <div class="crypt-result-text" id="2{{ card['Id'] }}" style="display:none;">
                     {% if card['Type'] == 'Vampire' %}
                     <b>{{ card['Card Text'].pop(0) }}</b><br>
                     {% endif %}

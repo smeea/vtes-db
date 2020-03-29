@@ -18,7 +18,8 @@ a { color: #306090; }
 .hover_img a:hover:after {
     bottom: -6px;
 }
-.cardtext {font-size: small}
+.crypt-result-text {font-size: small}
+.library-result-text {font-size: small}
 
 .discipline-container {
     position: relative;
@@ -89,7 +90,7 @@ a { color: #306090; }
 .library-result-odd,
 .crypt-result-odd { background-color: #eaeaea; }
 
-h6,.h6 {
+h5, .h5, h6,.h6 {
     font-weight: bold;
     color: #6060cc;
 }

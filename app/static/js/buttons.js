@@ -152,7 +152,7 @@ $(document).ready(function(){
         let img = $(card).find('.js-cardimage');
         img.css('top', 0);
         let imgOffset = img.offset();
-        let imgHeight = img.height()
+        let imgHeight = img.height();
         let winddowHeight = $(window).height();
         let k = (imgOffset.top + imgHeight) - (winddowHeight + $(window).scrollTop());
         if(k > 0) {
@@ -169,5 +169,3 @@ $(document).ready(function(){
 
 
 });
-
-

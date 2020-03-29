@@ -28,19 +28,24 @@
                 <div class="col-xs-12 col-xl-2">
                 </div>
                 <div class="col-xs-12 col-xl-6">
-
                     {% block index %}{% endblock %}
-                    {% block total %}{% endblock %}
-                    {% block results %}{% endblock %}
-                    {% with messages = get_flashed_messages() %}
-                    {% if messages %}
-                    {% for message in messages %}
-                    <b>{{ message }}</b>
-                    {% endfor %}
-                    {% endif %}
-                    {% endwith %}
-
+                    <div>
+                        {% block total %}{% endblock %}
+                    </div>
+                    <div>
+                        {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                        {% for message in messages %}
+                        <b>{{ message }}</b>
+                        {% endfor %}
+                        {% endif %}
+                        {% endwith %}
+                    </div>
+                    <div>
+                        {% block results %}{% endblock %}
+                    </div>
                 </div>
+
                 <div class="col-xs-12 col-xl-4 ">
                     <div class="collapse navbar-collapse w-100 fixed-filter" id="js-filter">
                         <div class="container bg-light py-4 filter">

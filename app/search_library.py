@@ -107,7 +107,8 @@ def get_overall_library(card_lists):
         for i in card_lists.pop():
             if i in match_list:
                 pre_match_list.append(i)
-                match_list = pre_match_list
+
+        match_list = pre_match_list
 
     return match_list
 

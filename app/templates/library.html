@@ -78,9 +78,9 @@ TOTAL: {{ total.pop(0) }} &nbsp;
                 </div>
 
                 <span class="hover_img d-none d-sm-inline">
-                    <a href="{{ 'static/img/cards/' + card['URL Name'] + '.jpg' }}">
+                    <a href="{{ 'static/img/cards/' + card['URL Name'] + '.jpg' }}" class="js-cardimage">
                         {{ card['Name'] }}
-                        <span>
+                        <span class="js-cardimage">
                             <img class="lozad" data-src="{{ 'static/img/cards/'+ card['URL Name'] + '.jpg' }}" alt="" height="400" />
                         </span>
                     </a>
@@ -126,7 +126,7 @@ TOTAL: {{ total.pop(0) }} &nbsp;
                     <b> <img src="static/img/disciplines/{{ i[0] }}.gif" height="20" alt="{{ i[0] }}"> </b>
                     <b> <img src="static/img/disciplines/{{ i[1] }}.gif" height="20" alt="{{ i[1] }}"> </b> {{ i[2] }}<br>
                     {% else %}
-                    <b> <img src="static/img/disciplines/{{ i[0] }}.gif" height="20" alt="{{ i[0] }}"> </b> {{ i[1] }} kek<br>
+                    <b> <img src="static/img/disciplines/{{ i[0] }}.gif" height="20" alt="{{ i[0] }}"> </b> {{ i[1] }}<br>
                     {% endif %}
                     {% endfor %}
                     {% endif %}
