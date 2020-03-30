@@ -1,12 +1,8 @@
 # High priority
 * Adjust results table widths for hi-res mobile, low-res mobile & desktop
 * Fix preserve discipline / checkboxes preservation after submit button 
-* Fix library search menu not hiding after search
-* Fix card image hover in library not centered at the bottom
-* Fix card text form focus hiding search tab on mobile
 # Middle priority
 * Adjust width of results-card-text for crypt (all mobile res)and library (low-res mobile - need tests).
-* Fix too narrow width of search column on desktop
 * Align search form names with forms
 * Align discipline/virtues forms to center
 * Change library/crypt clan form to icons

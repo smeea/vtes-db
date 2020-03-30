@@ -28,7 +28,7 @@ TOTAL: {{ total.pop(0) }} &nbsp;
 
 {% block results %}
 
-<table width="100%">
+<table width="100%" class="result-table">
     {% for card in cards %}
     <tr class="library-result-{{ loop.cycle('odd', 'even') }}">
         <td class="cards" width="5%">
@@ -78,7 +78,7 @@ TOTAL: {{ total.pop(0) }} &nbsp;
                 </div>
 
                 <span class="hover_img d-none d-sm-inline">
-                    <a href="{{ 'static/img/cards/' + card['URL Name'] + '.jpg' }}" class="js-cardimage">
+                    <a href="{{ 'static/img/cards/' + card['URL Name'] + '.jpg' }}" class="js-cardname">
                         {{ card['Name'] }}
                         <span class="js-cardimage">
                             <img class="lozad" data-src="{{ 'static/img/cards/'+ card['URL Name'] + '.jpg' }}" alt="" height="400" />
@@ -139,104 +139,104 @@ TOTAL: {{ total.pop(0) }} &nbsp;
 {% endblock %}
 
 {% block search %}
-<form id="librarysearchform" action="" method="post" novalidate>
-    <div class="form-row">
-        <div class="col-7">
-            <input type="text" class="form-control" id="cardtext" name="cardtext" placeholder="Card Name / Text" value="">
-        </div>
-        <div class="col-5">
-            <button id="submit" name="submit" class="btn btn-primary" type="submit">&#x1F50D</button>
-            <button id="clear-library" value="Clear" onclick="clearLibrary()"  class="btn btn-secondary" type="button">🗑</button>
-            <button id="show-all-text" value="Show Text" onclick="showAll()"  class="btn btn-secondary" type="button">☰</button>
-        </div>
-    </div>
-    <br>
+<!--<form id="librarysearchform" action="" method="post" novalidate>-->
+    <!--<div class="form-row">-->
+        <!--<div class="col-7">-->
+            <!--<input type="text" class="form-control" id="cardtext" name="cardtext" placeholder="Card Name / Text" value="">-->
+        <!--</div>-->
+        <!--<div class="col-5">-->
+            <!--<button id="submit" name="submit" class="btn btn-primary" type="submit">&#x1F50D</button>-->
+            <!--<button id="clear-library" value="Clear" onclick="clearLibrary()"  class="btn btn-secondary" type="button">🗑</button>-->
+            <!--<button id="show-all-text" value="Show Text" onclick="showAll()"  class="btn btn-secondary" type="button">☰</button>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<br>-->
 
-    <div class="form-row">
-        <div class="form-group col-4">
-            <label class="h6">Type:</label>
-        </div>
-        <div class="form-group col-8">
-            <div class="input-group">
-                {{ form.cardtype() }}
-            </div>
-        </div>
-    </div>
+    <!--<div class="form-row">-->
+        <!--<div class="form-group col-4">-->
+            <!--<label class="h6">Type:</label>-->
+        <!--</div>-->
+        <!--<div class="form-group col-8">-->
+            <!--<div class="input-group">-->
+                <!--{{ form.cardtype() }}-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
 
-    <div class="form-row">
-        <div class="form-group col-4">
-            <label class="h6">Discipline:</label>
-        </div>
-        <div class="form-group col-8">
-            <div class="input-group">
-                {{ form.discipline() }}
-            </div>
-        </div>
-    </div>
+    <!--<div class="form-row">-->
+        <!--<div class="form-group col-4">-->
+            <!--<label class="h6">Discipline:</label>-->
+        <!--</div>-->
+        <!--<div class="form-group col-8">-->
+            <!--<div class="input-group">-->
+                <!--{{ form.discipline() }}-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
 
-    <div class="form-row">
-        <div class="form-group col-4">
-            <label class="h6">Clan:</label>
-        </div>
-        <div class="form-group col-8">
-            <div class="input-group">
-                {{ form.clan() }}
-            </div>
-        </div>
-    </div>
+    <!--<div class="form-row">-->
+        <!--<div class="form-group col-4">-->
+            <!--<label class="h6">Clan:</label>-->
+        <!--</div>-->
+        <!--<div class="form-group col-8">-->
+            <!--<div class="input-group">-->
+                <!--{{ form.clan() }}-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
 
-    <div class="form-row">
-        <div class="form-group col-4">
-            <label class="h6">Sect:</label>
-        </div>
-        <div class="form-group col-8">
-            <div class="input-group">
-                {{ form.sect() }}
-            </div>
-        </div>
-    </div>
+    <!--<div class="form-row">-->
+        <!--<div class="form-group col-4">-->
+            <!--<label class="h6">Sect:</label>-->
+        <!--</div>-->
+        <!--<div class="form-group col-8">-->
+            <!--<div class="input-group">-->
+                <!--{{ form.sect() }}-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
 
-    <div class="form-row">
-        <div class="form-group col-4">
-            <label class="h6">Title:</label>
-        </div>
-        <div class="form-group col-8">
-            <div class="input-group">
-                {{ form.title() }}
-            </div>
-        </div>
-    </div>
+    <!--<div class="form-row">-->
+        <!--<div class="form-group col-4">-->
+            <!--<label class="h6">Title:</label>-->
+        <!--</div>-->
+        <!--<div class="form-group col-8">-->
+            <!--<div class="input-group">-->
+                <!--{{ form.title() }}-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
 
-    <div class="form-row">
-        <div class="form-group col-4">
-            <label class="h6">Blood Cost:</label>
-        </div>
-        <div class="form-group col-8">
-            <div class="input-group">
-                {{ form.bloodmoreless() }}
-                {{ form.blood() }}
-            </div>
-        </div>
-    </div>
+    <!--<div class="form-row">-->
+        <!--<div class="form-group col-4">-->
+            <!--<label class="h6">Blood Cost:</label>-->
+        <!--</div>-->
+        <!--<div class="form-group col-8">-->
+            <!--<div class="input-group">-->
+                <!--{{ form.bloodmoreless() }}-->
+                <!--{{ form.blood() }}-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
 
-    <div class="form-row">
-        <div class="form-group col-4">
-            <label class="h6">Pool Cost:</label>
-        </div>
-        <div class="form-group col-8">
-            <div class="input-group">
-                {{ form.poolmoreless() }}
-                {{ form.pool() }}
-            </div>
-        </div>
-    </div>
+    <!--<div class="form-row">-->
+        <!--<div class="form-group col-4">-->
+            <!--<label class="h6">Pool Cost:</label>-->
+        <!--</div>-->
+        <!--<div class="form-group col-8">-->
+            <!--<div class="input-group">-->
+                <!--{{ form.poolmoreless() }}-->
+                <!--{{ form.pool() }}-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
 
-    <h6>Traits:</h6>
-    <div class="form-row">
-        {{ form.trait() }}
-    </div>
+    <!--<h6>Traits:</h6>-->
+    <!--<div class="form-row">-->
+        <!--{{ form.trait() }}-->
+    <!--</div>-->
 
-</form>
+<!--</form>-->
 {% endblock %}
 
 {% block navsearch %}
@@ -246,9 +246,22 @@ TOTAL: {{ total.pop(0) }} &nbsp;
             <input type="text" class="form-control" id="cardtext" name="cardtext" placeholder="Card Name / Text" value="">
         </div>
         <div class="col-5">
-            <button id="submit" name="submit" class="btn btn-primary" type="submit">&#x1F50D</button>
-            <button id="clear-library" value="Clear" onclick="clearLibrary()"  class="btn btn-secondary" type="button">🗑</button>
-            <button id="show-all-text" value="Show Text" onclick="showAll()"  class="btn btn-secondary" type="button">☰</button>
+            <button id="submit" name="submit" class="btn btn-outline-primary" type="submit">
+                <svg class="bi bi-check" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M13.854 3.646a.5.5 0 010 .708l-7 7a.5.5 0 01-.708 0l-3.5-3.5a.5.5 0 11.708-.708L6.5 10.293l6.646-6.647a.5.5 0 01.708 0z" clip-rule="evenodd"/>
+                </svg>
+            </button>
+            <button id="clear-library" value="Clear" onclick="clearLibrary()"  class="btn btn-outline-secondary" type="button">
+                <svg class="bi bi-x" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M11.854 4.146a.5.5 0 010 .708l-7 7a.5.5 0 01-.708-.708l7-7a.5.5 0 01.708 0z" clip-rule="evenodd"/>
+                    <path fill-rule="evenodd" d="M4.146 4.146a.5.5 0 000 .708l7 7a.5.5 0 00.708-.708l-7-7a.5.5 0 00-.708 0z" clip-rule="evenodd"/>
+                </svg>
+            </button>
+            <button id="show-all-text" value="Show Text" onclick="showAll()"  class="btn btn-outline-secondary" type="button">
+                <svg class="bi bi-justify-left" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M2 12.5a.5.5 0 01.5-.5h7a.5.5 0 010 1h-7a.5.5 0 01-.5-.5zm0-3a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5zm0-3a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5zm0-3a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5z" clip-rule="evenodd"/>
+                </svg>
+            </button>
         </div>
     </div>
     <br>

@@ -140,13 +140,10 @@ $(document).ready(function(){
     }
 
     toggleFilter();
-    if($('.result-table tr').length <= 0) {
+    //console.log($('.result-table').length);
+    if($('.result-table').length == 1 && $('.result-table tr').length <= 0) {
         $('#js-filter').addClass('show');
     }
-    $(window).resize(function() {
-        toggleFilter();
-    });
-
 
     function setCardPosition(card) {
         let img = $(card).find('.js-cardimage');
