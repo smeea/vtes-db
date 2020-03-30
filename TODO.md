@@ -1,5 +1,4 @@
 # High priority
-* Fix library search by several forms
 * Adjust results table widths for hi-res mobile, low-res mobile & desktop
 * Fix preserve discipline / checkboxes preservation after submit button 
 * Fix library search menu not hiding after search

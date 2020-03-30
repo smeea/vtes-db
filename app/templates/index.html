@@ -1,7 +1,7 @@
 <!doctype html>
 {% extends 'base.html' %}
 
-{% block title %} Index {% endblock %}
+{% block title %} About {% endblock %}
 
 {% block navbar %}
 <li class="nav-item active">
@@ -15,7 +15,8 @@
 </li>
 {% endblock %}
 
-{% block index %}
+{% block about %}
+
 <h5>WHAT IS IT</h5>
 <p>Card search utility for Vampire the Eternal Struggle (VTES) collectible card game.<br/>
     It is designed for mobile and desktop resolutions.<br/>
@@ -25,7 +26,7 @@
     <br>
     <a href="http://www.vekn.net/">Vampire: Elder Kindred Network</a> - official players organization
     <br/>
-    <a href="http://www.blackchantry.com/">Black Chantry Productions</a> - VTES publisher
+    <a href="http://www.blackchantry.com/">Black Chantry Productions</a> - game publisher
 </p>
 
 <h5>WHY</h5>
@@ -37,7 +38,7 @@
     Now resting in peace, but probably inspired most of existing projects - this one is not an exception.</p>
 
 <p><a href="https://amaranth.vtes.co.nz/"><b>Amaranth</b></a><br>
-    Great tool with modern design, more features like Deck Building, etc. You should definetely check it out!<br>
+    Great tool with modern design, more features like Deck Building, Card Changes History, Seat Emulator, Quickstart Decks etc. You should definetely check it out!<br>
     This project use many ideas from Amaranth.</p>
 
 <p><a href="https://play.google.com/store/apps/details?id=name.vampidroid"><b>VampiDroid</b></a><br>
@@ -46,7 +47,8 @@
 
 <h5>LICENSE</h5>
 <p>Source code of the service is available under <a href="https://en.wikipedia.org/wiki/MIT_License">MIT license</a>.</p>
-<p>Please note, that repository and this site contains images (cards, icons), which are copyrighted by Authors / Publishers under other licenses (please consider as <b>not</b> free/public).</p>
+<p>You can easily host mirror (or modified version) of the site. It is also very simple to launch local mirror serving the site only for your computer with minimal latency. Please check in <a href="https://github.com/smeea/vtes-db/blob/master/README.md">README</a>.</p>
+<p>Please note, that repository and this site contains images (cards, icons), which are copyrighted by Authors / Publishers under other licenses (i.e. not free/public).</p>
 <p>These images included into site/repository for the convenience of players and development. I assume it will not be used for anythig other than deck-building or development of deck-building software, and I hope there won't be any claims from the copyright owners.</p>
 
 <h5>FOR DEVELOPERS</h5>
@@ -55,6 +57,6 @@
     You can submit bug reports in <a href="https://github.com/smeea/vtes-db/issues">Issues section</a>.</p>
 
 <h5>DONATIONS</h5>
-<p>You can buy me a beer with BTC: 3ALLfiv3AWcm7WzgWm9gHmLAAUMRcegBtP</p>
+<p>Bitcoin (BTC): 3ALLfiv3AWcm7WzgWm9gHmLAAUMRcegBtP</p>
 
 {% endblock %}

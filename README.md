@@ -47,5 +47,5 @@ For Windows (cmd.exe):
 ### Production Deployment
 
 For production you should at least:
-* setup web-server (e.g. nginx) and wsgi-server (e.g. gunicorn) instead of flask embedded web-server
-* change app.config['SECRET_KEY']
+* setup web-server (e.g. `nginx`) and wsgi-server (e.g. `gunicorn`) instead of flask embedded web-server
+* change `app.config['SECRET_KEY']`
