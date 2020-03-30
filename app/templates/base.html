@@ -23,11 +23,11 @@
             </div>
         </nav>
 
-        <div class="container mt-4">
+        <div class="container main-container mt-4">
             <div class="row">
-                <div class="col-xs-12 col-xl-2">
+                <div class="col-xs-12 col-xl-1 left-col">
                 </div>
-                <div class="col-xs-12 col-xl-6">
+                <div class="col-xs-12 col-xl-7 center-col">
                     {% block about %}{% endblock %}
                     <div>
                         {% block total %}{% endblock %}
@@ -46,9 +46,9 @@
                     </div>
                 </div>
 
-                <div class="col-xs-12 col-xl-4 ">
+                <div class="col-xs-12 col-xl-4 right-col">
                     <div class="collapse navbar-collapse w-100 fixed-filter" id="js-filter">
-                        <div class="container bg-light py-4 filter">
+                        <div class="container bg-light py-4 filter  px-xl-0">
                             {% block navsearch %}{% endblock %}
                         </div>
                     </div>
