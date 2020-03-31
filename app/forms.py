@@ -2,10 +2,8 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 
 from wtforms import SelectMultipleField, SelectField
-# from wtforms.fields.html5 import DecimalRangeField, IntegerRangeField
 from wtforms.widgets import CheckboxInput, html_params
 from markupsafe import Markup, escape
-# from wtforms.validators import Required
 
 
 class DisciplineWidget(object):
@@ -103,16 +101,16 @@ class GroupWidget(object):
     def __call__(self, field, **kwargs):
         html = []
         for subfield in field:
-            input = "<input class='mr-2 custom-control-input' type='checkbox' %s>" % html_params(
+            input = "<input class='mr-1 custom-control-input' type='checkbox' %s>" % html_params(
                 name=field.name,
                 id=subfield.id,
                 value=subfield._value(),
                 **kwargs)
-            label = "<label class='mr-2 custom-control-label' %s>%s</label>" % (
+            label = "<label class='mr-0 custom-control-label' %s>%s</label>" % (
                 html_params(name=field.name, for_=subfield.id, **
                             kwargs), subfield.label.text)
             html.append(
-                "<div class=\"mr-2 custom-control custom-checkbox\">%s %s</div>"
+                "<div class=\"ml-2 custom-control custom-checkbox\">%s %s</div>"
                 % (input, label))
         return Markup("".join(html))
 
@@ -189,7 +187,6 @@ class CryptForm(FlaskForm):
     trait = SelectMultipleField('Text Trait',
                                 option_widget=CheckboxInput(),
                                 widget=TraitWidget())
-    # rangegroup = IntegerRangeField('Range Group')
     submit = SubmitField('Search')
 
 

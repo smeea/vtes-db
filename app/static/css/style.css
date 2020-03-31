@@ -142,3 +142,7 @@ h5, .h5, h6,.h6 {
         max-width: 100%;
     }
 }
+
+.total {
+    background: #d0d0ea;
+}

@@ -1,5 +1,19 @@
-function showAll() {
-    var x = document.getElementsByClassName("cardtext");
+function toggleTextCrypt() {
+    var x = document.getElementsByClassName("crypt-result-text");
+    var i;
+    if (x[0].style.display === "none") {
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "block";
+        }
+    } else {
+        for (i = 0; i < x.length; i++) {
+            x[i].style.display = "none";
+        }
+    }
+}
+
+function toggleTextLibrary() {
+    var x = document.getElementsByClassName("library-result-text");
     var i;
     if (x[0].style.display === "none") {
         for (i = 0; i < x.length; i++) {

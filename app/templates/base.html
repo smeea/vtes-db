@@ -18,21 +18,22 @@
                 </ul>
 
                 <button class="navbar-toggler d-inline d-xl-none" type="button" data-toggle="collapse" data-target="#js-filter" aria-controls="navbarsMain" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                    <svg class="bi bi-search" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 011.415 0l3.85 3.85a1 1 0 01-1.414 1.415l-3.85-3.85a1 1 0 010-1.415z" clip-rule="evenodd"/>
+                        <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 100-11 5.5 5.5 0 000 11zM13 6.5a6.5 6.5 0 11-13 0 6.5 6.5 0 0113 0z" clip-rule="evenodd"/>
+                    </svg>
                 </button>
             </div>
         </nav>
 
-        <div class="container main-container mt-4">
+        <div class="container main-container mt-3">
             <div class="row">
                 <div class="col-xs-12 col-xl-1 left-col">
                 </div>
                 <div class="col-xs-12 col-xl-7 center-col">
-                    {% block about %}{% endblock %}
                     <div>
+                        {% block about %}{% endblock %}
                         {% block total %}{% endblock %}
-                    </div>
-                    <div>
                         {% with messages = get_flashed_messages() %}
                         {% if messages %}
                         {% for message in messages %}
@@ -40,15 +41,13 @@
                         {% endfor %}
                         {% endif %}
                         {% endwith %}
-                    </div>
-                    <div>
                         {% block results %}{% endblock %}
                     </div>
                 </div>
 
                 <div class="col-xs-12 col-xl-4 right-col">
                     <div class="collapse navbar-collapse w-100 fixed-filter" id="js-filter">
-                        <div class="container bg-light py-4 filter  px-xl-0">
+                        <div class="container bg-light filter py-3 py-xl-0 px-xl-0">
                             {% block navsearch %}{% endblock %}
                         </div>
                     </div>
