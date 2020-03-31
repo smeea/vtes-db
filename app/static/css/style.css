@@ -1,14 +1,11 @@
 a { color: #306090; }
-.hover_img a { position:relative; }
-.hover_img a span { position:absolute; display:none; z-index:99; top: 0; left: -560px; margin-top: -4px}
-.hover_img a:hover span { display:block; }
+.hover_c_img a { position:relative; }
+.hover_c_img a span { position:absolute; display:none; left: -590px;}
+.hover_c_img a:hover span { display:block; }
+.hover_l_img a { position:relative; }
+.hover_l_img a span { position:absolute; display:none; left: -560px;}
+.hover_l_img a:hover span { display:block; }
 
-.hover_img a:hover:before {
-    top: -4px;
-}
-.hover_img a:hover:after {
-    bottom: -6px;
-}
 .crypt-result-text {font-size: small}
 .library-result-text {font-size: small}
 
@@ -98,18 +95,9 @@ h5, .h5, h6,.h6 {
     border-color: #999;
 }
 
-/* OK on high-res mobile */
-/* TODO test on small resolution mobile */
 .library-result-disciplines { min-width: 106px; }
-/* .library-result-type { min-width: 58px; } */
-/* .library-result-name { min-width: 106px; } */
-
-/* TODO adjust + test on hi-res mobile */
-/* TODO adjust + test on low-res mobile */
-/* .crypt-result-name { max-width: 90px; } */
-/* .crypt-result-disciplines { max-width: 180px; } */
-/* .crypt-result-clan { max-width: 25px; } */
-/* .crypt-result-group { max-width: 20px; } */
+.crypt-result-disciplines { max-width: 180px; }
+.crypt-result-clan { max-width: 25px; }
 
 #crypt-image { max-width: 100%; max-height: 100% }
 #library-image { max-width: 100%; max-height: 100% }
@@ -124,18 +112,21 @@ h5, .h5, h6,.h6 {
     overflow-y: scroll;
 }
 
-@media (min-width: 1200px) and (max-width: 1560px) {
+@media (min-width: 1250px) and (max-width: 1450px) {
     .left-col {
-        min-width: 300px;
+        min-width: 310px;
     }
     .center-col {
-        max-width: 580px;
+        max-width: 570px;
     }
     .right-col {
-        max-width: 300px;
+        max-width: 380px;
     }
-    .hover_img a span {
-        left: -520px;
+    .hover_c_img a span {
+        left: -535px;
+    }
+    .hover_l_img a span {
+        left: -515px;
     }
     .main-container{
         width: 100%;
