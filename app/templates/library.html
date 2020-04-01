@@ -24,11 +24,12 @@
     </div>
     <div>
         {% for type in total %}
-        <img src="static/img/types/{{ type[0] }}.gif" height="26" alt="{{ type[0] }}">{{type[1]}} &nbsp;
+        <span class="nobr"><img src="static/img/types/{{ type[0] }}.gif" height="26" alt="{{ type[0] }}">{{type[1]}}</span>
+
         {% endfor %}
     </div>
     <div>
-        <button id="toggle-library-text" value="Toggle Text" onclick="toggleTextLibrary()"  class="btn btn-outline-secondary" type="button">
+        <button id="toggle-library-text" value="Toggle Text" onclick="toggleTextLibrary()"  class="btn btn-outline-secondary mr-1" type="button">
             <svg class="bi bi-justify-left" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" d="M2 12.5a.5.5 0 01.5-.5h7a.5.5 0 010 1h-7a.5.5 0 01-.5-.5zm0-3a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5zm0-3a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5zm0-3a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5z" clip-rule="evenodd"/>
             </svg>
@@ -41,114 +42,116 @@
 
 {% block results %}
 
-<table width="100%" class="result-table">
-    {% for card in cards %}
-    <tr class="library-result-{{ loop.cycle('odd', 'even') }}">
-        <td class="cards" width="5%">
-            <div class="library-result-cost" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
-                {% if card['Pool Cost'] %}
-                <img src="static/img/misc/pool{{ card['Pool Cost'] }}.png" height="36" alt="{{ card['Pool Cost'] }}">
-                {% elif card['Blood Cost'] %}
-                <img src="static/img/misc/blood{{ card['Blood Cost'] }}.png" height="36" alt="{{ card['Blood Cost'] }}">
-                {% else %}
-                &nbsp;
-                {% endif %}
-            </div>
-        </td>
-        <td width="12%">
-            <div class="library-result-type" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
-                {% for type in card['URL Type'] %}
-                <img src="static/img/types/{{ type }}.gif" height="26" alt="{{ card['Type'] }}">
-                {% endfor %}
-            </div>
-        </td>
-        <td width="21%">
-            <div class="library-result-disciplines d-flex" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
-                {% if card['URL Discipline'] %}
-                {% for discipline in card['URL Discipline'] %}
-                <img src="static/img/disciplines/{{ discipline }}.gif" height="24" alt="{{ discipline }}" />
-                {% endfor %}
-                {% else %}
-                &nbsp;
-                {% endif %}
-            </div>
-        </td>
-        <td width="49%">
-            <div class="library-result-name d-flex" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
+<div>
+    <table width="100%" class="result-table">
+        {% for card in cards %}
+        <tr class="library-result-{{ loop.cycle('odd', 'even') }}">
+            <td class="cards pl-1" style="max-width: 5%">
+                <div class="library-result-cost" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
+                    {% if card['Pool Cost'] %}
+                    <img src="static/img/misc/pool{{ card['Pool Cost'] }}.png" height="36" alt="{{ card['Pool Cost'] }}">
+                    {% elif card['Blood Cost'] %}
+                    <img src="static/img/misc/blood{{ card['Blood Cost'] }}.png" height="36" alt="{{ card['Blood Cost'] }}">
+                    {% else %}
+                    &nbsp;
+                    {% endif %}
+                </div>
+            </td>
+            <td style="max-width: 12%">
+                <div class="library-result-type" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
+                    {% for type in card['URL Type'] %}
+                    <img src="static/img/types/{{ type }}.gif" height="26" alt="{{ card['Type'] }}">
+                    {% endfor %}
+                </div>
+            </td>
+            <td style="max-width: 21%">
+                <div class="library-result-disciplines d-flex" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
+                    {% if card['URL Discipline'] %}
+                    {% for discipline in card['URL Discipline'] %}
+                    <img src="static/img/disciplines/{{ discipline }}.gif" height="24" alt="{{ discipline }}" />
+                    {% endfor %}
+                    {% else %}
+                    &nbsp;
+                    {% endif %}
+                </div>
+            </td>
+            <td style="max-width: 49%">
+                <div class="library-result-name d-flex" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
 
-                <span class="d-inline d-sm-none">
-                    <a href="javascript: void(0);" data-toggle="modal" data-target="#library-modal-{{ card['Id'] }}">
-                        {{ card['Name'] }}
-                    </a>
-                </span>
+                    <span class="d-inline d-sm-none">
+                        <a href="javascript: void(0);" data-toggle="modal" data-target="#library-modal-{{ card['Id'] }}">
+                            {{ card['Name'] }}
+                        </a>
+                    </span>
 
-                <div class="modal" id="library-modal-{{ card['Id'] }}" tabindex="-1" role="dialog" aria-labelledby="library-modal-label-{{ card['Id'] }}" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <button type="image" id="closemodalbutton" class="btn btn-secondary" data-dismiss="modal">
-                            <img class="lozad" data-src="{{ 'static/img/cards/'+ card['URL Name'] + '.jpg' }}" alt="" id="library-image" />
-                        </button>
+                    <div class="modal" id="library-modal-{{ card['Id'] }}" tabindex="-1" role="dialog" aria-labelledby="library-modal-label-{{ card['Id'] }}" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <button type="image" id="closemodalbutton" class="btn btn-secondary" data-dismiss="modal">
+                                <img class="lozad" data-src="{{ 'static/img/cards/'+ card['URL Name'] + '.jpg' }}" alt="" id="library-image" />
+                            </button>
+                        </div>
+                    </div>
+
+                    <span class="hover_l_img d-none d-sm-inline">
+                        <a href="{{ 'static/img/cards/' + card['URL Name'] + '.jpg' }}" class="js-cardname">
+                            {{ card['Name'] }}
+                            <span class="js-cardimage">
+                                <img class="lozad" data-src="{{ 'static/img/cards/'+ card['URL Name'] + '.jpg' }}" src="{{ 'static/img/cards/'+ card['URL Name'] + '.jpg' }}" alt="" height="400" />
+                            </span>
+                        </a>
+                    </span>
+
+                </div>
+            </td>
+            <td class="pr-1" style="max-width: 5%" align="center">
+                <div class="library-result-clan" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
+                    {% if card['URL Clan'] %}
+                    {% for clan in card['URL Clan'] %}
+                    <img src="static/img/clans/{{ clan }}.gif" height="26" alt="{{ clan }}">
+                    {% endfor %}
+                    {% else %}
+                    &nbsp;
+                    {% endif %}
+                </div>
+            </td>
+        </tr>
+        <tr class="library-result-{{ loop.cycle('odd', 'even') }}">
+            <td>
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td colspan="3">
+                <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
+                    <div class="library-result-text" id="2{{ card['Id'] }}" style="display:none;">
+                        {% if card['Card Title Text'] %}
+                        <b>{{ card['Card Title Text'] }}</b><br>
+                        {% endif %}
+                        {% for i in card['Card Other Text'] %}
+                        {{ i }}<br>
+                        {% endfor %}
+                        {% if card['Card Middle Text'] %}
+                        {% for i in card['Card Middle Text'] %}
+                        {% if i[3] %}
+                        <b> <img src="static/img/disciplines/{{ i[0] }}.gif" height="20" alt="{{ i[0] }}"> </b>
+                        <b> <img src="static/img/disciplines/{{ i[1] }}.gif" height="20" alt="{{ i[1] }}"> </b>
+                        <b> <img src="static/img/disciplines/{{ i[2] }}.gif" height="20" alt="{{ i[2] }}"> </b> {{ i[3] }}<br>
+                        {% elif i[2] %}
+                        <b> <img src="static/img/disciplines/{{ i[0] }}.gif" height="20" alt="{{ i[0] }}"> </b>
+                        <b> <img src="static/img/disciplines/{{ i[1] }}.gif" height="20" alt="{{ i[1] }}"> </b> {{ i[2] }}<br>
+                        {% else %}
+                        <b> <img src="static/img/disciplines/{{ i[0] }}.gif" height="20" alt="{{ i[0] }}"> </b> {{ i[1] }}<br>
+                        {% endif %}
+                        {% endfor %}
+                        {% endif %}
                     </div>
                 </div>
-
-                <span class="hover_l_img d-none d-sm-inline">
-                    <a href="{{ 'static/img/cards/' + card['URL Name'] + '.jpg' }}" class="js-cardname">
-                        {{ card['Name'] }}
-                        <span class="js-cardimage">
-                            <img class="lozad" data-src="{{ 'static/img/cards/'+ card['URL Name'] + '.jpg' }}" alt="" height="400" />
-                        </span>
-                    </a>
-                </span>
-
-            </div>
-        </td>
-        <td width="13%" align="center">
-            <div class="library-result-clan" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
-                {% if card['URL Clan'] %}
-                {% for clan in card['URL Clan'] %}
-                <img src="static/img/clans/{{ clan }}.gif" height="26" alt="{{ clan }}">
-                {% endfor %}
-                {% else %}
-                &nbsp;
-                {% endif %}
-            </div>
-        </td>
-    </tr>
-    <tr class="library-result-{{ loop.cycle('odd', 'even') }}">
-        <td>
-        </td>
-        <td>
-        </td>
-        <td>
-        </td>
-        <td colspan="3">
-            <div class="cards" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
-                <div class="library-result-text" id="2{{ card['Id'] }}" style="display:none;">
-                    {% if card['Card Title Text'] %}
-                    <b>{{ card['Card Title Text'] }}</b><br>
-                    {% endif %}
-                    {% for i in card['Card Other Text'] %}
-                    {{ i }}<br>
-                    {% endfor %}
-                    {% if card['Card Middle Text'] %}
-                    {% for i in card['Card Middle Text'] %}
-                    {% if i[3] %}
-                    <b> <img src="static/img/disciplines/{{ i[0] }}.gif" height="20" alt="{{ i[0] }}"> </b>
-                    <b> <img src="static/img/disciplines/{{ i[1] }}.gif" height="20" alt="{{ i[1] }}"> </b>
-                    <b> <img src="static/img/disciplines/{{ i[2] }}.gif" height="20" alt="{{ i[2] }}"> </b> {{ i[3] }}<br>
-                    {% elif i[2] %}
-                    <b> <img src="static/img/disciplines/{{ i[0] }}.gif" height="20" alt="{{ i[0] }}"> </b>
-                    <b> <img src="static/img/disciplines/{{ i[1] }}.gif" height="20" alt="{{ i[1] }}"> </b> {{ i[2] }}<br>
-                    {% else %}
-                    <b> <img src="static/img/disciplines/{{ i[0] }}.gif" height="20" alt="{{ i[0] }}"> </b> {{ i[1] }}<br>
-                    {% endif %}
-                    {% endfor %}
-                    {% endif %}
-                </div>
-            </div>
-        </td>
-    </tr>
-    {% endfor %}
-</table>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
 {% endblock %}
 
 {% block navsearch %}
