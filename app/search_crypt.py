@@ -164,11 +164,11 @@ def parse_virtue_list(virtue_input):
 
 
 def get_overall_crypt(card_lists):
-    match_list = card_lists.pop()
     # 'card-lists' are nested list with all cards matching each of the filters
     # Below we step-by-step compare if next filter cards are in previous
     # list of matching cards (with all previous filters applied), so in the end
     # only cards matching ALL filters are left
+    match_list = card_lists.pop()
     while card_lists:
         pre_match_list = []
         for i in card_lists.pop():
@@ -360,6 +360,8 @@ def get_crypt_by_sect(sect):
 
 
 def get_crypt_by_group(group_list):
+    # Group filter is cummulative i.e. it matches cards matching any
+    # chosen groups form field
     match_cards = []
     for card in crypt:
         if card['Group'] in group_list or card['Group'] == 'ANY':
@@ -369,10 +371,10 @@ def get_crypt_by_group(group_list):
 
 
 def parse_crypt_card(cards):
-    parsed_crypt = []
     # Below we parse each card output from original database format to what
     # is will be showed to user. Everything below in card_parsed goes to
     # templates/html, where it is parsed by jinja2 before it reaches browser.
+    parsed_crypt = []
     for card in cards:
         card_parsed = {}
         card_parsed['Discipline'] = []
@@ -443,6 +445,7 @@ def print_crypt_total(cards):
     total.append(len(cards))
 
     # total[x] to be total quantity of matching cards of particular [x] group
+    # This will later be used in html template.
     for group, quantity in group_counter.items():
         total.append([group, quantity])
 
