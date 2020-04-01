@@ -30,11 +30,13 @@ from app.forms import LibraryForm
 search = Blueprint('search', __name__, url_prefix='/')
 
 
+# Render index.html page to when user visit main page
 @search.route('/', methods=('GET', 'POST'))
 def index():
     return render_template('index.html')
 
 
+# Render crypt.html page to when user visit /crypt
 @search.route('/crypt', methods=('GET', 'POST'))
 def crypt():
 
@@ -51,6 +53,8 @@ def crypt():
 
     cryptform = CryptForm(request.form)
 
+    # First entry is discipline name for search function
+    # Second entry is image name for rendering form icon
     cryptform.disciplines.choices = [
         ('abo', 'abo'),
         ('ABO', 'abos'),
@@ -112,6 +116,8 @@ def crypt():
         ('VIS', 'viss')
     ]
 
+    # First entry is virtue name for search function
+    # Second entry is image name for rendering form icon
     cryptform.virtues.choices = [
         ('ven', 'ven'),
         ('def', 'def'),
@@ -122,6 +128,8 @@ def crypt():
         ('visi', 'visi'),
     ]
 
+    # First entry is title name for search function
+    # Second entry is search form entry (can be changed without breaking things)
     cryptform.titles.choices = [
         ('primogen', 'Primogen'),
         ('prince', 'Prince'),
@@ -140,6 +148,10 @@ def crypt():
         # ('3 votes', '3 votes (Independent)'),
     ]
 
+    # First entry is trait regexp for search function
+    # Second entry is trait form entry (can be changed without breaking things)
+    # 'Trait' is just part of the card text which is widely available among cards
+    #
     cryptform.trait.choices = [('[:.] \+1 intercept.', '+1 intercept'),
                                ('[:.] \+1 stealth.', '+1 stealth'),
                                ('[:.] \+1 bleed.', '+1 bleed'),
@@ -157,9 +169,13 @@ def crypt():
                                ('red list[.:]', 'Red List'),
                                ('\[flight\]\.', 'Flight')]
 
+    # First entry is votes value for search function
+    # Second entry is votes form entry (can be changed without breaking things)
     cryptform.votes.choices = [('ANY', 'ANY'), ('0', '0'), ('1', '1+'),
                                ('2', '2+'), ('3', '3+'), ('4', '4+')]
 
+    # First entry is sect value for search function
+    # Second entry is sect form entry (can be changed without breaking things)
     cryptform.sect.choices = [
         ('ANY', 'ANY'),
         ('Camarilla', 'Camarilla'),
@@ -170,6 +186,8 @@ def crypt():
         ('Imbued', 'Imbued'),
     ]
 
+    # First entry is clan value for search function
+    # Second entry is clan form entry (can be changed without breaking things)
     cryptform.clan.choices = [
         ('ANY', 'ANY'),
         ('Abomination', 'Abomination'),
@@ -223,20 +241,28 @@ def crypt():
 
     cryptform.capacitymoreless.choices = [('<=', '<='), ('>=', '>=')]
     cryptform.capacity.choices = [('ANY', 'ANY')]
+    # Generating capacity form entries 1...11, same as above
     for i in range(1, 12):
         cryptform.capacity.choices.append((i, i))
 
     cryptform.group.choices = []
+    # Generating group form entries 1...6, same as above
     for i in range(1, 7):
         cryptform.group.choices.append((i, i))
 
     if cryptform.is_submitted():
+        # The code below executed after SEARCH button submitted in /crypt
 
         # Get cards by text
         cardtext = cryptform.cardtext.data
         if cardtext:
+            # 'parameters' value (here and below) used later to decide if card
+            # is matching all of given parameters. It is incremented each time
+            # new filter (form) have any value (i.e. user changed it).
             parameters += 1
             cards_by_cardtext = get_crypt_by_cardtext(cardtext)
+            # 'match_by_category' is list of all cards matching by any
+            # of the active filters
             match_by_category.append(cards_by_cardtext)
 
         # Get cards by text trait
@@ -269,6 +295,8 @@ def crypt():
 
         # Get cards by votes
         votes = cryptform.votes.data
+        # 'ANY' used as 'default' value of the form (first in the form-choices
+        # lists above). With value 'ANY' filter will not run.
         if votes != 'ANY':
             parameters += 1
             cards_by_votes = get_crypt_by_votes(int(votes))
@@ -279,14 +307,10 @@ def crypt():
             parameters += 1
             capacity = int(cryptform.capacity.data)
             moreless = cryptform.capacitymoreless.data
-            #     capacity = range(1, int(cryptform.capacity.data) + 1)
-            # if cryptform.capacitymoreless.data == '>=':
-            #     capacity = range(int(cryptform.capacity.data), 12)
             cards_by_capacity = get_crypt_by_capacity(capacity, moreless)
             match_by_category.append(cards_by_capacity)
 
         # Get cards by group
-        # group = cryptform.rgroup.data
         group = cryptform.group.data
         if group:
             parameters += 1
@@ -309,31 +333,47 @@ def crypt():
 
         # Get overall matches & total
         if parameters == 0:
+            # Message to user when SEARCH button submitted with all forms
+            # empty (or default i.e. 'ANY')
             flash('CHOOSE AT LEAST ONE PARAMETER.')
         else:
+            # Getting only cards matching all filters
+            # (from cards matching any filter in 'match_by_category' list)
             cards = get_overall_crypt(match_by_category)
             if cards:
                 total = print_crypt_total(cards)
 
-                # Sort card by capacity, name
+                # Sort result cards in the following order:
+                # Capacity -> Group -> Clan -> Name
                 sorted_cards = (sorted(sorted(sorted(sorted(
                     cards, key=lambda x: x['Name']),
                                                      key=lambda x: x['Clan']),
                                               key=lambda x: x['Group']),
                                        key=lambda x: x['Capacity']))
 
-                # Parse card text for output
+                # Parse result cards for output to 'html'.
+                # parsed_crypt_cards list is then sent to templates/crypt.html,
+                # where it will be parsed using Jinja2).
                 parsed_crypt_cards = parse_crypt_card(sorted_cards)
 
             else:
+                # Message to user when SEARCH button submitted but
+                # no cards found to match the filters
                 flash('NO CARDS FOUND.')
 
-    return render_template('crypt.html',
-                           form=cryptform,
-                           cards=parsed_crypt_cards,
-                           total=total)
+    # Return template/crypt.html page (with results, if any - but also used
+    # for direct visits to vtes-db/crypt.html)
+    return render_template(
+        'crypt.html',
+        # Search forms
+        form=cryptform,
+        # Search results (matching cards)
+        cards=parsed_crypt_cards,
+        # String with summary of total cards found
+        total=total)
 
 
+# SEE ABOVE - GENERALLY SAME AS FOR /crypt, BUT FOR /library
 @search.route('/library', methods=('GET', 'POST'))
 def library():
 
