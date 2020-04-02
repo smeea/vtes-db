@@ -139,9 +139,9 @@ def parse_library_card(cards):
             # Split string from card['Discipline'] into list, required for
             # double (X & Y)/ triple disciplines (anarch, X / Y / Z)
             card_parsed['Discipline'] = re.split('/| & ', card['Discipline'])
-            card_parsed['URL Discipline'] = []
 
             # Discipline icon files named as ---.gif, so we cut discipline name
+            card_parsed['URL Discipline'] = []
             for discipline in card_parsed['Discipline']:
                 # Hack around Thanatosis and Thaumaturgy
                 if discipline == 'Thanatosis':
@@ -155,9 +155,11 @@ def parse_library_card(cards):
 
             if '/' in card['Discipline']:
                 # Insert delimiter for triple disciplines (anarch, X / Y / Z)
+                # and double disciplines
                 if len(card['Discipline'].split('/')) == 3:
                     card_parsed['URL Discipline'].insert(2, '/')
-                    card_parsed['URL Discipline'].insert(1, '/')
+
+                card_parsed['URL Discipline'].insert(1, '/')
 
             if '&' in card['Discipline']:
                 # Insert delimiter for double (X & Y) disciplines

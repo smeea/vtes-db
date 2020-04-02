@@ -1,11 +1,3 @@
-a { color: #306090; }
-.hover_c_img a { position:relative; }
-.hover_c_img a span { position:absolute; display:none; left: -590px;}
-.hover_c_img a:hover span { display:block; }
-.hover_l_img a { position:relative; }
-.hover_l_img a span { position:absolute; display:none; left: -560px;}
-.hover_l_img a:hover span { display:block; }
-
 .crypt-result-text {font-size: small}
 .library-result-text {font-size: small}
 
@@ -112,6 +104,14 @@ h5, .h5, h6,.h6 {
     overflow-y: scroll;
 }
 
+a { color: #306090; }
+.hover_c_img a { position:relative; }
+.hover_c_img a span { position:absolute; display:none; left: -590px;}
+.hover_c_img a:hover span { display:block; }
+.hover_l_img a { position:relative; }
+.hover_l_img a span { position:absolute; display:none; left: -580px;}
+.hover_l_img a:hover span { display:block; }
+
 @media (min-width: 1250px) and (max-width: 1450px) {
     .left-col {
         min-width: 310px;
@@ -123,10 +123,10 @@ h5, .h5, h6,.h6 {
         max-width: 380px;
     }
     .hover_c_img a span {
-        left: -535px;
+        left: -545px;
     }
     .hover_l_img a span {
-        left: -515px;
+        left: -525px;
     }
     .main-container{
         width: 100%;

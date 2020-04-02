@@ -24,8 +24,9 @@
     </div>
     <div>
         {% for type in total %}
-        <span class="nobr"><img src="static/img/types/{{ type[0] }}.gif" height="26" alt="{{ type[0] }}">{{type[1]}}</span>
-
+        <span class="nobr">
+            <img src="static/img/types/{{ type[0] }}.gif" height="26" alt="{{ type[0] }}">{{type[1]}}
+        </span>
         {% endfor %}
     </div>
     <div>
@@ -46,7 +47,8 @@
     <table width="100%" class="result-table">
         {% for card in cards %}
         <tr class="library-result-{{ loop.cycle('odd', 'even') }}">
-            <td class="cards pl-1" style="max-width: 5%">
+            <!-- <td class="cards pl-1" style="max-width: 5%"> -->
+            <td class="cards pl-1" width=5%">
                 <div class="library-result-cost" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
                     {% if card['Pool Cost'] %}
                     <img src="static/img/misc/pool{{ card['Pool Cost'] }}.png" height="36" alt="{{ card['Pool Cost'] }}">
@@ -57,25 +59,34 @@
                     {% endif %}
                 </div>
             </td>
-            <td style="max-width: 12%">
+            <!-- <td style="max-width: 12%"> -->
+            <td width=12%>
                 <div class="library-result-type" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
                     {% for type in card['URL Type'] %}
                     <img src="static/img/types/{{ type }}.gif" height="26" alt="{{ card['Type'] }}">
                     {% endfor %}
                 </div>
             </td>
-            <td style="max-width: 21%">
+            <!-- <td style="max-width: 21%"> -->
+            <td width=21%>
                 <div class="library-result-disciplines d-flex" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
                     {% if card['URL Discipline'] %}
                     {% for discipline in card['URL Discipline'] %}
-                    <img src="static/img/disciplines/{{ discipline }}.gif" height="24" alt="{{ discipline }}" />
+                    {% if discipline != '/' and discipline != '+' %}
+                    <img src="static/img/disciplines/{{ discipline }}.gif" height="24" alt="" />
+                    {% else %}
+                    <div style="min-width: 9px" align="center">
+                    {{ discipline }}
+                    </div>
+                    {% endif %}
                     {% endfor %}
                     {% else %}
                     &nbsp;
                     {% endif %}
                 </div>
             </td>
-            <td style="max-width: 49%">
+            <!-- <td style="max-width: 49%"> -->
+            <td width=49%>
                 <div class="library-result-name d-flex" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
 
                     <span class="d-inline d-sm-none">
@@ -103,7 +114,8 @@
 
                 </div>
             </td>
-            <td class="pr-1" style="max-width: 5%" align="center">
+            <!-- <td class="pr-1" style="max-width: 5%" align="center"> -->
+            <td class="pr-1" width=5% align="center">
                 <div class="library-result-clan" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
                     {% if card['URL Clan'] %}
                     {% for clan in card['URL Clan'] %}
@@ -220,7 +232,7 @@
     </div>
 
     <div class="form-row">
-            <div class="form-group col-4 d-flex align-items-center">
+        <div class="form-group col-4 d-flex align-items-center">
             <label class="h6 mb-0">Title:</label>
         </div>
         <div class="form-group col-8">
@@ -231,7 +243,7 @@
     </div>
 
     <div class="form-row">
-            <div class="form-group col-4 d-flex align-items-center">
+        <div class="form-group col-4 d-flex align-items-center">
             <label class="h6 mb-0">Blood Cost:</label>
         </div>
         <div class="form-group col-8">
@@ -243,7 +255,7 @@
     </div>
 
     <div class="form-row">
-            <div class="form-group col-4 d-flex align-items-center">
+        <div class="form-group col-4 d-flex align-items-center">
             <label class="h6 mb-0">Pool Cost:</label>
         </div>
         <div class="form-group col-8">
