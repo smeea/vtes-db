@@ -137,3 +137,13 @@ h5, .h5, h6,.h6 {
 .total {
     background: #d0d0ea;
 }
+.nobr {
+    white-space: nowrap;
+}
+#closemodalbutton {
+    padding: 0;
+    border: 0;
+}
+.modal-dialog-centered {
+    justify-content: center;
+}
