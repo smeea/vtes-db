@@ -11,6 +11,7 @@ from app.search_crypt import get_crypt_by_sect
 from app.search_crypt import get_crypt_by_clan
 from app.search_crypt import get_overall_crypt
 from app.search_crypt import parse_crypt_card
+from app.search_crypt import sort_crypt_cards_default
 from app.search_crypt import print_crypt_total
 from app.search_library import get_library_by_cardtext
 from app.search_library import get_library_by_trait
@@ -24,8 +25,8 @@ from app.search_library import get_library_by_pool
 from app.search_library import get_overall_library
 from app.search_library import parse_library_card
 from app.search_library import print_library_total
-from app.forms import CryptForm
-from app.forms import LibraryForm
+from app.forms import CryptSearchForm
+from app.forms import LibrarySearchForm
 
 search = Blueprint('search', __name__, url_prefix='/')
 
@@ -51,11 +52,11 @@ def crypt():
     parameters = 0
     total = ''
 
-    cryptform = CryptForm(request.form)
+    cryptsearchform = CryptSearchForm(request.form)
 
     # First entry is discipline name for search function
     # Second entry is image name for rendering form icon
-    cryptform.disciplines.choices = [
+    cryptsearchform.disciplines.choices = [
         ('abo', 'abo'),
         ('ABO', 'abos'),
         ('ani', 'ani'),
@@ -118,7 +119,7 @@ def crypt():
 
     # First entry is virtue name for search function
     # Second entry is image name for rendering form icon
-    cryptform.virtues.choices = [
+    cryptsearchform.virtues.choices = [
         ('ven', 'ven'),
         ('def', 'def'),
         ('inn', 'inn'),
@@ -130,7 +131,7 @@ def crypt():
 
     # First entry is title name for search function
     # Second entry is search form entry (can be changed without breaking things)
-    cryptform.titles.choices = [
+    cryptsearchform.titles.choices = [
         ('primogen', 'Primogen'),
         ('prince', 'Prince'),
         ('justicar', 'Justicar'),
@@ -152,31 +153,32 @@ def crypt():
     # Second entry is trait form entry (can be changed without breaking things)
     # 'Trait' is just part of the card text which is widely available among cards
     #
-    cryptform.trait.choices = [('[:.] \+1 intercept.', '+1 intercept'),
-                               ('[:.] \+1 stealth.', '+1 stealth'),
-                               ('[:.] \+1 bleed.', '+1 bleed'),
-                               ('[:.] \+2 bleed.', '+2 bleed'),
-                               ('[:.] \+1 strength.', '+1 strength'),
-                               ('[:.] \+2 strength.', '+2 strength'),
-                               ('additional strike', 'Additional Strike'),
-                               ('optional maneuver', 'Maneuver'),
-                               ('optional press', 'Press'),
-                               ('(?<!non-)aggravated', 'Aggravated'),
-                               ('enter combat', 'Enter combat'),
-                               ('black hand[ .:]', 'Black Hand'),
-                               ('seraph[.:]', 'Seraph'),
-                               ('infernal[.:]', 'Infernal'),
-                               ('red list[.:]', 'Red List'),
-                               ('\[flight\]\.', 'Flight')]
+    cryptsearchform.trait.choices = [('[:.] \+1 intercept.', '+1 intercept'),
+                                     ('[:.] \+1 stealth.', '+1 stealth'),
+                                     ('[:.] \+1 bleed.', '+1 bleed'),
+                                     ('[:.] \+2 bleed.', '+2 bleed'),
+                                     ('[:.] \+1 strength.', '+1 strength'),
+                                     ('[:.] \+2 strength.', '+2 strength'),
+                                     ('additional strike',
+                                      'Additional Strike'),
+                                     ('optional maneuver', 'Maneuver'),
+                                     ('optional press', 'Press'),
+                                     ('(?<!non-)aggravated', 'Aggravated'),
+                                     ('enter combat', 'Enter combat'),
+                                     ('black hand[ .:]', 'Black Hand'),
+                                     ('seraph[.:]', 'Seraph'),
+                                     ('infernal[.:]', 'Infernal'),
+                                     ('red list[.:]', 'Red List'),
+                                     ('\[flight\]\.', 'Flight')]
 
     # First entry is votes value for search function
     # Second entry is votes form entry (can be changed without breaking things)
-    cryptform.votes.choices = [('ANY', 'ANY'), ('0', '0'), ('1', '1+'),
-                               ('2', '2+'), ('3', '3+'), ('4', '4+')]
+    cryptsearchform.votes.choices = [('ANY', 'ANY'), ('0', '0'), ('1', '1+'),
+                                     ('2', '2+'), ('3', '3+'), ('4', '4+')]
 
     # First entry is sect value for search function
     # Second entry is sect form entry (can be changed without breaking things)
-    cryptform.sect.choices = [
+    cryptsearchform.sect.choices = [
         ('ANY', 'ANY'),
         ('Camarilla', 'Camarilla'),
         ('Sabbat', 'Sabbat'),
@@ -188,7 +190,7 @@ def crypt():
 
     # First entry is clan value for search function
     # Second entry is clan form entry (can be changed without breaking things)
-    cryptform.clan.choices = [
+    cryptsearchform.clan.choices = [
         ('ANY', 'ANY'),
         ('Abomination', 'Abomination'),
         ('Ahrimane', 'Ahrimane'),
@@ -239,22 +241,22 @@ def crypt():
         ('Visionary', 'Visionary'),
     ]
 
-    cryptform.capacitymoreless.choices = [('<=', '<='), ('>=', '>=')]
-    cryptform.capacity.choices = [('ANY', 'ANY')]
+    cryptsearchform.capacitymoreless.choices = [('<=', '<='), ('>=', '>=')]
+    cryptsearchform.capacity.choices = [('ANY', 'ANY')]
     # Generating capacity form entries 1...11, same as above
     for i in range(1, 12):
-        cryptform.capacity.choices.append((i, i))
+        cryptsearchform.capacity.choices.append((i, i))
 
-    cryptform.group.choices = []
+    cryptsearchform.group.choices = []
     # Generating group form entries 1...6, same as above
     for i in range(1, 7):
-        cryptform.group.choices.append((i, i))
+        cryptsearchform.group.choices.append((i, i))
 
-    if cryptform.is_submitted():
+    if cryptsearchform.is_submitted():
         # The code below executed after SEARCH button submitted in /crypt
 
         # Get cards by text
-        cardtext = cryptform.cardtext.data
+        cardtext = cryptsearchform.cardtext.data
         if cardtext:
             # 'parameters' value (here and below) used later to decide if card
             # is matching all of given parameters. It is incremented each time
@@ -266,35 +268,35 @@ def crypt():
             match_by_category.append(cards_by_cardtext)
 
         # Get cards by text trait
-        trait = cryptform.trait.data
+        trait = cryptsearchform.trait.data
         if trait:
             parameters += 1
             cards_by_trait = get_crypt_by_trait(trait)
             match_by_category.append(cards_by_trait)
 
         # Get cards by disciplines
-        disciplines = cryptform.disciplines.data
+        disciplines = cryptsearchform.disciplines.data
         if disciplines:
             parameters += 1
             cards_by_disciplines = get_crypt_by_discipline(disciplines)
             match_by_category.append(cards_by_disciplines)
 
         # Get cards by virtues
-        virtues = cryptform.virtues.data
+        virtues = cryptsearchform.virtues.data
         if virtues:
             parameters += 1
             cards_by_virtues = get_crypt_by_virtues(virtues)
             match_by_category.append(cards_by_virtues)
 
         # Get cards by title
-        titles = cryptform.titles.data
+        titles = cryptsearchform.titles.data
         if titles:
             parameters += 1
             cards_by_titles = get_crypt_by_title(titles)
             match_by_category.append(cards_by_titles)
 
         # Get cards by votes
-        votes = cryptform.votes.data
+        votes = cryptsearchform.votes.data
         # 'ANY' used as 'default' value of the form (first in the form-choices
         # lists above). With value 'ANY' filter will not run.
         if votes != 'ANY':
@@ -303,29 +305,29 @@ def crypt():
             match_by_category.append(cards_by_votes)
 
         # Get cards by capacity
-        if cryptform.capacity.data != 'ANY':
+        if cryptsearchform.capacity.data != 'ANY':
             parameters += 1
-            capacity = int(cryptform.capacity.data)
-            moreless = cryptform.capacitymoreless.data
+            capacity = int(cryptsearchform.capacity.data)
+            moreless = cryptsearchform.capacitymoreless.data
             cards_by_capacity = get_crypt_by_capacity(capacity, moreless)
             match_by_category.append(cards_by_capacity)
 
         # Get cards by group
-        group = cryptform.group.data
+        group = cryptsearchform.group.data
         if group:
             parameters += 1
             cards_by_group = get_crypt_by_group(group)
             match_by_category.append(cards_by_group)
 
         # Get cards by clan
-        clan = cryptform.clan.data
+        clan = cryptsearchform.clan.data
         if clan != 'ANY':
             parameters += 1
             cards_by_clan = get_crypt_by_clan(clan)
             match_by_category.append(cards_by_clan)
 
         # Get cards by sect
-        sect = cryptform.sect.data
+        sect = cryptsearchform.sect.data
         if sect != 'ANY':
             parameters += 1
             cards_by_sect = get_crypt_by_sect(sect)
@@ -345,11 +347,7 @@ def crypt():
 
                 # Sort result cards in the following order:
                 # Capacity -> Group -> Clan -> Name
-                sorted_cards = (sorted(sorted(sorted(sorted(
-                    cards, key=lambda x: x['Name']),
-                                                     key=lambda x: x['Clan']),
-                                              key=lambda x: x['Group']),
-                                       key=lambda x: x['Capacity']))
+                sorted_cards = sort_crypt_cards_default(cards)
 
                 # Parse result cards for output to 'html'.
                 # parsed_crypt_cards list is then sent to templates/crypt.html,
@@ -366,7 +364,7 @@ def crypt():
     return render_template(
         'crypt.html',
         # Search forms
-        form=cryptform,
+        searchform=cryptsearchform,
         # Search results (matching cards)
         cards=parsed_crypt_cards,
         # String with summary of total cards found
@@ -382,8 +380,8 @@ def library():
     match_by_category = []
     total = ''
 
-    libraryform = LibraryForm(request.form)
-    libraryform.title.choices = [
+    librarysearchform = LibrarySearchForm(request.form)
+    librarysearchform.title.choices = [
         ('ANY', 'ANY'),
         ('primogen', 'Primogen'),
         ('prince', 'Prince'),
@@ -402,7 +400,7 @@ def library():
         # ('3 votes', '3 votes (Independent)'),
     ]
 
-    libraryform.discipline.choices = [
+    librarysearchform.discipline.choices = [
         ('ANY', 'ANY'),
         ('Auspex', 'Auspex'),
         ('Abombwe', 'Abombwe'),
@@ -445,7 +443,7 @@ def library():
         ('Vision', 'Vision'),
     ]
 
-    libraryform.cardtype.choices = [
+    librarysearchform.cardtype.choices = [
         ('ANY', 'ANY'),
         ('Master', 'Master'),
         ('Action', 'Action'),
@@ -463,12 +461,13 @@ def library():
         ('Power', 'Power'),
     ]
 
-    libraryform.sect.choices = [('ANY', 'ANY'), ('camarilla', 'Camarilla'),
-                                ('sabbat', 'Sabbat'), ('laibon', 'Laibon'),
-                                ('independent', 'Independent'),
-                                ('anarch', 'Anarch'), ('imbued', 'Imbued')]
+    librarysearchform.sect.choices = [
+        ('ANY', 'ANY'), ('camarilla', 'Camarilla'), ('sabbat', 'Sabbat'),
+        ('laibon', 'Laibon'), ('independent', 'Independent'),
+        ('anarch', 'Anarch'), ('imbued', 'Imbued')
+    ]
 
-    libraryform.clan.choices = [
+    librarysearchform.clan.choices = [
         ('ANY', 'ANY'),
         ('Abomination', 'Abomination'),
         ('Ahrimane', 'Ahrimane'),
@@ -519,17 +518,17 @@ def library():
         ('Visionary', 'Visionary'),
     ]
 
-    libraryform.bloodmoreless.choices = [('<=', '<='), ('>=', '>=')]
-    libraryform.blood.choices = [('ANY', 'ANY')]
+    librarysearchform.bloodmoreless.choices = [('<=', '<='), ('>=', '>=')]
+    librarysearchform.blood.choices = [('ANY', 'ANY')]
     for i in range(0, 5):
-        libraryform.blood.choices.append((i, i))
+        librarysearchform.blood.choices.append((i, i))
 
-    libraryform.poolmoreless.choices = [('<=', '<='), ('>=', '>=')]
-    libraryform.pool.choices = [('ANY', 'ANY')]
+    librarysearchform.poolmoreless.choices = [('<=', '<='), ('>=', '>=')]
+    librarysearchform.pool.choices = [('ANY', 'ANY')]
     for i in range(0, 7):
-        libraryform.pool.choices.append((i, i))
+        librarysearchform.pool.choices.append((i, i))
 
-    libraryform.trait.choices = [
+    librarysearchform.trait.choices = [
         ('\-[0-9]+ stealth(?! \(d\))(?! \w)(?! action)|\+[0-9]+ intercept',
          '+Intercept / -Stealth'),
         ('\+[0-9]+ stealth(?! \(d\))(?! \w)(?! action)|\-[0-9]+ intercept',
@@ -551,69 +550,69 @@ def library():
         ('infernal', 'Infernal'),
     ]
 
-    if libraryform.is_submitted():
+    if librarysearchform.is_submitted():
         # Get cards by text
-        cardtext = libraryform.cardtext.data
+        cardtext = librarysearchform.cardtext.data
         if cardtext:
             parameters += 1
             cards_by_cardtext = get_library_by_cardtext(cardtext)
             match_by_category.append(cards_by_cardtext)
 
         # Get cards by trait
-        trait = libraryform.trait.data
+        trait = librarysearchform.trait.data
         if trait:
             parameters += 1
             cards_by_trait = get_library_by_trait(trait)
             match_by_category.append(cards_by_trait)
 
         # Get cards by type
-        cardtype = libraryform.cardtype.data
+        cardtype = librarysearchform.cardtype.data
         if cardtype != 'ANY':
             parameters += 1
             cards_by_cardtype = get_library_by_cardtype(cardtype)
             match_by_category.append(cards_by_cardtype)
 
         # Get cards by disciplines
-        discipline = libraryform.discipline.data
+        discipline = librarysearchform.discipline.data
         if discipline != 'ANY':
             parameters += 1
             cards_by_discipline = get_library_by_discipline(discipline)
             match_by_category.append(cards_by_discipline)
 
         # Get cards by title
-        title = libraryform.title.data
+        title = librarysearchform.title.data
         if title != 'ANY':
             parameters += 1
             cards_by_title = get_library_by_title(title)
             match_by_category.append(cards_by_title)
 
         # Get cards by sect
-        sect = libraryform.sect.data
+        sect = librarysearchform.sect.data
         if sect != 'ANY':
             parameters += 1
             cards_by_sect = get_library_by_sect(sect)
             match_by_category.append(cards_by_sect)
 
         # Get cards by clan
-        clan = libraryform.clan.data
+        clan = librarysearchform.clan.data
         if clan != 'ANY':
             parameters += 1
             cards_by_clan = get_library_by_clan(clan)
             match_by_category.append(cards_by_clan)
 
         # Get cards by blood cost
-        if libraryform.blood.data != 'ANY':
+        if librarysearchform.blood.data != 'ANY':
             parameters += 1
-            blood = libraryform.blood.data
-            moreless = libraryform.bloodmoreless.data
+            blood = librarysearchform.blood.data
+            moreless = librarysearchform.bloodmoreless.data
             cards_by_blood = get_library_by_blood(blood, moreless)
             match_by_category.append(cards_by_blood)
 
         # Get cards by pool cost
-        if libraryform.pool.data != 'ANY':
+        if librarysearchform.pool.data != 'ANY':
             parameters += 1
-            pool = libraryform.pool.data
-            moreless = libraryform.poolmoreless.data
+            pool = librarysearchform.pool.data
+            moreless = librarysearchform.poolmoreless.data
             cards_by_pool = get_library_by_pool(pool, moreless)
             match_by_category.append(cards_by_pool)
 
@@ -639,6 +638,6 @@ def library():
                 flash('NO CARDS FOUND.')
 
     return render_template('library.html',
-                           form=libraryform,
+                           searchform=librarysearchform,
                            cards=parsed_library_cards,
                            total=total)

@@ -5,6 +5,7 @@
 * Align 'Toggle Search' button with 'Toggle Text' button on mobile
 * Align 'Submit' and 'Clear' buttons to right side (and widen text form)
 # Low priority
+* Add robots.txt
 * Add comments to templates/html
 * Add comments to static/css
 * Change library/crypt clan form to icons

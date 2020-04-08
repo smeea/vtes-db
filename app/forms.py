@@ -164,7 +164,7 @@ class SingleSelect(object):
                       (html_params(**options), escape(label)))
 
 
-class CryptForm(FlaskForm):
+class CryptSearchForm(FlaskForm):
     cardtext = StringField('Card Text')
     disciplines = SelectMultipleField('Disciplines',
                                       option_widget=CheckboxInput(),
@@ -190,7 +190,7 @@ class CryptForm(FlaskForm):
     submit = SubmitField('Search')
 
 
-class LibraryForm(FlaskForm):
+class LibrarySearchForm(FlaskForm):
     cardtext = StringField('Card Text')
     trait = SelectMultipleField('Text Trait',
                                 option_widget=CheckboxInput(),

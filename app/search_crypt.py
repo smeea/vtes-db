@@ -450,3 +450,21 @@ def print_crypt_total(cards):
         total.append([group, quantity])
 
     return total
+
+
+def sort_crypt_cards_default(cards):
+    sorted_cards = (sorted(sorted(sorted(sorted(cards,
+                                                key=lambda x: x['Name']),
+                                         key=lambda x: x['Clan']),
+                                  key=lambda x: x['Group']),
+                           key=lambda x: x['Capacity']))
+    return sorted_cards
+
+
+# def sort_crypt_cards_group_ascending(cards):
+#     sorted_cards = (sorted(sorted(sorted(sorted(cards,
+#                                                 key=lambda x: x['Name']),
+#                                          key=lambda x: x['Clan']),
+#                                   key=lambda x: x['Capacity']),
+#                            key=lambda x: x['Group']))
+#     return sorted_cards
