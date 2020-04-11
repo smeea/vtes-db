@@ -5,8 +5,10 @@ from wtforms import SelectMultipleField, SelectField
 from wtforms.widgets import CheckboxInput, html_params
 from markupsafe import Markup, escape
 
+import re
 
-class DisciplineWidget(object):
+
+class DisciplineClanWidget(object):
     def __call__(self, field, **kwargs):
         html = []
         i = True
@@ -164,16 +166,113 @@ class SingleSelect(object):
                       (html_params(**options), escape(label)))
 
 
+class ClanSelect(object):
+    def __init__(self, id='select'):
+        self.kek = id
+
+    def __call__(self, field, **kwargs):
+        html = [
+            "<select %s>" % html_params(
+                name=field.name, class_='selectpicker', id=self.kek, **kwargs)
+        ]
+        for val, label, selected in field.iter_choices():
+            html.append(self.render_option(val, label, selected))
+        html.append("</select>")
+        return Markup("".join(html))
+
+    @classmethod
+    def render_option(cls, value, label, selected, **kwargs):
+        options = dict(kwargs, value=value)
+        if selected:
+            options["selected"] = True
+        if label != 'ANY':
+            filename = re.sub('[\\W]', '', label).lower()
+            imgurl = 'static/img/clans/' + filename + '.gif'
+            return Markup(
+                "<option data-content='<div><img height=24 src=%s> %s</div>'>%s</option>"
+                % (escape(imgurl), escape(label), escape(label)))
+        else:
+            return Markup("<option data-content='<div>%s</div>'>%s</option>" %
+                          (escape(label), escape(label)))
+
+
+class DisciplineLibrarySelect(object):
+    def __init__(self, id='select'):
+        self.kek = id
+
+    def __call__(self, field, **kwargs):
+        html = [
+            "<select %s>" % html_params(
+                name=field.name, class_='selectpicker', id=self.kek, **kwargs)
+        ]
+        for val, label, selected in field.iter_choices():
+            html.append(self.render_option(val, label, selected))
+        html.append("</select>")
+        return Markup("".join(html))
+
+    @classmethod
+    def render_option(cls, value, label, selected, **kwargs):
+        options = dict(kwargs, value=value)
+        if selected:
+            options["selected"] = True
+        if label != 'ANY':
+            filename = re.sub('[\\W]', '', label).lower()
+            # Hack around Visionary and Visceratika
+            if label == 'Thanatosis':
+                imgurl = 'static/img/disciplines/' + 'thn' + '.gif'
+            elif label == 'Vision':
+                imgurl = 'static/img/disciplines/' + 'visi' + '.gif'
+            else:
+                imgurl = 'static/img/disciplines/' + label[:3].lower() + '.gif'
+            return Markup(
+                "<option data-content='<div><img height=24 src=%s> %s</div>'>%s</option>"
+                % (escape(imgurl), escape(label), escape(label)))
+        else:
+            return Markup("<option data-content='<div>%s</div>'>%s</option>" %
+                          (escape(label), escape(label)))
+
+
+class TypeSelect(object):
+    def __init__(self, id='select'):
+        self.kek = id
+
+    def __call__(self, field, **kwargs):
+        html = [
+            "<select %s>" % html_params(
+                name=field.name, class_='selectpicker', id=self.kek, **kwargs)
+        ]
+        for val, label, selected in field.iter_choices():
+            html.append(self.render_option(val, label, selected))
+        html.append("</select>")
+        return Markup("".join(html))
+
+    @classmethod
+    def render_option(cls, value, label, selected, **kwargs):
+        options = dict(kwargs, value=value)
+        if selected:
+            options["selected"] = True
+        if label != 'ANY':
+            filename = re.sub('[\\W]', '', label).lower()
+            imgurl = 'static/img/types/' + filename + '.gif'
+            return Markup(
+                "<option data-content='<div><img height=24 src=%s> %s</div>'>%s</option>"
+                % (escape(imgurl), escape(label), escape(label)))
+        else:
+            return Markup("<option data-content='<div>%s</div>'>%s</option>" %
+                          (escape(label), escape(label)))
+
+
 class CryptSearchForm(FlaskForm):
     cardtext = StringField('Card Text')
     disciplines = SelectMultipleField('Disciplines',
                                       option_widget=CheckboxInput(),
-                                      widget=DisciplineWidget())
+                                      widget=DisciplineClanWidget())
     virtues = SelectMultipleField('Virtues',
                                   option_widget=CheckboxInput(),
                                   widget=VirtuesWidget())
     votes = SelectField('Votes', widget=SingleSelect(id='votes'))
-    clan = SelectField('Clan', widget=SingleSelect(id='clan'))
+    # clan = SelectField('Clan', widget=SingleSelect(id='clan'))
+    clan = SelectField('Clan', widget=ClanSelect(id='clan'))
     sect = SelectField('Sect', widget=SingleSelect(id='sect'))
     titles = SelectMultipleField('Titles',
                                  option_widget=CheckboxInput(),
@@ -196,9 +295,9 @@ class LibrarySearchForm(FlaskForm):
                                 option_widget=CheckboxInput(),
                                 widget=TraitWidget())
     discipline = SelectField('Disciplines',
-                             widget=SingleSelect(id='discipline'))
-    cardtype = SelectField('Card Type', widget=SingleSelect(id='cardtype'))
-    clan = SelectField('Clan', widget=SingleSelect(id='clan'))
+                             widget=DisciplineLibrarySelect(id='discipline'))
+    cardtype = SelectField('Card Type', widget=TypeSelect(id='cardtype'))
+    clan = SelectField('Clan', widget=ClanSelect(id='clan'))
     sect = SelectField('Sect', widget=SingleSelect(id='sect'))
     title = SelectField('Title', widget=SingleSelect(id='title'))
     poolmoreless = SelectField('Pool More-Less',
