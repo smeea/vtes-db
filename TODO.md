@@ -4,14 +4,13 @@
 * Adjust width of main columns and test in Chrome & Firefox:
   - 1280x800
   - 1366x768
-  - 1440x900
-  - 1600x900
-  - 1920x1080
-* Fix clear for type/discipline/clan forms
+  - 1600x900 - OK
+  - 1920x1080 - OK
+* Fix clear button for type/discipline/clan forms
 # Middle priority
 * Unify search forms design/width
 * Fix popup with type/discipline/clan forms on mobile
-* Align image-text in type/discipline/clan forms
+* Align image-text in type/discipline/clan forms for different icon sizes
 * Align 'Toggle Search' button with 'Toggle Text' button on mobile
 * Align 'Submit' and 'Clear' buttons to right side (and widen text form)
 # Low priority

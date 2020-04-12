@@ -145,12 +145,12 @@ class TraitWidget(object):
 
 class SingleSelect(object):
     def __init__(self, id='select'):
-        self.kek = id
+        self.id = id
 
     def __call__(self, field, **kwargs):
         html = [
             "<select %s>" % html_params(
-                name=field.name, class_='custom-select', id=self.kek, **kwargs)
+                name=field.name, class_='custom-select', id=self.id, **kwargs)
         ]
         for val, label, selected in field.iter_choices():
             html.append(self.render_option(val, label, selected))
@@ -168,12 +168,12 @@ class SingleSelect(object):
 
 class ClanSelect(object):
     def __init__(self, id='select'):
-        self.kek = id
+        self.id = id
 
     def __call__(self, field, **kwargs):
         html = [
             "<select %s>" % html_params(
-                name=field.name, class_='selectpicker', id=self.kek, **kwargs)
+                name=field.name, class_='selectpicker', id=self.id, **kwargs)
         ]
         for val, label, selected in field.iter_choices():
             html.append(self.render_option(val, label, selected))
@@ -190,20 +190,20 @@ class ClanSelect(object):
             imgurl = 'static/img/clans/' + filename + '.gif'
             return Markup(
                 "<option data-content='<div><img height=24 src=%s> %s</div>'>%s</option>"
-                % (escape(imgurl), escape(label), escape(label)))
+                % (escape(imgurl), escape(label), escape(value)))
         else:
             return Markup("<option data-content='<div>%s</div>'>%s</option>" %
-                          (escape(label), escape(label)))
+                          (escape(label), escape(value)))
 
 
 class DisciplineLibrarySelect(object):
     def __init__(self, id='select'):
-        self.kek = id
+        self.id = id
 
     def __call__(self, field, **kwargs):
         html = [
             "<select %s>" % html_params(
-                name=field.name, class_='selectpicker', id=self.kek, **kwargs)
+                name=field.name, class_='selectpicker', id=self.id, **kwargs)
         ]
         for val, label, selected in field.iter_choices():
             html.append(self.render_option(val, label, selected))
@@ -226,20 +226,20 @@ class DisciplineLibrarySelect(object):
                 imgurl = 'static/img/disciplines/' + label[:3].lower() + '.gif'
             return Markup(
                 "<option data-content='<div><img height=24 src=%s> %s</div>'>%s</option>"
-                % (escape(imgurl), escape(label), escape(label)))
+                % (escape(imgurl), escape(label), escape(value)))
         else:
             return Markup("<option data-content='<div>%s</div>'>%s</option>" %
-                          (escape(label), escape(label)))
+                          (escape(label), escape(value)))
 
 
 class TypeSelect(object):
     def __init__(self, id='select'):
-        self.kek = id
+        self.id = id
 
     def __call__(self, field, **kwargs):
         html = [
             "<select %s>" % html_params(
-                name=field.name, class_='selectpicker', id=self.kek, **kwargs)
+                name=field.name, class_='selectpicker', id=self.id, **kwargs)
         ]
         for val, label, selected in field.iter_choices():
             html.append(self.render_option(val, label, selected))

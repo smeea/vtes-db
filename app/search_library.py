@@ -132,7 +132,10 @@ def parse_library_card(cards):
     parsed_library = []
     for card in cards:
         card_parsed = {}
-        card_parsed['Name'] = card['Name']
+        if card['Banned']:
+            card_parsed['Name'] = card['Name'] + ' [BANNED]'
+        else:
+            card_parsed['Name'] = card['Name']
         card_parsed['Type'] = card['Type']
 
         if card['Discipline']:
