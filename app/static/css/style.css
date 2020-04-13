@@ -112,15 +112,15 @@ a { color: #306090; }
 .hover_l_img a span { position:absolute; display:none; left: -580px;}
 .hover_l_img a:hover span { display:block; }
 
-@media (min-width: 1250px) and (max-width: 1450px) {
+@media (min-width: 1200px) and (max-width: 1450px) {
     .left-col {
-        min-width: 310px;
+        min-width: 300px;
     }
     .center-col {
-        max-width: 570px;
+        max-width: 580px;
     }
     .right-col {
-        max-width: 380px;
+        max-width: 320px;
     }
     .hover_c_img a span {
         left: -545px;
@@ -137,13 +137,20 @@ a { color: #306090; }
 .total {
     background: #d0d0ea;
 }
+
 .nobr {
     white-space: nowrap;
 }
+
 #closemodalbutton {
     padding: 0;
     border: 0;
 }
+
 .modal-dialog-centered {
     justify-content: center;
+}
+
+.bootstrap-select .dropdown-menu li a {
+    padding-left: 0.25em;
 }

@@ -11,7 +11,7 @@
     <a class="nav-link px-2" href="{{ url_for('search.crypt') }}">Crypt</a>
 </li>
 <li class="nav-item">
-    <a class="nav-link px-2 pr-xl-2" href="{{ url_for('search.library') }}">Library</a>
+    <a class="nav-link pl-2" href="{{ url_for('search.library') }}">Library</a>
 </li>
 {% endblock %}
 
@@ -30,7 +30,7 @@
         {% endfor %}
     </div>
     <div>
-        <button id="toggle-crypt-text" value="Toggle Text" onclick="toggleTextCrypt()"  class="btn btn-outline-secondary mr-1" type="button">
+        <button id="toggle-crypt-text" value="Toggle Text" onclick="toggleTextCrypt()"  class="btn btn-outline-secondary mr-3" type="button">
             <svg class="bi bi-justify-left" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" d="M2 12.5a.5.5 0 01.5-.5h7a.5.5 0 010 1h-7a.5.5 0 01-.5-.5zm0-3a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5zm0-3a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5zm0-3a.5.5 0 01.5-.5h11a.5.5 0 010 1h-11a.5.5 0 01-.5-.5z" clip-rule="evenodd"/>
             </svg>
@@ -148,11 +148,11 @@
 
 {% block navsearch %}
 <form id="cryptsearchform" action="" method="post" novalidate>
-    <div class="form-row">
+    <div class="form-row justify-content-between">
         <div class="col-8">
             <input type="text" class="form-control" id="cardtext" name="cardtext" placeholder="Card Name / Text" value="">
         </div>
-        <div class="col-4">
+        <div class="pr-1">
             <button id="search_submit" name="search_submit" class="btn btn-outline-primary" type="submit">
                 <svg class="bi bi-check" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M13.854 3.646a.5.5 0 010 .708l-7 7a.5.5 0 01-.708 0l-3.5-3.5a.5.5 0 11.708-.708L6.5 10.293l6.646-6.647a.5.5 0 01.708 0z" clip-rule="evenodd"/>
@@ -168,7 +168,7 @@
     </div>
 
     <div class="form-row pt-2">
-        <div class="input-group">
+        <div class="input-group justify-content-start">
             {{ searchform.disciplines() }}
         </div>
     </div>

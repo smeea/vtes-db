@@ -27,7 +27,7 @@ For Linux:
     export FLASK_ENV=development
     flask run
     // Or if you want to have access from local network e.g. by wifi at http://HOST_IP:port
-    flask run --host 0.0.0.0
+    // flask run --host 0.0.0.0
     open http://127.0.0.1:5000/crypt
 
 For Windows (cmd.exe):
@@ -41,7 +41,7 @@ For Windows (cmd.exe):
     set FLASK_ENV=development
     flask run
     // Or if you want to have access from local network e.g. by wifi at http://HOST_IP:port
-    flask run --host 0.0.0.0 (if you want to have access from local network e.g. by wifi at http://HOST_IP:port)
+    // flask run --host 0.0.0.0
     open http://127.0.0.1:5000/crypt
 
 ### Production Deployment

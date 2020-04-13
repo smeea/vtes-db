@@ -55,9 +55,10 @@ function clearCrypt() {
     document.getElementById('cardtext').value = '';
     document.getElementById('capacitymoreless').value = '<=';
     document.getElementById('capacity').value = 'ANY';
-    document.getElementById('clan').value = 'ANY';
     document.getElementById('sect').value = 'ANY';
     document.getElementById('votes').value = 'ANY';
+    // document.getElementById('clan').value = 'ANY';
+    $('.selectpicker').selectpicker('val', 'ANY');
 }
 
 function clearLibrary() {
@@ -67,15 +68,16 @@ function clearLibrary() {
         x[i].checked = false;
     }
     document.getElementById('cardtext').value = '';
-    document.getElementById('cardtype').value = 'ANY';
-    document.getElementById('discipline').value = 'ANY';
-    document.getElementById('clan').value = 'ANY';
+    // document.getElementById('cardtype').value = 'ANY';
+    // document.getElementById('discipline').value = 'ANY';
+    // document.getElementById('clan').value = 'ANY';
     document.getElementById('title').value = 'ANY';
     document.getElementById('sect').value = 'ANY';
     document.getElementById('bloodmoreless').value = '<=';
     document.getElementById('blood').value = 'ANY';
     document.getElementById('poolmoreless').value = '<=';
     document.getElementById('pool').value = 'ANY';
+    $('.selectpicker').selectpicker('val', 'ANY');
 }
 
 $(document).ready(function(){

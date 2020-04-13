@@ -171,9 +171,12 @@ class ClanSelect(object):
         self.id = id
 
     def __call__(self, field, **kwargs):
+        # Add 'data-live-search=true' after select for live-search in form box
         html = [
-            "<select %s>" % html_params(
-                name=field.name, class_='selectpicker', id=self.id, **kwargs)
+            "<select data-style='btn-secondary' data-width=%s %s>" %
+            ('100%',
+             html_params(
+                 name=field.name, class_='selectpicker', id=self.id, **kwargs))
         ]
         for val, label, selected in field.iter_choices():
             html.append(self.render_option(val, label, selected))
@@ -188,12 +191,15 @@ class ClanSelect(object):
         if label != 'ANY':
             filename = re.sub('[\\W]', '', label).lower()
             imgurl = 'static/img/clans/' + filename + '.gif'
+            img_margin_tag = '<span style="display:inline-block; width: 45px; text-align: center">'
             return Markup(
-                "<option data-content='<div><img height=24 src=%s> %s</div>'>%s</option>"
-                % (escape(imgurl), escape(label), escape(value)))
+                "<option data-content='<div>%s<img height=24 src=%s></span> %s</div>'>%s</option>"
+                % (escape(img_margin_tag), escape(imgurl), escape(label),
+                   escape(value)))
         else:
-            return Markup("<option data-content='<div>%s</div>'>%s</option>" %
-                          (escape(label), escape(value)))
+            return Markup(
+                "<option data-content='<div class=pl-1>%s</div>'>%s</option>" %
+                (escape(label), escape(value)))
 
 
 class DisciplineLibrarySelect(object):
@@ -201,9 +207,12 @@ class DisciplineLibrarySelect(object):
         self.id = id
 
     def __call__(self, field, **kwargs):
+        # Add 'data-live-search=true' after select for live-search in form box
         html = [
-            "<select %s>" % html_params(
-                name=field.name, class_='selectpicker', id=self.id, **kwargs)
+            "<select data-style='btn-secondary' data-width=%s %s>" %
+            ('100%',
+             html_params(
+                 name=field.name, class_='selectpicker', id=self.id, **kwargs))
         ]
         for val, label, selected in field.iter_choices():
             html.append(self.render_option(val, label, selected))
@@ -216,7 +225,6 @@ class DisciplineLibrarySelect(object):
         if selected:
             options["selected"] = True
         if label != 'ANY':
-            filename = re.sub('[\\W]', '', label).lower()
             # Hack around Visionary and Visceratika
             if label == 'Thanatosis':
                 imgurl = 'static/img/disciplines/' + 'thn' + '.gif'
@@ -224,12 +232,15 @@ class DisciplineLibrarySelect(object):
                 imgurl = 'static/img/disciplines/' + 'visi' + '.gif'
             else:
                 imgurl = 'static/img/disciplines/' + label[:3].lower() + '.gif'
+            img_margin_tag = '<span style="display:inline-block; width: 45px; text-align: center">'
             return Markup(
-                "<option data-content='<div><img height=24 src=%s> %s</div>'>%s</option>"
-                % (escape(imgurl), escape(label), escape(value)))
+                "<option data-content='<div>%s<img height=24 src=%s></span> %s</div>'>%s</option>"
+                % (escape(img_margin_tag), escape(imgurl), escape(label),
+                   escape(value)))
         else:
-            return Markup("<option data-content='<div>%s</div>'>%s</option>" %
-                          (escape(label), escape(value)))
+            return Markup(
+                "<option data-content='<div class=pl-1>%s</div>'>%s</option>" %
+                (escape(label), escape(value)))
 
 
 class TypeSelect(object):
@@ -238,8 +249,10 @@ class TypeSelect(object):
 
     def __call__(self, field, **kwargs):
         html = [
-            "<select %s>" % html_params(
-                name=field.name, class_='selectpicker', id=self.id, **kwargs)
+            "<select data-style='btn-secondary' data-width=%s %s>" %
+            ('100%',
+             html_params(
+                 name=field.name, class_='selectpicker', id=self.id, **kwargs))
         ]
         for val, label, selected in field.iter_choices():
             html.append(self.render_option(val, label, selected))
@@ -254,12 +267,15 @@ class TypeSelect(object):
         if label != 'ANY':
             filename = re.sub('[\\W]', '', label).lower()
             imgurl = 'static/img/types/' + filename + '.gif'
+            img_margin_tag = '<span style="display:inline-block; width: 45px; text-align: center">'
             return Markup(
-                "<option data-content='<div><img height=24 src=%s> %s</div>'>%s</option>"
-                % (escape(imgurl), escape(label), escape(label)))
+                "<option data-content='<div>%s<img height=24 src=%s></span> %s</div>'>%s</option>"
+                % (escape(img_margin_tag), escape(imgurl), escape(label),
+                   escape(label)))
         else:
-            return Markup("<option data-content='<div>%s</div>'>%s</option>" %
-                          (escape(label), escape(label)))
+            return Markup(
+                "<option data-content='<div class=ml-1>%s</div>'>%s</option>" %
+                (escape(label), escape(label)))
 
 
 class CryptSearchForm(FlaskForm):
@@ -271,7 +287,6 @@ class CryptSearchForm(FlaskForm):
                                   option_widget=CheckboxInput(),
                                   widget=VirtuesWidget())
     votes = SelectField('Votes', widget=SingleSelect(id='votes'))
-    # clan = SelectField('Clan', widget=SingleSelect(id='clan'))
     clan = SelectField('Clan', widget=ClanSelect(id='clan'))
     sect = SelectField('Sect', widget=SingleSelect(id='sect'))
     titles = SelectMultipleField('Titles',
