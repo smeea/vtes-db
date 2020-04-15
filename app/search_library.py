@@ -10,8 +10,8 @@ from app.parse import letters_to_ascii
 # of official CVS.
 # You definetely want to take a brief look at the JSON file before going deeper
 # in the sources.
-library_file = open("app/vteslib.json", "r")
-library = json.load(library_file)
+with open("app/vteslib.json", "r") as library_file:
+    library = json.load(library_file)
 
 
 def get_library_by_cardtext(cardtext):
@@ -100,10 +100,14 @@ def get_library_by_pool(cost, moreless):
 
 def get_library_by_trait(traits):
     match_cards = []
+    trait_counter = len(traits)
     for card in library:
+        counter = 0
         for trait in traits:
             if re.search(r'{}'.format(trait), card['Card Text'].lower()):
-                match_cards.append(card)
+                counter += 1
+        if trait_counter == counter:
+            match_cards.append(card)
 
     return match_cards
 

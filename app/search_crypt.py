@@ -10,8 +10,8 @@ from app.parse import letters_to_ascii
 # of official CVS.
 # You definetely want to take a brief look at the JSON file before going deeper
 # in the sources.
-crypt_file = open("app/vtescrypt.json", "r")
-crypt = json.load(crypt_file)
+with open("app/vtescrypt.json", "r") as crypt_file:
+    crypt = json.load(crypt_file)
 
 
 def parse_discipline_list(discipline_input):
