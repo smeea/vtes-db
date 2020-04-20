@@ -241,7 +241,8 @@ def crypt():
         ('Visionary', 'Visionary'),
     ]
 
-    cryptsearchform.capacitymoreless.choices = [('<=', '<='), ('>=', '>=')]
+    cryptsearchform.capacitymoreless.choices = [('<=', '<='), ('==', '=='),
+                                                ('>=', '>=')]
     cryptsearchform.capacity.choices = [('ANY', 'ANY')]
     # Generating capacity form entries 1...11, same as above
     for i in range(1, 12):
@@ -516,12 +517,14 @@ def library():
         ('Visionary', 'Visionary'),
     ]
 
-    librarysearchform.bloodmoreless.choices = [('<=', '<='), ('>=', '>=')]
+    librarysearchform.bloodmoreless.choices = [('<=', '<='), ('==', '=='),
+                                               ('>=', '>=')]
     librarysearchform.blood.choices = [('ANY', 'ANY')]
     for i in range(0, 5):
         librarysearchform.blood.choices.append((i, i))
 
-    librarysearchform.poolmoreless.choices = [('<=', '<='), ('>=', '>=')]
+    librarysearchform.poolmoreless.choices = [('<=', '<='), ('==', '=='),
+                                              ('>=', '>=')]
     librarysearchform.pool.choices = [('ANY', 'ANY')]
     for i in range(0, 7):
         librarysearchform.pool.choices.append((i, i))

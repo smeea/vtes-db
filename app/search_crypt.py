@@ -331,6 +331,10 @@ def get_crypt_by_capacity(capacity, moreless):
             if card['Capacity'] >= capacity:
                 match_cards.append(card)
 
+        elif moreless == '==':
+            if card['Capacity'] == capacity:
+                match_cards.append(card)
+
     return match_cards
 
 
