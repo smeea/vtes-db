@@ -74,11 +74,11 @@ def get_library_by_blood(cost, moreless):
     match_cards = []
     for card in library:
         if moreless == '<=':
-            if card['Blood Cost'] <= cost:
+            if card['Blood Cost'] <= cost or card['Blood Cost'] == 'X':
                 match_cards.append(card)
 
         elif moreless == '>=':
-            if card['Blood Cost'] >= cost:
+            if card['Blood Cost'] >= cost or card['Blood Cost'] == 'X':
                 match_cards.append(card)
 
     return match_cards
@@ -88,11 +88,11 @@ def get_library_by_pool(cost, moreless):
     match_cards = []
     for card in library:
         if moreless == '<=':
-            if card['Pool Cost'] <= cost:
+            if card['Pool Cost'] <= cost or card['Pool Cost'] == 'X':
                 match_cards.append(card)
 
         elif moreless == '>=':
-            if card['Pool Cost'] >= cost:
+            if card['Pool Cost'] >= cost or card['Pool Cost'] == 'X':
                 match_cards.append(card)
 
     return match_cards

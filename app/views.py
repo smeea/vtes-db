@@ -305,9 +305,9 @@ def crypt():
             match_by_category.append(cards_by_votes)
 
         # Get cards by capacity
+        capacity = cryptsearchform.capacity.data
         if cryptsearchform.capacity.data != 'ANY':
             parameters += 1
-            capacity = int(cryptsearchform.capacity.data)
             moreless = cryptsearchform.capacitymoreless.data
             cards_by_capacity = get_crypt_by_capacity(capacity, moreless)
             match_by_category.append(cards_by_capacity)
@@ -381,6 +381,7 @@ def library():
     total = ''
 
     librarysearchform = LibrarySearchForm(request.form)
+
     librarysearchform.title.choices = [
         ('ANY', 'ANY'),
         ('primogen', 'Primogen: 1'),
@@ -598,18 +599,18 @@ def library():
             match_by_category.append(cards_by_clan)
 
         # Get cards by blood cost
-        if librarysearchform.blood.data != 'ANY':
-            parameters += 1
-            blood = librarysearchform.blood.data
+        blood = librarysearchform.blood.data
+        if blood != 'ANY':
             moreless = librarysearchform.bloodmoreless.data
+            parameters += 1
             cards_by_blood = get_library_by_blood(blood, moreless)
             match_by_category.append(cards_by_blood)
 
         # Get cards by pool cost
-        if librarysearchform.pool.data != 'ANY':
-            parameters += 1
-            pool = librarysearchform.pool.data
+        pool = librarysearchform.pool.data
+        if pool != 'ANY':
             moreless = librarysearchform.poolmoreless.data
+            parameters += 1
             cards_by_pool = get_library_by_pool(pool, moreless)
             match_by_category.append(cards_by_pool)
 

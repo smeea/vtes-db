@@ -3,6 +3,8 @@
 * Add sort options for crypt results
 * Fix card search by name with non-ascii letters
 # Middle priority
+* Add burn icon to results
+* Add '==' to search options
 # Low priority
 * Add robots.txt
 * Add comments to templates/html
