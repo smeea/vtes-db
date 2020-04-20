@@ -47,7 +47,6 @@
     <table width="100%" class="result-table">
         {% for card in cards %}
         <tr class="library-result-{{ loop.cycle('odd', 'even') }}">
-            <!-- <td class="cards pl-1" style="max-width: 5%"> -->
             <td class="cards pl-1" width=5%">
                 <div class="library-result-cost" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
                     {% if card['Pool Cost'] %}
@@ -59,7 +58,6 @@
                     {% endif %}
                 </div>
             </td>
-            <!-- <td style="max-width: 12%"> -->
             <td width=12%>
                 <div class="library-result-type" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
                     {% for type in card['URL Type'] %}
@@ -67,7 +65,6 @@
                     {% endfor %}
                 </div>
             </td>
-            <!-- <td style="max-width: 21%"> -->
             <td width=21%>
                 <div class="library-result-disciplines d-flex" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
                     {% if card['URL Discipline'] %}
@@ -85,8 +82,7 @@
                     {% endif %}
                 </div>
             </td>
-            <!-- <td style="max-width: 49%"> -->
-            <td width=49%>
+            <td width=44%>
                 <div class="library-result-name d-flex" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
 
                     <span class="d-inline d-sm-none">
@@ -114,7 +110,15 @@
 
                 </div>
             </td>
-            <!-- <td class="pr-1" style="max-width: 5%" align="center"> -->
+            <td class="pr-1" width=5% align="center">
+                <div class="library-result-burn" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
+                    {% if card['Burn'] %}
+                    <img src="static/img/misc/burn.gif" height="26" alt="Burn">
+                    {% else %}
+                    &nbsp;
+                    {% endif %}
+                </div>
+            </td>
             <td class="pr-1" width=5% align="center">
                 <div class="library-result-clan" id="1{{ card['Id'] }}" onclick="cardShowText(1{{ card['Id'] }}, 2{{ card['Id'] }})">
                     {% if card['URL Clan'] %}

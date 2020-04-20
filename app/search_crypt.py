@@ -229,7 +229,7 @@ def get_crypt_by_cardtext(cardtext):
     # Search in card name or text, lower-case for simplicity
     for card in crypt:
         if cardtext in card['Card Text'].lower(
-        ) or cardtext in card['Name'].lower():
+        ) or cardtext in letters_to_ascii(card['Name'].lower()):
             match_cards.append(card)
 
     return match_cards

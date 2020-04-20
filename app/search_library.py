@@ -19,7 +19,7 @@ def get_library_by_cardtext(cardtext):
     cardtext = cardtext.lower()
     for card in library:
         if cardtext in card['Card Text'].lower(
-        ) or cardtext in card['Name'].lower():
+        ) or cardtext in letters_to_ascii(card['Name'].lower()):
             match_cards.append(card)
 
     return match_cards
@@ -362,6 +362,7 @@ def parse_library_card(cards):
 
         card_parsed['Pool Cost'] = card['Pool Cost']
         card_parsed['Blood Cost'] = card['Blood Cost']
+        card_parsed['Burn'] = card['Burn Option']
         # Card names can be of any unicode letters, but ascii required for
         # image file name in static/img/*. 'URL Name' used only as file name.
         card_parsed['URL Name'] = letters_to_ascii(
