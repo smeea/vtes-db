@@ -37,6 +37,9 @@
         </button>
     </div>
 </div>
+<input class="result-state" type="hidden" name="result-state" value="result"/>
+{% else %}
+<input class="result-state" type="hidden" name="result-state" value="noresult"/>
 {% endif %}
 
 {% endblock %}

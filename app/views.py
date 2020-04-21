@@ -338,7 +338,7 @@ def crypt():
         if parameters == 0:
             # Message to user when SEARCH button submitted with all forms
             # empty (or default i.e. 'ANY')
-            flash('CHOOSE AT LEAST ONE PARAMETER.')
+            flash('CHOOSE AT LEAST ONE PARAMETER')
         else:
             # Getting only cards matching all filters
             # (from cards matching any filter in 'match_by_category' list)
@@ -358,7 +358,7 @@ def crypt():
             else:
                 # Message to user when SEARCH button submitted but
                 # no cards found to match the filters
-                flash('NO CARDS FOUND.')
+                flash('NO CARDS FOUND')
 
     # Return template/crypt.html page (with results, if any - but also used
     # for direct visits to vtes-db/crypt.html)
@@ -619,7 +619,7 @@ def library():
 
         # Get overall matches & total
         if parameters == 0:
-            flash('CHOOSE AT LEAST ONE PARAMETER.')
+            flash('CHOOSE AT LEAST ONE PARAMETER')
         else:
             cards = get_overall_library(match_by_category)
             if cards:
@@ -636,7 +636,7 @@ def library():
                 parsed_library_cards = parse_library_card(sorted_cards)
 
             else:
-                flash('NO CARDS FOUND.')
+                flash('NO CARDS FOUND')
 
     return render_template('library.html',
                            searchform=librarysearchform,

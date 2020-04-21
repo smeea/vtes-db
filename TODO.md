@@ -6,5 +6,3 @@
 * Add robots.txt
 * Add comments to templates/html
 * Add comments to static/css
-* Change POST to GET
-* Add to /misc converter from official CVS and patch-file
