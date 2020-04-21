@@ -306,8 +306,8 @@ def crypt():
             match_by_category.append(cards_by_votes)
 
         # Get cards by capacity
-        capacity = cryptsearchform.capacity.data
         if cryptsearchform.capacity.data != 'ANY':
+            capacity = int(cryptsearchform.capacity.data)
             parameters += 1
             moreless = cryptsearchform.capacitymoreless.data
             cards_by_capacity = get_crypt_by_capacity(capacity, moreless)

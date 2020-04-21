@@ -134,9 +134,8 @@ a { color: #306090; }
     }
 }
 
-.info {
-    background: #d0d0ea;
-}
+.info { background: #d0d0ea }
+.warning { background: #f090a0 }
 
 .nobr {
     white-space: nowrap;

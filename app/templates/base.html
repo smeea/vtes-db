@@ -38,9 +38,11 @@
 
                         {% with messages = get_flashed_messages() %}
                         {% if messages %}
-                        {% for message in messages %}
-                        <b>{{ message }}</b>
-                        {% endfor %}
+                        <div class="warning d-flex justify-content-center">
+                            {% for message in messages %}
+                            <b>{{ message }}</b>
+                            {% endfor %}
+                        </div>
                         {% endif %}
                         {% endwith %}
 
@@ -51,15 +53,15 @@
                 <div class="col-xs-12 col-xl-4 right-col px-0 px-xl-2">
                     <div class="collapse navbar-collapse w-100 fixed-filter" id="js-filter">
                         <div class="container bg-light filter py-3 py-xl-0 px-xl-0">
-                            <div class="info d-block d-xl-none mb-2">
                                 {% with messages = get_flashed_messages() %}
                                 {% if messages %}
+                                <div class="warning d-flex d-block d-xl-none mb-3 justify-content-center">
                                 {% for message in messages %}
                                 <b>{{ message }}</b>
                                 {% endfor %}
+                                </div>
                                 {% endif %}
                                 {% endwith %}
-                            </div>
                             {% block navsearch %}{% endblock %}
                         </div>
                     </div>

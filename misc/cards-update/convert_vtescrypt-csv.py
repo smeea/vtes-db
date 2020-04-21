@@ -33,7 +33,7 @@ disciplines = [
 ]
 
 # Groups are not integers because of ANY-group vampires (i.e. Anarch Convert)
-integer_fields = ['Id'] + disciplines
+integer_fields = ['Id', 'Capacity'] + disciplines
 useless_fields = ['Aka', 'Set', 'Artist']
 
 with open("vtescrypt.csv", "r",
