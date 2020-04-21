@@ -157,8 +157,14 @@ $(document).ready(function(){
 
     toggleFilter();
     //console.log($('.result-table').length);
-    if($('.result-table').length == 1 && $('.result-table tr').length <= 0) {
+    // if($('.result-table').length == 1 && $('.result-table tr').length <= 0) {
+    //     $('#js-filter').addClass('show');
+    // }
+    if($('.result-state').attr('value') === 'noresult'){
         $('#js-filter').addClass('show');
+        $('#js-filter-btn').attr('disabled','disabled');
+    } else {
+        $('#js-filter-btn').removeAttr('disabled');
     }
 
     function setCardPosition(card) {
