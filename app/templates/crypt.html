@@ -148,6 +148,9 @@
 
 {% block navsearch %}
 <form id="cryptsearchform" action="" method="post" novalidate>
+    <!--TODO: copy hidden input to library, return result/noresult-->
+    <input class="result-state" type="hidden" name="result-state" value="noresult"/>
+
     <div class="form-row justify-content-between">
         <div class="col-8">
             <input type="text" class="form-control" id="cardtext" name="cardtext" placeholder="Card Name / Text" value="">
