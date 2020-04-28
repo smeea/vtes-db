@@ -1,0 +1,42 @@
+<!doctype html>
+{% extends 'base.html' %}
+
+{% block title %} Login {% endblock %}
+
+{% block navbar %}
+<li class="nav-item">
+    <a class="nav-link px-2" href="{{ url_for('search.index') }}">About</a>
+</li>
+<li class="nav-item active">
+    <a class="nav-link px-2" href="{{ url_for('search.decks') }}">Decks</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link px-2" href="{{ url_for('search.crypt') }}">Crypt</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link pl-2" href="{{ url_for('search.library') }}">Library</a>
+</li>
+{% endblock %}
+
+{% block content %}
+<div>
+    <h1>Sign In</h1>
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.username.label }}<br>
+            {{ form.username(size=32) }}
+        </p>
+        <p>
+            {{ form.password.label }}<br>
+            {{ form.password(size=32) }}
+        </p>
+        <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
+        <p>{{ form.submit() }}</p>
+    </form>
+</div>
+
+<div>
+    <p>New User? <a href="{{ url_for('search.register') }}">Click to Register!</a></p>
+</div>
+{% endblock %}

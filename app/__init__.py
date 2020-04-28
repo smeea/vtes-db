@@ -1,11 +1,16 @@
 from flask import Flask
-from app.views import search
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
+from app.config import Config
 
 app = Flask(__name__)
+app.config.from_object(Config)
+db = SQLAlchemy(app)
+login = LoginManager(app)
+login.login_view = 'search.login'
 
-# SECRET_KEY is used for cookie session signature, it is not used for anything
-# yet, so you can leave it unmodified (it is not security breach).
-# Or just change it to some random string.
-app.config['SECRET_KEY'] = 'mysecretkey1234567890'
-
+from app.views import search
 app.register_blueprint(search)
+
+# from app.models import User
+# from app.models import Deck

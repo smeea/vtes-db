@@ -2,6 +2,7 @@
 * Fix discipline / checkboxes preservation after submit button 
 * Add sort options for crypt results
 # Middle priority
+* Add redis-simple-cache
 # Low priority
 * Add robots.txt
 * Add comments to templates/html

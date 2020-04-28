@@ -1,0 +1,40 @@
+<!doctype html>
+{% extends 'base.html' %}
+
+
+{% block title %} Decks {% endblock %}
+
+{% block navbar %}
+<li class="nav-item">
+    <a class="nav-link px-2" href="{{ url_for('search.index') }}">About</a>
+</li>
+<li class="nav-item active">
+    <a class="nav-link px-2" href="{{ url_for('search.decks') }}">Decks</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link px-2" href="{{ url_for('search.crypt') }}">Crypt</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link pl-2" href="{{ url_for('search.library') }}">Library</a>
+</li>
+{% endblock %}
+
+{% block content %}
+<div class="m-3">
+    {% if current_user.is_anonymous %}
+    <a href="{{ url_for('search.login') }}">Login</a>
+    {% else %}
+    <a href="{{ url_for('search.logout') }}">Logout</a>
+    {% endif %}
+    <div>
+    <h1>Hi, {{ current_user.username }}!</h1>
+    </div>
+    MY PRECIOUS DECKS
+</div>
+{% endblock %}
+
+{% block navsearch %}
+LOGIN FORM
+<br>
+DECKS LIST
+{% endblock %}
