@@ -9,12 +9,11 @@ app.config.from_object(Config)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 login = LoginManager(app)
-login.login_view = 'search.login'
+login.login_view = 'login'
 
-from app.views import search
-app.register_blueprint(search)
+from app import views
 
-# Only required for `flask shell` to play with user/decks database
+# Everything below only required for `flask shell` to play with database
 from app import db
 from app.models import User, Deck
 

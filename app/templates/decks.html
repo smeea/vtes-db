@@ -6,16 +6,16 @@
 
 {% block navbar %}
 <li class="nav-item">
-    <a class="nav-link px-2" href="{{ url_for('search.index') }}">About</a>
+    <a class="nav-link px-2" href="{{ url_for('index') }}">About</a>
 </li>
 <li class="nav-item active">
-    <a class="nav-link px-2" href="{{ url_for('search.decks') }}">Decks</a>
+    <a class="nav-link px-2" href="{{ url_for('decks') }}">Decks</a>
 </li>
 <li class="nav-item">
-    <a class="nav-link px-2" href="{{ url_for('search.crypt') }}">Crypt</a>
+    <a class="nav-link px-2" href="{{ url_for('crypt') }}">Crypt</a>
 </li>
 <li class="nav-item">
-    <a class="nav-link pl-2" href="{{ url_for('search.library') }}">Library</a>
+    <a class="nav-link pl-2" href="{{ url_for('library') }}">Library</a>
 </li>
 {% endblock %}
 
@@ -35,9 +35,9 @@
         </div>
         <div class="d-flex justify-content-right col-2">
             {% if current_user.is_anonymous %}
-            <a href="{{ url_for('search.login') }}">Login</a>
+            <a href="{{ url_for('login') }}">Login</a>
             {% else %}
-            <a href="{{ url_for('search.logout') }}">Logout</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
             {% endif %}
         </div>
     </div>

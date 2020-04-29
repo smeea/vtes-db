@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, flash, redirect, url_for
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.urls import url_parse
 
+from app import app
 from app import db
 from app.models import User
 from app.models import Deck
@@ -38,16 +39,15 @@ from app.search_library import parse_library_card
 from app.search_library import print_library_total
 from app.decklist import decklist
 
-search = Blueprint('search', __name__, url_prefix='/')
-
 
 # Render index.html page to when user visit main page
-@search.route('/', methods=('GET', 'POST'))
+@app.route('/', methods=('GET', 'POST'))
 def index():
     return render_template('index.html')
 
 
-@search.route('/decks', methods=('GET', 'POST'))
+# Render decks.html page to when user visit /decks page
+@app.route('/decks', methods=('GET', 'POST'))
 @login_required
 def decks():
     deckselectform = DeckSelectForm()
@@ -69,36 +69,37 @@ def decks():
                            decks=decks)
 
 
-@search.route('/login', methods=['GET', 'POST'])
+# Render login.html page to when user visit /login page
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('search.decks'))
+        return redirect(url_for('decks'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
         if user is None or not user.check_password(form.password.data):
             flash('Invalid username or password')
-            return redirect(url_for('search.login'))
+            return redirect(url_for('login'))
         login_user(user, remember=form.remember_me.data)
         next_page = request.args.get('next')
         if not next_page or url_parse(next_page).netloc != '':
-            next_page = url_for('search.decks')
+            next_page = url_for('decks')
         return redirect(next_page)
     return render_template('login.html', form=form)
 
 
 # Logout when user visit /logout
-@search.route('/logout')
+@app.route('/logout')
 def logout():
     logout_user()
-    return redirect(url_for('search.decks'))
+    return redirect(url_for('decks'))
 
 
 # Render register.html page to when user visit /register
-@search.route('/register', methods=['GET', 'POST'])
+@app.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
-        return redirect(url_for('search.decks'))
+        return redirect(url_for('decks'))
     form = RegistrationForm()
     if form.validate_on_submit():
         user = User(username=form.username.data, email=form.email.data)
@@ -106,12 +107,12 @@ def register():
         db.session.add(user)
         db.session.commit()
         flash('Congratulations, you are now a registered user!')
-        return redirect(url_for('search.login'))
+        return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
 
 
 # Render crypt.html page to when user visit /crypt
-@search.route('/crypt', methods=('GET', 'POST'))
+@app.route('/crypt', methods=('GET', 'POST'))
 def crypt():
 
     titles = []
@@ -446,7 +447,7 @@ def crypt():
 
 
 # SEE ABOVE - GENERALLY SAME AS FOR /crypt, BUT FOR /library
-@search.route('/library', methods=('GET', 'POST'))
+@app.route('/library', methods=('GET', 'POST'))
 def library():
 
     parameters = 0
