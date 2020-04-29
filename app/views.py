@@ -4,6 +4,12 @@ from werkzeug.urls import url_parse
 
 from app import db
 from app.models import User
+from app.models import Deck
+from app.forms import LoginForm
+from app.forms import RegistrationForm
+from app.forms import DeckSelectForm
+from app.forms import CryptSearchForm
+from app.forms import LibrarySearchForm
 from app.search_crypt import get_crypt_by_cardtext
 from app.search_crypt import get_crypt_by_trait
 from app.search_crypt import get_crypt_by_discipline
@@ -30,10 +36,7 @@ from app.search_library import get_library_by_pool
 from app.search_library import get_overall_library
 from app.search_library import parse_library_card
 from app.search_library import print_library_total
-from app.forms import LoginForm
-from app.forms import RegistrationForm
-from app.forms import CryptSearchForm
-from app.forms import LibrarySearchForm
+from app.decklist import decklist
 
 search = Blueprint('search', __name__, url_prefix='/')
 
@@ -47,7 +50,23 @@ def index():
 @search.route('/decks', methods=('GET', 'POST'))
 @login_required
 def decks():
-    return render_template('decks.html')
+    deckselectform = DeckSelectForm()
+    deckselectform.deckname.choices = [(i['Name'], i['Name'])
+                                       for i in decklist]
+    if deckselectform.is_submitted:
+        deckname = deckselectform.deckname.data
+        cards = []
+        for deck in decklist:
+            if deck['Name'] == deckname:
+                cards = list(deck['Cards'].items())
+        return render_template('decks.html',
+                               deckselectform=deckselectform,
+                               decklist=decklist,
+                               cards=cards)
+
+    return render_template('decks.html',
+                           deckselectform=deckselectform,
+                           decks=decks)
 
 
 @search.route('/login', methods=['GET', 'POST'])
@@ -65,15 +84,17 @@ def login():
         if not next_page or url_parse(next_page).netloc != '':
             next_page = url_for('search.decks')
         return redirect(next_page)
-    return render_template('login.html', title='Sign In', form=form)
+    return render_template('login.html', form=form)
 
 
+# Logout when user visit /logout
 @search.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('search.decks'))
 
 
+# Render register.html page to when user visit /register
 @search.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
@@ -104,7 +125,7 @@ def crypt():
     parameters = 0
     total = ''
 
-    cryptsearchform = CryptSearchForm(request.form)
+    cryptsearchform = CryptSearchForm()
 
     # First entry is discipline name for search function
     # Second entry is image name for rendering form icon
@@ -433,7 +454,7 @@ def library():
     match_by_category = []
     total = ''
 
-    librarysearchform = LibrarySearchForm(request.form)
+    librarysearchform = LibrarySearchForm()
 
     librarysearchform.title.choices = [
         ('ANY', 'ANY'),

@@ -20,21 +20,32 @@
 {% endblock %}
 
 {% block content %}
-<div class="m-3">
-    {% if current_user.is_anonymous %}
-    <a href="{{ url_for('search.login') }}">Login</a>
-    {% else %}
-    <a href="{{ url_for('search.logout') }}">Logout</a>
-    {% endif %}
-    <div>
-    <h1>Hi, {{ current_user.username }}!</h1>
-    </div>
-    MY PRECIOUS DECKS
+<div>
+    {% for card in cards %}
+    {{ card[1] }}x {{ card[0] }}<br>
+    {% endfor %}
 </div>
 {% endblock %}
 
 {% block navsearch %}
-LOGIN FORM
-<br>
-DECKS LIST
+<div class="m-3">
+    <div class="d-flex">
+        <div class="d-flex justify-content-center info col-10">
+            <b> {{ current_user.username }}</b>
+        </div>
+        <div class="d-flex justify-content-right col-2">
+            {% if current_user.is_anonymous %}
+            <a href="{{ url_for('search.login') }}">Login</a>
+            {% else %}
+            <a href="{{ url_for('search.logout') }}">Logout</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="mt-2">
+        <form action="" method="post">
+            {{ deckselectform.deckname }}
+            {{ deckselectform.submit() }}
+        </form>
+    </div>
+</div>
 {% endblock %}

@@ -33,9 +33,6 @@
                 </div>
                 <div class="col-xs-12 col-xl-7 center-col px-0 px-xl-2">
                     <div>
-                        {% block content %}{% endblock %}
-                        {% block total %}{% endblock %}
-
                         {% with messages = get_flashed_messages() %}
                         {% if messages %}
                         <div class="warning d-flex justify-content-center">
@@ -45,6 +42,9 @@
                         </div>
                         {% endif %}
                         {% endwith %}
+                        {% block content %}{% endblock %}
+                        {% block total %}{% endblock %}
+
 
                         {% block results %}{% endblock %}
                     </div>
