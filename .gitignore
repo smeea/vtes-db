@@ -3,6 +3,8 @@ app/.#*
 app/.mypy_cache/
 app/__pycache__/
 app/app.db
+migrations
 node_modules/
 venv/
 .idea/
+.flaskenv

@@ -1,11 +1,10 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
-from wtforms import SelectMultipleField, SelectField, StringField
+from wtforms import StringField, SubmitField, SelectMultipleField, SelectField
 from wtforms.widgets import CheckboxInput, html_params
 from markupsafe import Markup, escape
 
 from wtforms import PasswordField, BooleanField
-from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, DataRequired, Length
+from wtforms.validators import ValidationError, Email, EqualTo, DataRequired, Length
 from app.models import User
 
 import re
