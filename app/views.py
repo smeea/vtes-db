@@ -5,10 +5,10 @@ from flask import render_template, flash, send_from_directory
 # from werkzeug.urls import url_parse
 
 from app import app
-from app import db
-from app.models import User
-from app.forms import LoginForm
-from app.forms import RegistrationForm
+# from app import db
+# from app.models import User
+# from app.forms import LoginForm
+# from app.forms import RegistrationForm
 from app.forms import CryptSearchForm
 from app.forms import LibrarySearchForm
 from app.search_crypt import get_crypt_by_cardtext
