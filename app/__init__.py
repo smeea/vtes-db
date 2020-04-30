@@ -1,11 +1,23 @@
 from flask import Flask
-from app.views import search
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
+from flask_login import LoginManager
+from app.config import Config
 
 app = Flask(__name__)
+app.config.from_object(Config)
+db = SQLAlchemy(app)
+migrate = Migrate(app, db)
+login = LoginManager(app)
+login.login_view = 'login'
 
-# SECRET_KEY is used for cookie session signature, it is not used for anything
-# yet, so you can leave it unmodified (it is not security breach).
-# Or just change it to some random string.
-app.config['SECRET_KEY'] = 'mysecretkey1234567890'
+from app import views
 
-app.register_blueprint(search)
+# Everything below only required for `flask shell` to play with database
+from app import db
+from app.models import User, Deck
+
+
+@app.shell_context_processor
+def make_shell_context():
+    return {'db': db, 'User': User, 'Deck': Deck}

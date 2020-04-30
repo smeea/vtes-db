@@ -1,4 +1,16 @@
-from flask import Blueprint, render_template, request, flash
+import os
+from flask import render_template, flash, send_from_directory
+# from flask import redirect, url_for, request
+# from flask_login import current_user, login_user, logout_user, login_required
+# from werkzeug.urls import url_parse
+
+from app import app
+from app import db
+from app.models import User
+from app.forms import LoginForm
+from app.forms import RegistrationForm
+from app.forms import CryptSearchForm
+from app.forms import LibrarySearchForm
 from app.search_crypt import get_crypt_by_cardtext
 from app.search_crypt import get_crypt_by_trait
 from app.search_crypt import get_crypt_by_discipline
@@ -25,20 +37,65 @@ from app.search_library import get_library_by_pool
 from app.search_library import get_overall_library
 from app.search_library import parse_library_card
 from app.search_library import print_library_total
-from app.forms import CryptSearchForm
-from app.forms import LibrarySearchForm
 
-search = Blueprint('search', __name__, url_prefix='/')
+
+# Render favicon.ico
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static/img'),
+                               'favicon.ico',
+                               mimetype='image/x-icon')
 
 
 # Render index.html page to when user visit main page
-@search.route('/', methods=('GET', 'POST'))
+@app.route('/', methods=('GET', 'POST'))
 def index():
     return render_template('index.html')
 
 
+# Render login.html page to when user visit /login page
+# Accounts are not used for anything now.
+# login, logout and register are done 'just-in-case'
+# @app.route('/login', methods=['GET', 'POST'])
+# def login():
+#     form = LoginForm()
+#     if form.validate_on_submit():
+#         user = User.query.filter_by(username=form.username.data).first()
+#         if user is None or not user.check_password(form.password.data):
+#             flash('Invalid username or password')
+#             return redirect(url_for('login'))
+#         login_user(user, remember=form.remember_me.data)
+#         next_page = request.args.get('next')
+#         if not next_page or url_parse(next_page).netloc != '':
+#             next_page = url_for('index')
+#         flash('Logged as {}'.format(user.username))
+#         return redirect(next_page)
+#     return render_template('login.html', form=form)
+
+# Logout when user visit /logout
+# @app.route('/logout')
+# def logout():
+#     logout_user()
+#     return redirect(url_for('index'))
+
+# Render register.html page to when user visit /register
+# @app.route('/register', methods=['GET', 'POST'])
+# def register():
+#     if current_user.is_authenticated:
+#         return redirect(url_for('index'))
+#     form = RegistrationForm()
+#     if form.validate_on_submit():
+#         user = User(username=form.username.data, email=form.email.data)
+#         user.set_password(form.password.data)
+#         db.session.add(user)
+#         db.session.commit()
+#         flash('Congratulations, you are now a registered user!')
+#         return redirect(url_for('login'))
+#     return render_template('register.html', title='Register', form=form)
+
+
 # Render crypt.html page to when user visit /crypt
-@search.route('/crypt', methods=('GET', 'POST'))
+@app.route('/crypt', methods=('GET', 'POST'))
 def crypt():
 
     titles = []
@@ -52,7 +109,7 @@ def crypt():
     parameters = 0
     total = ''
 
-    cryptsearchform = CryptSearchForm(request.form)
+    cryptsearchform = CryptSearchForm()
 
     # First entry is discipline name for search function
     # Second entry is image name for rendering form icon
@@ -373,7 +430,7 @@ def crypt():
 
 
 # SEE ABOVE - GENERALLY SAME AS FOR /crypt, BUT FOR /library
-@search.route('/library', methods=('GET', 'POST'))
+@app.route('/library', methods=('GET', 'POST'))
 def library():
 
     parameters = 0
@@ -381,7 +438,7 @@ def library():
     match_by_category = []
     total = ''
 
-    librarysearchform = LibrarySearchForm(request.form)
+    librarysearchform = LibrarySearchForm()
 
     librarysearchform.title.choices = [
         ('ANY', 'ANY'),
