@@ -13,17 +13,27 @@
     </head>
     <body class="bg-light">
         <nav class="navbar navbar-dark bg-dark sticky-top">
-            <div class="container justify-content-end">
-                <ul class="navbar-nav flex-row">
-                    {% block navbar %}{% endblock %}
-                </ul>
 
-                <button disabled="disabled" class="js-filter-btn navbar-toggler d-inline d-xl-none ml-3" type="button" data-toggle="collapse" data-target="#js-filter" aria-controls="navbarsMain" aria-expanded="false" aria-label="Toggle Search">
-                    <svg class="bi bi-search" width="1em" height="1.2em" viewBox="0 0 16 16" fill="white" xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 011.415 0l3.85 3.85a1 1 0 01-1.414 1.415l-3.85-3.85a1 1 0 010-1.415z" clip-rule="evenodd"/>
-                        <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 100-11 5.5 5.5 0 000 11zM13 6.5a6.5 6.5 0 11-13 0 6.5 6.5 0 0113 0z" clip-rule="evenodd"/>
-                    </svg>
-                </button>
+            <div class="container justify-content-between">
+                <div class="d-flex justify-content-start">
+                    <ul class="navbar-nav flex-row">
+                        <li class="nav-item">
+                            <a class="nav-link px-2" href="https://vdb.smeea.casa">Try VDB!</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <ul class="navbar-nav flex-row">
+                        {% block navbar %}{% endblock %}
+                    </ul>
+
+                    <button disabled="disabled" class="js-filter-btn navbar-toggler d-inline d-xl-none ml-3" type="button" data-toggle="collapse" data-target="#js-filter" aria-controls="navbarsMain" aria-expanded="false" aria-label="Toggle Search">
+                        <svg class="bi bi-search" width="1em" height="1.2em" viewBox="0 0 16 16" fill="white" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 011.415 0l3.85 3.85a1 1 0 01-1.414 1.415l-3.85-3.85a1 1 0 010-1.415z" clip-rule="evenodd"/>
+                            <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 100-11 5.5 5.5 0 000 11zM13 6.5a6.5 6.5 0 11-13 0 6.5 6.5 0 0113 0z" clip-rule="evenodd"/>
+                        </svg>
+                    </button>
+                </div>
             </div>
         </nav>
 
